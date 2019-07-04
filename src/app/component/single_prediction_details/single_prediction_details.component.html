@@ -1,0 +1,34 @@
+<div id="singlePredictionDetails">
+  <div *ngIf='!isShowComparisonDetails' style="height:100%;">
+    <!-- <div [ngStyle]="{display: !isShowComparisonDetails ? 'block' : 'none' }"> -->
+    <section class="search-area">
+      <app-single-prediction-details-search #singlePredictionDetailsSearch (getAllData)='getAllData($event)'>
+      </app-single-prediction-details-search>
+    </section>
+
+    <section class="detail-area-parent" *ngIf='isShowDetails'>
+      <section class="detail-area">
+        <section class='detail-parameter'>
+          <section class="left">
+            <app-single-cur-prediction></app-single-cur-prediction>
+            <app-single-basedata></app-single-basedata>
+            <app-single-history-data (hightLightDiagram)='diagram.hightLightDiagram($event)'
+              (setFcBgTime)='diagram.getFcBgTime($event)'></app-single-history-data>
+            <app-single-dataindex></app-single-dataindex>
+          </section>
+          <section class="right">
+            <app-single-diagram #diagram></app-single-diagram>
+            <app-single-comparison (turnToComparison)='turnToPage($event,singlePredictionDetailsSearch.btnList);'>
+            </app-single-comparison>
+          </section>
+        </section>
+      </section>
+    </section>
+  </div>
+  <!-- <div *ngIf='isShowComparisonDetails' style="height:100%;">
+    <section class="comparison-details" style="height:100%;">
+      <app-single-comparison-details #comparison (returnToPredictionDetails)='turnToPage($event);'>
+      </app-single-comparison-details>
+    </section>
+  </div> -->
+</div>

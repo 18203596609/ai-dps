@@ -1,0 +1,28 @@
+<div id="singleCurPrediction">
+  <div class="title">
+    <span class="title">当前预测曲线数据</span>
+  </div>
+  <section class="content">
+    <ul>
+      <li>
+        <span>需求预测总量</span>
+        <span class="Gotham-Bold" [class.morenzhi]="curData.ltotalFocast==='-'">{{curData.ltotalFocast}}</span>
+        <i></i>
+      </li>
+      <li>
+        <span>预测时间跨度</span>
+        <span class="Gotham-Bold" *ngIf='curData.forcastPeriod' [class.morenzhi]="curData.forcastPeriod==='-'">
+          <b style="float:left;"
+            [filterunit]='{"value":curData.forcastPeriod,"unit":["月"]}'>{{curData.forcastPeriod}}</b>
+          <b class="MicrosoftYaHeiUI-Bold"
+            *ngIf='(curData.forcastPeriod||curData.forcastPeriod===0)&&curData.forcastPeriod!=="-"'
+            style="float:left;">月</b>
+        </span>
+        <span class="Gotham-Bold" *ngIf='!curData.forcastPeriod' [class.morenzhi]="curData.forcastPeriod==='-'">
+          <b style="float:left;">-</b>
+        </span>
+        <i></i>
+      </li>
+    </ul>
+  </section>
+</div>

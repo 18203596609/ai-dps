@@ -1,0 +1,39 @@
+<ng-template [ngIf]='isShowSavePop'>
+  <div style="position:fixed;width:100%;height:100%;background:red;opacity:0;z-index:990;left:0;top:0;"></div>
+  <div id="savePopBody">
+    <span class="title">保存预测曲线</span>
+    <div class="change-name" style="position:relative;">
+      <input type="text" #lineName [attr.placeholder]='placeholder||"预测0"' />
+      <span class="text">曲线名</span>
+      <strong style="width:100%;display:block;clear:both;"></strong>
+    </div>
+    <div class="confirm-apply">
+      <label for="confirmSelect1">
+        <input id="confirmSelect1" #isConfirmApply type="checkbox">
+        <span class="input-style"></span>
+        <p class="text">确认使用</p>
+      </label>
+      <section class="title-text">
+        确认使用后将记录此次LTB时间。
+      </section>
+    </div>
+
+    <div class="confirm-apply-time" [ngStyle]="{'visibility': isConfirmApply.checked ? 'visible' : 'hidden' }">
+      <span>确认使用时间</span>
+      <div class="nz-demo-date-picker-basic">
+        <nz-demo-date-picker-basic #time [date]='curDate'></nz-demo-date-picker-basic>
+      </div>
+      <div class="date-shadow" [ngStyle]="{'visibility': isConfirmApply.checked ? 'hidden' : 'visible' }">
+      </div>
+    </div>
+
+    <div class="operator-btn">
+      <button class="btn-save" (click)='editSaveLines({
+                    "lineName": lineName.value||lineName.placeholder,
+                    "isRecordLtbTime": isConfirmApply.checked,
+                    "lineLtbTime": isConfirmApply.checked ? time?.date : "undefined"
+                  })'>保存</button>
+      <button class="btn-cancel" (click)='isHideSavePop(false)'>取消</button>
+    </div>
+  </div>
+</ng-template>

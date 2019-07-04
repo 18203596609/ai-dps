@@ -1,0 +1,66 @@
+@function pxToRem($number) {
+  @return ($number/20)+rem;
+  // @return $number+px;
+}
+
+#singleComparisonManage {
+  height: 100%;
+  background-color: rgba(245, 246, 249, 1);
+
+  section.top {
+    height: pxToRem(68.5);
+    line-height: pxToRem(68.5);
+    border-bottom: 1px solid rgba(168, 173, 180, 0.25);
+    padding-left: pxToRem(26.1);
+    font-size: 0;
+
+    &>span {
+      height: 100%;
+      display: inline-block;
+      vertical-align: middle;
+      cursor: pointer;
+      font-size: 0;
+
+      &>span.icon {
+        width: pxToRem(19);
+        height: pxToRem(25);
+        background-image: url(../../../assets/single_prediction/single_comparison_details/back_normal.png);
+        background-position: center center;
+        background-repeat: no-repeat;
+        display: inline-block;
+        vertical-align: middle;
+        background-size: 100% 100%;
+        margin-right: 0.3rem;
+      }
+
+      span {
+        font-family: MicrosoftYaHeiUI;
+        font-size: pxToRem(16);
+        color: #00B9FF;
+        letter-spacing: 0;
+        text-align: center;
+        line-height: pxToRem(18);
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      &:hover {
+        &>span.icon {
+          background-image: url(../../../assets/single_prediction/single_comparison_details/back_hover.png);
+        }
+      }
+
+      &:active {
+        &>span.icon {
+          background-image: url(../../../assets/single_prediction/single_comparison_details/back_confirm.png);
+        }
+      }
+    }
+  }
+
+  section.content {
+    padding: 0 pxToRem(82);
+    padding-top: pxToRem(29.5);
+    height: calc(100% - 3.425rem);
+  }
+}

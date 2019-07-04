@@ -1,0 +1,47 @@
+<div id="singlePredictionDetailsSearchBody">
+  <section [attr.id]='"searchBox"+curIndex' style="display:inline;">
+    <div class="search-box">
+      <i class="glyphicon glyphicon-search icon iconSearch" aria-hidden="true"></i>
+      <div class="input-history">
+        <span class="vertivalAlign-middle" #abccc></span>
+        {{searchHistory}}
+        <ng-template [ngIf]='searchHistory.length!==0'>
+          <ng-template ngFor let-item let-i=index [ngForOf]='searchHistory'>
+            <div [attr.id]='"btn"+item.id' [attr.num]='item.id' class='input-history-btn'
+              *ngIf='item.curShowIptOrBtn==="btn"' (click)='btnClick($event)' (dblclick)='btnDblClick($event)'>
+              {{item.value}}</div>
+            <input type="text" [attr.id]='"ipt"+item.id' [appWatchChange]='[0,item.color,watchIptColor,this]'
+              [attr.num]='item.id' *ngIf='item.curShowIptOrBtn!=="btn"' (blur)='iptBlur()' (focus)='iptFocus($event)'
+              (keydown)='confirm($event)' [attr.value]='item.value' (keyup)='inputChanges(saveCurBtnDom,$event)' />
+            <!-- (keyup.enter)='addHistory(saveCurBtnDom,$event.target)' -->
+          </ng-template>
+        </ng-template>
+        <input type="text" #searchBox (blur)='iptBlur()' (focus)='iptFocus($event)' (keydown)='confirm($event)'
+          (keyup)='inputChanges(saveCurBtnDom,$event)' class="search-box-input">
+        <!-- (keyup.enter)='addHistory(searchBox,null)' -->
+      </div>
+      <div class="export">
+        <i class="icon"></i>
+        <span></span>
+      </div>
+    </div>
+    <div class="pnlist">
+      <ul class='pnUl'>
+        <li class='pnCont' #pnCont [attr.index]='0' (click)='getCode(saveCurBtnDom||searchBox,pnCont);'
+          style="display:none;">{{keyWord}}</li>
+        <ng-template ngFor let-param let-i=index [ngForOf]='pnList'>
+          <li class='pnCont' #pnCont [attr.index]='i+1' (click)='getCode(saveCurBtnDom||searchBox,pnCont);'>
+            {{param.code}}
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+    <div class="edit-box" style="display:none;">
+      <ul class="edit-box-ul">
+        <li class="edit-number" (click)='editNumber(saveCurBtnDom)'>编辑编号</li>
+        <li class="copy-number" (click)='copyNumber(saveCurBtnDom)'>拷贝编号</li>
+        <li class="remove-number" (click)='removeNumber(saveCurBtnDom)'>移除编号</li>
+      </ul>
+    </div>
+  </section>
+</div>

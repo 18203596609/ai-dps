@@ -1,0 +1,210 @@
+@function pxToRem($num) {
+  @return ($num/20)+rem;
+}
+
+
+
+#barch_chart {
+  padding: pxToRem(20) pxToRem(6) pxToRem(32) pxToRem(12);
+  //   width: pxToRem(832);
+  height: pxToRem(520);
+  background: #FFFFFF;
+  box-shadow: 0 2px 13px 0 rgba(63, 70, 89, 0.29);
+  border-radius: pxToRem(8);
+  -webkit-border-radius: pxToRem(8);
+  -moz-border-radius: pxToRem(8);
+  -ms-border-radius: pxToRem(8);
+  -o-border-radius: pxToRem(8);
+  white-space: nowrap;
+  z-index: 5;
+
+  .chartOption {
+    display: inline-block;
+    width: pxToRem(650);
+    height: 100%;
+  }
+
+  .checkBox {
+    display: inline-block;
+    // width: 15%;
+    max-height: pxToRem(380);
+    overflow-y: auto;
+    overflow-x: hidden;
+    vertical-align: top;
+    margin-top: pxToRem(50);
+    padding-left: pxToRem(4);
+
+    /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+    &::-webkit-scrollbar {
+      width: pxToRem(6);
+      height: pxToRem(120);
+      opacity: 0.4;
+      background: #949EB6;
+      border-radius: 5.5px;
+    }
+
+    /*定义滚动条轨道 内阴影+圆角*/
+    &::-webkit-scrollbar-track {
+      background-color: #fff;
+    }
+
+    // /*定义滑块 内阴影+圆角*/
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5.5px;
+      background-color: #949EB6;
+      opacity: 0.4;
+      -webkit-border-radius: 5.5px;
+      -moz-border-radius: 5.5px;
+      -ms-border-radius: 5.5px;
+      -o-border-radius: 5.5px;
+    }
+
+    .check_one_Box {
+      width: 100%;
+      margin: 0 pxToRem(10) pxToRem(25) 0;
+      cursor: pointer;
+      font-family: 'MicrosoftYaHeiUI';
+      font-size: pxToRem(14);
+      color: #3F4659;
+      white-space: nowrap;
+      position: relative;
+
+      .checkbox_null {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        opacity: 0;
+
+      }
+    }
+
+    .label_checkbox {
+      position: relative; // width: 80px;
+      cursor: pointer;
+      font-size: pxToRem(14);
+      white-space: nowrap;
+      vertical-align: top;
+
+      input {
+        cursor: pointer;
+        width: pxToRem(17);
+        height: pxToRem(17);
+        margin: -1px 7px 0 0;
+        opacity: 0;
+        // position:absolute;
+        // clip: rect(5 16 16 5);
+
+        &:checked {
+          cursor: default;
+
+          &+.show_box {
+            // &:before {
+            //   display: block;
+            // }
+          }
+        }
+      }
+
+      .show_box {
+        display: inline-block;
+        position: absolute;
+        top: 3px;
+        left: -1px;
+        width: pxToRem(18);
+        height: pxToRem(17);
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+
+        &:before {
+          content: '';
+          position: absolute;
+          display: none;
+          top: 1px;
+          left: pxToRem(5);
+          width: pxToRem(8);
+          height: pxToRem(12);
+          border: 1px solid #fff;
+          border-width: 0 3px 3px 0;
+          transform: rotate(45deg);
+          -webkit-transform: rotate(45deg);
+          -moz-transform: rotate(45deg);
+          -ms-transform: rotate(45deg);
+          -o-transform: rotate(45deg);
+        }
+
+      }
+    }
+
+    .check_box_right {
+      //   width: 42%;
+      display: inline-block;
+      white-space: normal;
+
+      .check_value {
+        font-family: 'MicrosoftYaHeiUI';
+        font-size: pxToRem(14);
+        color: #3F4659;
+      }
+    }
+
+  }
+
+  // tooltip框样式
+  /deep/ .tooltip_times {
+    margin: 0;
+    font-family: 'Gotham-Medium';
+    font-size: pxToRem(16);
+    color: #3F4659;
+  }
+
+  /deep/ .tooltip_box {
+    //width: pxToRem(135);
+    padding: pxToRem(2) pxToRem(15) pxToRem(2) pxToRem(8);
+    background: #3F4659;
+    border: 1px solid rgba(148, 158, 182, 0.24);
+    border-radius: pxToRem(4);
+    box-shadow: -5px 4px 11px 0 rgba(204, 214, 223, 0.22);
+    -webkit-border-radius: pxToRem(4);
+    -moz-border-radius: pxToRem(4);
+    -ms-border-radius: pxToRem(4);
+    -o-border-radius: pxToRem(4);
+
+    /deep/p {
+      margin: 4px 0;
+      height: pxToRem(24);
+
+      /deep/ .tooltip_name {
+        float: left;
+        display: inline-block;
+        // padding-right: pxToRem(20);
+        font-family: 'MicrosoftYaHeiUI';
+        font-size: pxToRem(14);
+        color: #FFFFFF;
+        letter-spacing: 0.8px;
+      }
+
+      /deep/ .tooltip_nameMf {
+        display: inline-block;
+        width: pxToRem(120);
+        text-align: left;
+        font-family: 'MicrosoftYaHeiUI';
+        font-size: pxToRem(14);
+        color: #FFFFFF;
+        letter-spacing: 0.8px;
+      }
+
+      /deep/ .tooltip_value {
+        float: right;
+        font-family: 'Gotham-Medium';
+        font-size: pxToRem(16);
+        color: #FFFFFF;
+        padding-left: pxToRem(27.4);
+      }
+    }
+  }
+
+
+}

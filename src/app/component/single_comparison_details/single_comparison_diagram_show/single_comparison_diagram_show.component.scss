@@ -1,0 +1,810 @@
+@function pxToRem($num) {
+  @return ($num/20)+rem;
+}
+
+#chartShow {
+  width: 100%;
+  // height: pxToRem(1051.3);
+  padding-bottom: pxToRem(38);
+  // margin-top: pxToRem(24);
+  background: #FFFFFF;
+  border: 1px solid rgba(148, 158, 182, 0.16);
+  box-shadow: 0 1px 11px 0 rgba(204, 214, 223, 0.22);
+  border-radius: 8px;
+
+  ul,
+  p {
+    margin: 0;
+  }
+
+  #chartShowTop {
+    height: pxToRem(55.5);
+    line-height: pxToRem(55.5);
+    padding: 0 pxToRem(18);
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(168, 173, 180, 0.25);
+
+    p {
+      opacity: 0.8;
+      font-family: 'MicrosoftYaHeiUI';
+      font-size: pxToRem(14);
+      color: #3F4659;
+    }
+
+    .chartMode {
+      height: 100%;
+
+      .chartWay {
+        font-family: 'MicrosoftYaHeiUI';
+        font-size: pxToRem(14);
+        color: #3F4659;
+        letter-spacing: 0.6px;
+        margin-right: pxToRem(33);
+      }
+
+      .mergeBox {
+        display: inline-block;
+        width: pxToRem(260);
+        height: 100%;
+        position: relative;
+
+        .dmValue {
+          display: inline-block;
+          width: 100%;
+          height: pxToRem(36);
+          line-height: pxToRem(36);
+          background: rgba(148, 158, 182, 0.2);
+          padding: 0 pxToRem(13);
+          border-radius: 4px;
+          font-family: 'MicrosoftYaHeiUI';
+          font-size: pxToRem(14);
+          color: #3F4659;
+          letter-spacing: 0.6px;
+          text-align: justify;
+          position: relative;
+
+          .dmValueBg {
+            display: inline-block;
+            width: pxToRem(11);
+            height: pxToRem(7.6);
+            margin-left: pxToRem(4);
+            background: rgba(148, 158, 182, 0.2) url(../../../../assets/single_prediction/btn_otherarrow_nor.png) no-repeat center;
+            position: absolute;
+            right: pxToRem(16);
+            transform: translateY(-50%);
+            top: 50%;
+            transform-origin: center center;
+          }
+
+          &:hover .dmValueBg {
+            background: rgba(148, 158, 182, 0.2) url(../../../../assets/single_prediction/btn_otherarrow_hover.png) no-repeat center;
+          }
+
+          &:active .dmValueBg {
+            background: rgba(148, 158, 182, 0.2) url(../../../../assets/single_prediction/btn_otherarrow_confirm.png) no-repeat center;
+          }
+
+
+
+          .dmValue1Bg {
+            // background: rgba(148, 158, 182, 0.1) url(../../../../assets/single_prediction/btn_otherarrow_confirm.png) no-repeat 94% center;
+            transform: translateY(-50%) rotate(180deg);
+            -webkit-transform: translateY(-50%) rotate(180deg);
+            -moz-transform: translateY(-50%) rotate(180deg);
+            -ms-transform: translateY(-50%) rotate(180deg);
+            -o-transform: translateY(-50%) rotate(180deg);
+          }
+        }
+
+
+        .dmUl {
+          display: none;
+          position: absolute;
+          top: pxToRem(48);
+          left: 0;
+          width: 100%;
+          background: #FFFFFF;
+          border: 1px solid rgba(124, 134, 159, 0.19);
+          box-shadow: -6px 3px 12px 0 rgba(78, 86, 94, 0.14);
+          border-radius: 6px;
+          z-index: 1;
+
+          li {
+            padding-left: pxToRem(13);
+            height: pxToRem(26);
+            line-height: pxToRem(26);
+            font-family: 'PingFangSC-Regular';
+            font-size: pxToRem(14);
+            color: rgba(63, 79, 89, 0.7);
+            letter-spacing: 0;
+
+            &:hover {
+              color: #232528;
+              background: rgba(148, 158, 182, 0.36);
+              border-radius: 6px 6px 0px 0px;
+              -webkit-border-radius: 6px 6px 0px 0px;
+              -moz-border-radius: 6px 6px 0px 0px;
+              -ms-border-radius: 6px 6px 0px 0px;
+              -o-border-radius: 6px 6px 0px 0px;
+            }
+          }
+        }
+
+        // .dmUl1 {
+        //   display: block;
+        // }
+      }
+    }
+  }
+
+  .checkBox {
+    display: inline-block;
+    width: 15%;
+    max-height: pxToRem(380);
+    overflow-y: auto;
+    overflow-x: hidden;
+    vertical-align: top;
+    margin-top: pxToRem(50);
+    // margin-left: 2%;
+
+    /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+    &::-webkit-scrollbar {
+      width: pxToRem(6);
+      height: pxToRem(120);
+      opacity: 0.4;
+      background: #949EB6;
+      border-radius: 5.5px;
+    }
+
+    /*定义滚动条轨道 内阴影+圆角*/
+    &::-webkit-scrollbar-track {
+      background-color: #fff;
+    }
+
+    // /*定义滑块 内阴影+圆角*/
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5.5px;
+      background-color: #949EB6;
+      opacity: 0.4;
+      -webkit-border-radius: 5.5px;
+      -moz-border-radius: 5.5px;
+      -ms-border-radius: 5.5px;
+      -o-border-radius: 5.5px;
+    }
+
+    .checkList_pnNum {
+      opacity: 0.7;
+      font-family: 'Gotham-Book';
+      font-size: pxToRem(14);
+      color: #000000;
+      letter-spacing: -0.77px;
+      margin-bottom: pxToRem(2);
+    }
+
+    .check_one_Box {
+      width: 100%;
+      margin: 0 pxToRem(10) pxToRem(25) 0;
+      cursor: pointer;
+      font-family: 'MicrosoftYaHeiUI';
+      font-size: pxToRem(14);
+      color: #3F4659;
+      white-space: nowrap;
+      position: relative;
+
+      .checkbox_null {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        opacity: 0;
+        z-index: 2;
+      }
+    }
+
+    .label_checkbox {
+      position: relative; // width: 80px;
+      cursor: pointer;
+      font-size: pxToRem(14);
+      white-space: nowrap;
+      vertical-align: top;
+
+      input {
+        cursor: pointer;
+        width: pxToRem(17);
+        height: pxToRem(17);
+        margin: -1px 7px 0 0;
+        opacity: 0;
+        // position:absolute;
+        // clip: rect(5 16 16 5);
+
+        &:checked {
+          cursor: default;
+
+          &+.show_box {
+            &:before {
+              display: block;
+            }
+          }
+        }
+      }
+
+      .show_box {
+        display: inline-block;
+        position: absolute;
+        top: 3px;
+        left: -1px;
+        width: pxToRem(18);
+        height: pxToRem(17);
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+
+        &:before {
+          content: '';
+          position: absolute;
+          display: none;
+          top: 1px;
+          left: pxToRem(5);
+          width: pxToRem(8);
+          height: pxToRem(12);
+          border: 1px solid #fff;
+          border-width: 0 3px 3px 0;
+          transform: rotate(45deg);
+          -webkit-transform: rotate(45deg);
+          -moz-transform: rotate(45deg);
+          -ms-transform: rotate(45deg);
+          -o-transform: rotate(45deg);
+        }
+
+      }
+    }
+
+    .check_box_right {
+      width: 42%;
+      display: inline-block;
+      white-space: normal;
+
+      .check_value {
+        font-family: 'MicrosoftYaHeiUI';
+        font-size: pxToRem(14);
+        color: #3F4659;
+      }
+    }
+  }
+
+  #chartOne {
+    height: pxToRem(440);
+    width: 100%;
+    padding: 0 pxToRem(18);
+    margin-top: pxToRem(17.5);
+    position: relative;
+
+    .forecastChart {
+      display: inline-block;
+      width: 84%;
+      height: 100%;
+    }
+
+    .nowFcLocation {
+      position: absolute;
+      width: pxToRem(104);
+      height: pxToRem(29);
+      line-height: pxToRem(29);
+      font-family: 'MicrosoftYaHeiUI';
+      font-size: pxToRem(14);
+      color: #FFFFFF;
+      letter-spacing: 0.6px;
+      text-align: center;
+      box-shadow: 0 9px 17px 0 rgba(204, 214, 223, 0.44);
+      border-radius: 4px;
+    }
+
+    .nowBjLocation {
+      display: none;
+      position: absolute;
+      width: pxToRem(104);
+      height: pxToRem(29);
+      line-height: pxToRem(29);
+      font-family: 'MicrosoftYaHeiUI';
+      font-size: pxToRem(14);
+      color: #FFFFFF;
+      background: #949EB6;
+      letter-spacing: 0.6px;
+      text-align: center;
+      box-shadow: 0 9px 17px 0 rgba(204, 214, 223, 0.44);
+      border-radius: 4px;
+    }
+
+    .checkBox {
+      .checkList {
+        width: pxToRem(140);
+        max-height: pxToRem(400);
+        // width: 96%;
+
+        .checkList_li {
+          width: 100%;
+          padding-right: 2%;
+        }
+
+        .setChartBtn {
+          z-index: 10;
+          display: none;
+          position: relative;
+          top: pxToRem(-24);
+          width: pxToRem(115);
+          // height: pxToRem(120);
+          background: #ccced3;
+          padding: 0 pxToRem(4);
+          border-radius: pxToRem(6);
+          -webkit-border-radius: pxToRem(6);
+          -moz-border-radius: pxToRem(6);
+          -ms-border-radius: pxToRem(6);
+          -o-border-radius: pxToRem(6);
+
+
+          li {
+            font-family: 'MicrosoftYaHeiUI';
+            font-size: pxToRem(15);
+            letter-spacing: 0.69px;
+            text-align: center;
+            height: pxToRem(38);
+            line-height: pxToRem(38);
+            cursor: pointer;
+          }
+
+          .nowChart {
+            color: #717581;
+          }
+
+          .conSave,
+          .confirmChart {
+            display: none;
+            color: #0d0d0d;
+          }
+
+          .delChart {
+            display: none;
+            color: #df2526;
+          }
+        }
+
+        .ensure {
+          display: inline-block;
+          display: none;
+          width: pxToRem(24);
+          height: pxToRem(24);
+          line-height: pxToRem(24);
+          margin-left: pxToRem(14);
+          background: #2397FF;
+          font-family: 'MicrosoftYaHeiUI-Bold';
+          font-size: pxToRem(14);
+          color: #FFFFFF;
+          text-align: center;
+          border-radius: 50%;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          -ms-border-radius: 50%;
+          -o-border-radius: 50%;
+          vertical-align: top;
+        }
+
+
+        /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+        &::-webkit-scrollbar {
+          width: pxToRem(11);
+          height: pxToRem(120);
+          opacity: 0.4;
+          background: #949EB6;
+          border-radius: 5.5px;
+        }
+
+        /*定义滚动条轨道 内阴影+圆角*/
+        &::-webkit-scrollbar-track {
+          background-color: #fff;
+        }
+
+        // /*定义滑块 内阴影+圆角*/
+        &::-webkit-scrollbar-thumb {
+          border-radius: 5.5px;
+          background-color: #949EB6;
+          opacity: 0.4;
+          -webkit-border-radius: 5.5px;
+          -moz-border-radius: 5.5px;
+          -ms-border-radius: 5.5px;
+          -o-border-radius: 5.5px;
+        }
+      }
+
+      .confirmUseBox {
+        display: none;
+        width: pxToRem(300);
+        height: pxToRem(143);
+        background: #FFFFFF;
+        border: 1px solid rgba(148, 174, 182, 0.38);
+        box-shadow: 6px 9px 33px 0 rgba(204, 214, 223, 0.53);
+        border-radius: 8px;
+        position: absolute;
+        top: pxToRem(-50);
+        left: pxToRem(480);
+        z-index: 3;
+
+        .closeEnsure {
+          text-align: right;
+          padding-right: pxToRem(10);
+        }
+
+        .userTime {
+          font-family: 'MicrosoftYaHeiUI';
+          font-size: pxToRem(16);
+          color: #3F4659;
+          letter-spacing: 0.69px;
+          margin: pxToRem(16) 0 pxToRem(20.4) pxToRem(99);
+        }
+
+        .time_box {
+          margin-left: pxToRem(96);
+          // text-align: center;
+        }
+
+        input {
+          border: 1px solid rgba(63, 70, 89, 0.61);
+          border-radius: pxToRem(18);
+          margin-left: pxToRem(30);
+          -webkit-border-radius: pxToRem(18);
+          -moz-border-radius: pxToRem(18);
+          -ms-border-radius: pxToRem(18);
+          -o-border-radius: pxToRem(18);
+        }
+      }
+
+      .delLineBox,
+      .exceedTenLine {
+        display: none;
+        width: pxToRem(387);
+        height: pxToRem(184);
+        background: #FFFFFF;
+        border: 1px solid rgba(148, 174, 182, 0.38);
+        box-shadow: 6px 9px 33px 0 rgba(204, 214, 223, 0.53);
+        border-radius: 8px;
+        position: absolute;
+        top: pxToRem(-51);
+        left: 25%;
+
+        .isDel {
+          font-family: 'MicrosoftYaHeiUI';
+          font-size: pxToRem(16);
+          color: #3F4659;
+          letter-spacing: 0.69px;
+          margin: pxToRem(32) 0 pxToRem(7) pxToRem(112);
+        }
+
+        .isDelHint {
+          opacity: 0.6;
+          font-family: 'MicrosoftYaHeiUI';
+          font-size: pxToRem(14);
+          color: #FF834E;
+          letter-spacing: 0.6px;
+          margin-left: pxToRem(129);
+        }
+
+        .delBut {
+          margin: pxToRem(36) 0 0 pxToRem(77);
+
+          button {
+            width: pxToRem(102);
+            height: pxToRem(35);
+            font-family: 'MicrosoftYaHeiUI';
+            font-size: pxToRem(16);
+            letter-spacing: 0.69px;
+            border-radius: pxToRem(17.5);
+            -webkit-border-radius: pxToRem(17.5);
+            -moz-border-radius: pxToRem(17.5);
+            -ms-border-radius: pxToRem(17.5);
+            -o-border-radius: pxToRem(17.5);
+          }
+
+          .isDelBtn {
+            background: #00B9FF;
+            color: #FFFFFF;
+          }
+
+          .isDelCancel {
+            margin-left: pxToRem(29);
+            color: #3F4659;
+            background: rgba(148, 158, 182, 0.4);
+          }
+        }
+      }
+
+      .exceedTenLine {
+        p {
+          font-family: 'MicrosoftYaHeiUI';
+          font-size: pxToRem(16);
+          color: #3F4659;
+          letter-spacing: 0.69px;
+          text-align: center;
+        }
+
+        p:nth-of-type(1) {
+          margin-top: pxToRem(32);
+        }
+
+        p:nth-of-type(2) {
+          margin: pxToRem(8) 0 pxToRem(37);
+        }
+
+        .isYes {
+          margin-left: pxToRem(143);
+          width: pxToRem(102);
+          height: pxToRem(35);
+          line-height: pxToRem(35);
+          font-family: 'MicrosoftYaHeiUI';
+          font-size: pxToRem(16);
+          color: #FFFFFF;
+          text-align: center;
+          background: #00B9FF;
+          border-radius: pxToRem(17);
+          -webkit-border-radius: pxToRem(17);
+          -moz-border-radius: pxToRem(17);
+          -ms-border-radius: pxToRem(17);
+          -o-border-radius: pxToRem(17);
+        }
+      }
+    }
+
+    .fcMarkpoint {
+      width: pxToRem(90);
+      height: pxToRem(46);
+      position: relative;
+      display: none;
+      padding: 4px pxToRem(10);
+      font-size: pxToRem(12);
+      color: #fff;
+      background: #3F4659;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.07);
+      border-radius: 4px;
+
+      // top: -300px;
+      // left: 200px;
+      p {
+        font-family: 'MicrosoftYaHeiUI';
+        font-size: pxToRem(12);
+        color: #fff;
+        line-height: pxToRem(19);
+      }
+
+      span {
+        font-family: 'Gotham-Book';
+        font-size: pxToRem(12);
+        color: #fff;
+        line-height: pxToRem(19);
+        white-space: nowrap;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        right: -18px;
+        top: 6px;
+        border: solid 8px transparent;
+        border-left: solid 15px #3F4659;
+      }
+    }
+
+
+    .setChartBtn {
+      z-index: 10;
+      display: none;
+      position: absolute;
+      top: pxToRem(24);
+      width: pxToRem(115);
+      // height: pxToRem(120);
+      background: #ccced3;
+      padding: 0 pxToRem(4);
+      border-radius: pxToRem(6);
+      -webkit-border-radius: pxToRem(6);
+      -moz-border-radius: pxToRem(6);
+      -ms-border-radius: pxToRem(6);
+      -o-border-radius: pxToRem(6);
+
+
+      li {
+        font-family: 'MicrosoftYaHeiUI';
+        font-size: pxToRem(15);
+        letter-spacing: 0.69px;
+        text-align: center;
+        height: pxToRem(38);
+        line-height: pxToRem(38);
+        cursor: pointer;
+      }
+
+      .nowChart {
+        color: #717581;
+      }
+
+      .conSave,
+      .confirmChart {
+        display: none;
+        color: #0d0d0d;
+      }
+
+      .delChart {
+        display: none;
+        color: #df2526;
+      }
+    }
+  }
+
+  .timeBtn {
+
+    span {
+      display: inline-block;
+      width: pxToRem(80);
+      height: pxToRem(25);
+      padding: pxToRem(4) 0 0 pxToRem(10);
+      opacity: 0.97;
+      font-size: pxToRem(12);
+      font-family: 'Gotham-Book';
+      color: #3F4659;
+      letter-spacing: 0;
+      text-align: left;
+      vertical-align: middle;
+      border: 1px solid rgba(92, 92, 92, 0.2);
+      // background: #fff;
+      background: #fff url(../../../../assets/single_prediction/btn_otherarrow_nor.png) no-repeat 88% center;
+      background-size: pxToRem(10) pxToRem(6.9);
+      border-radius: pxToRem(18);
+      -webkit-border-radius: pxToRem(18);
+      -moz-border-radius: pxToRem(18);
+      -ms-border-radius: pxToRem(18);
+      -o-border-radius: pxToRem(18);
+
+      i {
+        display: inline-block;
+        width: pxToRem(10);
+        height: pxToRem(6.9);
+        text-align: right;
+        background: url(../../../../assets/single_prediction/btn_otherarrow_nor.png) no-repeat center;
+      }
+    }
+
+    .timeStart,
+    .timeEnd {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+    }
+  }
+
+  #chartTwo {
+    height: pxToRem(440);
+    width: 100%;
+    padding: 0 pxToRem(18);
+    margin-top: pxToRem(39);
+    position: relative;
+
+    .malfunctionChart {
+      display: inline-block;
+      width: 84%;
+      height: 100%;
+    }
+
+    .mfMarkpoint {
+      width: pxToRem(90);
+      height: pxToRem(46);
+      white-space: wrap;
+      position: relative;
+      display: none;
+      padding: 4px pxToRem(10);
+      font-size: pxToRem(12);
+      color: #fff;
+      background: #3F4659;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.07);
+      border-radius: 4px;
+
+      // top: -300px;
+      // left: 200px;
+      p {
+        font-family: 'MicrosoftYaHeiUI';
+        font-size: pxToRem(12);
+        color: #fff;
+        line-height: pxToRem(19);
+      }
+
+      span {
+        font-family: 'Gotham-Book';
+        font-size: pxToRem(12);
+        color: #fff;
+        line-height: pxToRem(19);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        right: -18px;
+        top: 6px;
+        border: solid 8px transparent;
+        border-left: solid 15px #3F4659;
+      }
+    }
+
+    .checkBox {
+      ul {
+        width: 96%;
+
+        li {
+          width: 100%;
+          padding-right: 2%;
+
+          .check_box_right {
+            width: 82%;
+          }
+        }
+      }
+    }
+  }
+
+  // tooltip框样式
+  /deep/ .tooltip_times {
+    margin: 0;
+    font-family: 'Gotham-Medium';
+    font-size: pxToRem(16);
+    color: #3F4659;
+  }
+
+  /deep/ .tooltip_box {
+    //width: pxToRem(135);
+    padding: pxToRem(2) pxToRem(15) pxToRem(2) pxToRem(8);
+    background: #3F4659;
+    border: 1px solid rgba(148, 158, 182, 0.24);
+    border-radius: pxToRem(4);
+    box-shadow: -5px 4px 11px 0 rgba(204, 214, 223, 0.22);
+    -webkit-border-radius: pxToRem(4);
+    -moz-border-radius: pxToRem(4);
+    -ms-border-radius: pxToRem(4);
+    -o-border-radius: pxToRem(4);
+
+    /deep/ p {
+      margin: 4px 0;
+      height: pxToRem(24);
+
+      /deep/ .tooltip_line {
+        // display: flex;
+        // justify-content: space-between;
+      }
+
+      /deep/ .tooltip_name {
+        display: inline-block;
+        float: left;
+        // padding-right: pxToRem(20);
+        // width: pxToRem(50);
+        font-family: 'MicrosoftYaHeiUI';
+        font-size: pxToRem(14);
+        color: #FFFFFF;
+        letter-spacing: 0.8px;
+      }
+
+      /deep/ .tooltip_nameMf {
+        display: inline-block;
+        font-family: 'MicrosoftYaHeiUI';
+        font-size: pxToRem(14);
+        color: #FFFFFF;
+        letter-spacing: 0.8px;
+      }
+
+      /deep/ .tooltip_value {
+        float: right;
+        font-family: 'Gotham-Medium';
+        font-size: pxToRem(16);
+        color: #FFFFFF;
+        padding-left: pxToRem(27.4);
+        // margin-left: pxToRem(27.4);
+      }
+    }
+  }
+
+
+}

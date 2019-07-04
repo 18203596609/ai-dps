@@ -1,0 +1,31 @@
+<section class='timerBody'>
+  <div [attr.id]='"timerContent"+curIndex' [ngClass]="{active: isShowTimeSelect}"
+    (click)="isShowTimeSelectClick('isShowTimeSelect')" [ngStyle]="{'border': !isShowTimeSelect ? '1px solid rgba(92, 92, 92, 0.2)' : '1px solid #3F4659' }">
+    {{curTimeString}}
+  </div>
+  <section *ngIf='isShowTimeSelect&&isShowMounth' class="timer-content">
+    <div [attr.id]='"operatorYear"+curIndex'>
+      <span class="prev" (click)='prevOver()'>&lt;</span>
+      <span class="text">{{curTimeObj.year.yearNum}}</span>
+      <span class="next" (click)='nextOver()'>&gt;</span>
+    </div>
+    <ul class="time-list">
+      <ng-template ngFor let-cont let-i=index [ngForOf]='curTimeObj.month'>
+        <li
+          [ngStyle]="{'background-color': curYear===yearSelected&&cont.monthNum==monthSelected ? 'rgba(148, 158, 182, 0.36)' : 'transparent' }"
+          (click)='getMonth($event)' [attr.month]='cont.monthNum'>{{cont.monthNum}}</li>
+      </ng-template>
+    </ul>
+  </section>
+
+
+  <section *ngIf='isShowTimeSelect&&!isShowMounth' id='yearMonthTimer' class="timer-content">
+    <ul class="time-list">
+      <ng-template ngFor let-cont let-i=index [ngForOf]='allYearMonthData'>
+        <li
+          [ngStyle]="{'background-color': yearMonthSelected===cont.yearMonthNum ? 'rgba(148, 158, 182, 0.36)' : 'transparent' }"
+          (click)='getYearMonthData($event,cont)'>{{cont.yearMonthNum}}</li>
+      </ng-template>
+    </ul>
+  </section>
+</section>

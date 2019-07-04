@@ -1,0 +1,70 @@
+<section id='batch_prediction_manage'>
+  <div id='pageBack'>
+    <div class='goBack' (click)='goBack()'>
+      <i></i>
+      <span>返回</span>
+    </div>
+  </div>
+  <div id='prediction_manage_details'>
+    <!-- 表格部分 -->
+    <div class='details_table_head' style="z-index:20;">
+      <span>替换组编号</span>
+      <span>操作</span>
+    </div>
+    <div class='details_top'>
+      <div class='details_del_table'>
+        <ul>
+          <li class='details_table_tr'></li>
+          <li class='details_table_tr' *ngFor="let item of pnListData;let i=index">
+            <ul>
+              <li class="check_box">
+                <span class='check_num'>{{i+1<10?'0'+(i+1):i+1}}</span>
+                <div class='checkedBox' (click)='singleCheck(i,isChecked[i])'>
+                  <input type="checkbox" class='checkbox' [(ngModel)]='isChecked[i]'>
+                  <span class='showBox'></span>
+                </div>
+              </li>
+              <li [attr.class]='"replace_num replace_num"+i' style='position: relative;'>
+                <div [attr.class]='"disSear disSear"+i' *ngIf="this.AmengOrFinish[i]"></div>
+                <app-single-search [applyMode]='"batchComparisonManage"' [curIndex]='i' [parentDataObj]='item'
+                  [isAmeng]='isAmeng' (batchManageBtnList)='getBtnListS($event)'></app-single-search>
+              </li>
+              <li class='operation_btn'>
+                <div [attr.class]='"no_operation no_operation"+i' *ngIf="this.AmengOrFinish[i]">
+                  <button class='ameng_num' (click)='amengNum(i)'>修改编号</button>
+                  <button class='del_num' (click)='clickDel(true,i)'>删除</button>
+                </div>
+                <div [attr.class]='"is_operation is_operation"+i' *ngIf="!this.AmengOrFinish[i]">
+                  <button class='finish' (click)='finishAmend(i)'>完成</button>
+                  <button class='cancel' (click)='cancel(i)'>取消</button>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 选择框部分 -->
+    <div class='details_bottom'>
+      <div class='details_allSelet'>
+        <div class='all_checkBox'  (click)='allChecked()'>
+          <input type="checkbox" [(ngModel)]='isAllChecked'>
+          <div class='show_allCheck'></div>
+        </div>
+        <span class='all_selet'>全选</span>
+      </div>
+      <div class='details_allDel'>
+        <div class='del_sum' [ngStyle]='{"display":delAmount>0?"inline-block":"none"}'>
+          已选择
+          <span>
+            {{delAmount}}
+          </span>
+          个预测组
+        </div>
+        <button class='all_del' [ngClass]="{'all_del_check':delAmount>0}" (click)='clickDel(false,-1)'>删除</button>
+      </div>
+    </div>
+
+  </div>
+</section>

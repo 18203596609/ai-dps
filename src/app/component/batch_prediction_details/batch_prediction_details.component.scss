@@ -1,0 +1,340 @@
+@function pxToRem($number) {
+  @return ($number/20)+rem;
+  // @return $number+px;
+}
+
+ul,
+li,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.inlineBlockAndVerTicalAlignMiddle {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.setBackground {
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#batchPredictionDetails {
+  height: 100%;
+
+  .details-header {
+    width: 100%;
+    height: pxToRem(70);
+    line-height: pxToRem(70);
+    border-bottom: solid 1px rgba(168, 173, 180, 0.25);
+
+    .left {
+      float: left;
+      width: 30%;
+
+      .return-bar {
+        height: pxToRem(70.5);
+        width: pxToRem(110);
+        float: left;
+        padding-left: pxToRem(26);
+        cursor: pointer;
+        font-size: 0;
+        letter-spacing: -4px;
+
+
+
+        .icon {
+          display: inline-block;
+          vertical-align: middle;
+          width: pxToRem(19);
+          height: pxToRem(25);
+          background-image: url(../../../assets/single_prediction/single_comparison_details/back_normal.png);
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+          margin-right: 0.3rem;
+        }
+
+        .text {
+          height: pxToRem(70.5);
+          line-height: pxToRem(70.5);
+          font-family: MicrosoftYaHeiUI;
+          color: #00B9FF;
+          letter-spacing: 0;
+          font-size: pxToRem(16);
+          text-align: center;
+          display: inline-block;
+          vertical-align: middle;
+        }
+
+
+        &:hover {
+          .icon {
+            background-image: url(../../../assets/single_prediction/single_comparison_details/back_hover.png);
+          }
+        }
+
+        &:active {
+          .icon {
+            background-image: url(../../../assets/single_prediction/single_comparison_details/back_confirm.png);
+          }
+        }
+
+      }
+
+      ul#panelOrList {
+
+
+        .panel {
+          display: inline-block;
+          vertical-align: middle;
+          width: pxToRem(28);
+          height: pxToRem(28);
+          background: url(../../../assets/batch_prediction/nine_con.png) center no-repeat;
+          background-size: pxToRem(28) pxToRem(28);
+          margin-left: pxToRem(75);
+        }
+
+        .panel_bar {
+          background: url(../../../assets/batch_prediction/nine_normal.png) center no-repeat;
+          background-size: pxToRem(28) pxToRem(28);
+        }
+
+        .list {
+          display: inline-block;
+          vertical-align: middle;
+          width: pxToRem(28);
+          height: pxToRem(28);
+          background: url(../../../assets/batch_prediction/list_nor.png) center no-repeat;
+          background-size: pxToRem(28) pxToRem(28);
+          margin-left: pxToRem(28);
+        }
+
+        .list_bar {
+          background: url(../../../assets/batch_prediction/list_con.png) center no-repeat;
+          background-size: pxToRem(28) pxToRem(28);
+        }
+      }
+    }
+
+    .right {
+      float: right;
+      margin-right: pxToRem(30);
+
+      ul#predictionOperator {
+        li {
+          float: left;
+          margin-left: pxToRem(48);
+
+          .prediction_cont {
+            font-family: 'MicrosoftYaHeiUI';
+            font-size: pxToRem(16);
+            color: #3F4659;
+            text-align: center;
+            margin-left: pxToRem(10);
+          }
+        }
+
+        .add-prediction {
+          cursor: pointer;
+
+          .add_img {
+            width: pxToRem(26);
+            height: pxToRem(26);
+            background-image: url(../../../assets/single_prediction/single_comparison_details/btn_big_addnormal.png);
+            @extend .setBackground;
+            @extend .inlineBlockAndVerTicalAlignMiddle;
+          }
+
+          &:hover .add_img {
+            background-image: url(../../../assets/single_prediction/single_comparison_details/btn_big_addhover.png);
+          }
+
+          &:active .add_img {
+            background-image: url(../../../assets/single_prediction/single_comparison_details/btn_big_addconfirm.png);
+          }
+        }
+
+        .more-leading {
+          cursor: pointer;
+
+          .more_img {
+
+            width: pxToRem(26);
+            height: pxToRem(26);
+            background-image: url(../../../assets/batch_prediction/dashboard_excel_normal.png);
+            @extend .setBackground;
+            @extend .inlineBlockAndVerTicalAlignMiddle;
+          }
+
+          &:hover .more_img {
+            background-image: url(../../../assets/batch_prediction/dashboard_excel_hover.png);
+          }
+
+          &:active .more_img {
+            background-image: url(../../../assets/batch_prediction/dashboard_excel_confirm.png);
+          }
+        }
+
+        .manage-prediction {
+          cursor: pointer;
+
+          .manage_img {
+            width: pxToRem(26);
+            height: pxToRem(21);
+            background-image: url(../../../assets/single_prediction/single_comparison_details/btn_editnormal.png);
+            @extend .setBackground;
+            @extend .inlineBlockAndVerTicalAlignMiddle;
+          }
+
+          &:hover .manage_img {
+            background-image: url(../../../assets/single_prediction/single_comparison_details/btn_edithover.png);
+          }
+
+          &:active .manage_img {
+            background-image: url(../../../assets/single_prediction/single_comparison_details/btn_editconfilrm.png);
+          }
+        }
+
+        .prediction_export {
+          cursor: pointer;
+
+          .export_img {
+            width: pxToRem(24);
+            height: pxToRem(25);
+            background-image: url(../../../assets/single_prediction/single_comparison_details/btn_export_normal.png);
+            @extend .setBackground;
+            @extend .inlineBlockAndVerTicalAlignMiddle;
+          }
+
+          &:hover .export_img {
+            background-image: url(../../../assets/single_prediction/single_comparison_details/btn_export_hover.png);
+          }
+
+          &:active .export_img {
+            background-image: url(../../../assets/single_prediction/single_comparison_details/btn_export_confirm.png);
+          }
+        }
+      }
+    }
+  }
+
+  #batchPredictionDetailsPanelWraper {
+    height: calc(100% - 3.5rem - 4rem);
+  }
+
+  #batchPredictionDetailsListWraper {
+    height: calc(100% - 3.5rem);
+  }
+
+  footer {
+    height: 4rem;
+    line-height: 4rem;
+    font-size: 0;
+
+    &>section {
+      @extend .inlineBlockAndVerTicalAlignMiddle;
+      width: 50%;
+      padding: 0 pxToRem(82);
+    }
+
+    .all-select {
+      text-align: left;
+      font-size: 0;
+
+      label {
+        margin: 0;
+        padding: 0;
+        height: pxToRem(35);
+        line-height: pxToRem(35);
+        cursor: pointer;
+
+        input {
+          width: 0;
+          height: 0;
+          // float: left;
+          opacity: 0;
+          @extend .inlineBlockAndVerTicalAlignMiddle;
+        }
+
+        input+span.virtual-ipt {
+          width: 1rem;
+          height: 1rem;
+          border: 1px solid #5FD0F9;
+          border-radius: 0.1rem;
+          cursor: pointer;
+          position: relative;
+        }
+
+        input:checked+span {
+          background: #5FD0F9;
+          border-radius: 0.1rem;
+
+          &::after {
+            content: "";
+            position: absolute;
+            width: 0.65rem;
+            height: 0.4rem;
+            border: 2px solid #fff;
+            border-top: none;
+            border-right: none;
+            top: 50%;
+            left: 50%;
+            -webkit-transform-origin: center center;
+            transform-origin: center center;
+            -webkit-transform: rotate(-45deg) translate(-50%, -50%);
+            transform: rotate(-45deg) translate(-50%, -50%);
+            margin-top: -0.35rem;
+            margin-left: 0.05rem;
+
+          }
+        }
+
+        span.text {
+          font-family: MicrosoftYaHeiUI;
+          font-size: pxToRem(16);
+          color: #949EB6;
+          margin-left: pxToRem(9);
+        }
+
+
+        span {
+          @extend .inlineBlockAndVerTicalAlignMiddle;
+        }
+      }
+
+    }
+
+    .contrast-save {
+      text-align: right;
+      font-size: 0;
+
+      span {
+        width: pxToRem(102);
+        height: pxToRem(35);
+        line-height: pxToRem(35);
+        text-align: center;
+        font-family: MicrosoftYaHeiUI;
+        @extend .inlineBlockAndVerTicalAlignMiddle;
+        border-radius: pxToRem(17.5);
+        font-size: pxToRem(16);
+        letter-spacing: 0.69px;
+      }
+
+      .contrast,
+      .save {
+        background: #4ECEFF;
+        color: #FFFFFF;
+      }
+
+      .save {
+        // opacity: 0.4;
+        // background: #949EB6;
+        // color: #3F4659;
+        margin-left: 35px;
+      }
+    }
+  }
+}

@@ -1,0 +1,106 @@
+<div id="singleHistoryData">
+  <div class="title">
+    <span class="title">历史数据</span>
+  </div>
+  <section class="content">
+    <ul>
+      <li>
+        <span>平均月需求(件)</span>
+        <span style="letter-spacing: -4px;">
+          <span class="Gotham-Book">{{curData.nAverageMounth | appPercentage:2}}</span>
+          <span [appWatchChange]='[0,curData?.nAverageMounth,nAverageMounthIsHighOrLow]' style="text-align:right;"
+            class="MicrosoftYaHeiUI"></span>
+        </span>
+        <i></i>
+      </li>
+      <li>
+        <span>成本价(人民币)</span>
+        <span style="letter-spacing: -4px;">
+          <span class="Gotham-Book">{{curData.nCoust | appPercentage:2}}</span>
+          <span [appWatchChange]='[0,curData?.nCoust,nCoustIsHighOrLow]' style="text-align:right;"
+            class="MicrosoftYaHeiUI"></span>
+        </span>
+        <i></i>
+      </li>
+      <li>
+        <span>历史装机量(件)</span>
+        <!-- <span> -->
+        <span class="Gotham-Book">{{curData.nHistoryUsage}}</span>
+        <!-- <span style="text-align:center;"></span> -->
+        <!-- </span> -->
+        <i></i>
+      </li>
+      <li>
+        <span>未来装机量(件)</span>
+        <!-- <span> -->
+        <span class="Gotham-Book">{{curData.futureTotalIB||0}}</span>
+        <!-- <span style="text-align:center;"></span> -->
+        <!-- </span> -->
+        <i></i>
+      </li>
+      <li>
+        <span>装机开始时间</span>
+        <span class="Gotham-Book">{{curData.ibBgeinTime}}</span>
+        <i></i>
+      </li>
+      <li>
+        <span>平均装机时间</span>
+        <span class="Gotham-Book">{{curData.averageIBTime | appPercentage:false:2:true}}<b
+            class="MicrosoftYaHeiUILight">月</b></span>
+        <i></i>
+      </li>
+      <li (mouseenter)='setMouseEnterEvent($event)'>
+        <span>需求开始时间</span>
+        <span class="Gotham-Book"
+          *ngIf='curData.demandStartTime||curData.demandStartTime===0'>{{curData.demandStartTime}}</span>
+        <span class="Gotham-Book" *ngIf='!curData.demandStartTime'>无数据</span>
+        <i></i>
+      </li>
+      <li (mouseenter)='setFcBg()' (mouseleave)='nullFcBg()'>
+        <span>在保平稳时间</span>
+        <span class="Gotham-Book"
+          *ngIf='curData.demandStartTime||curData.demandStartTime===0'>{{curData.demandStationaryTime}}</span>
+        <span class="Gotham-Book" *ngIf='!curData.demandStartTime'>无数据</span>
+        <i></i>
+      </li>
+      <li>
+        <span>在保下降时间</span>
+        <span class="Gotham-Book">{{curData.demandDeclineTime}}</span>
+        <i></i>
+      </li>
+      <li>
+        <span>平稳持续时间</span>
+        <span class="Gotham-Book">{{curData.stationaryKeepTime}}<b class="MicrosoftYaHeiUILight">月</b></span>
+        <i></i>
+      </li>
+      <li>
+        <span>EOS</span>
+        <span class="Gotham-Book">{{curData.eos}}</span>
+        <i></i>
+      </li>
+      <li>
+        <span style="vertical-align:middle;">LTB时间</span>
+        <span *ngIf="ltbList.length>0" class="btn-span MicrosoftYaHeiUI"
+          [ngClass]="{'forbidCursor': ltbList.length===0}" [appShowTitle]='"ltbTimeBox"'
+          [ngStyle]="{'cursor':ltbList.length>0? 'pointer' : 'not-allowed' }"
+          style="position:relative;vertical-align:middle;">
+          查看列表
+        </span>
+        <span *ngIf="ltbList.length===0" class="btn-span MicrosoftYaHeiUI"
+          style="position:relative;vertical-align:middle;cursor: default;color: #3F4659;">
+          无
+        </span>
+        <div *ngIf="ltbList.length" id='ltbTimeBox' [appShowTitle]='"ltbTimeBox"' class="ltb-time-wrap"
+          style="display:none;">
+          <div class="ltb-time" [appShowTitle]='"ltbTimeBox"'>
+            <ul>
+              <li *ngFor="let item of ltbList">{{item}}</li>
+            </ul>
+          </div>
+        </div>
+        <i></i>
+      </li>
+    </ul>
+  </section>
+
+</div>

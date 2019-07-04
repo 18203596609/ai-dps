@@ -1,0 +1,20 @@
+<div id="singleComparisonManage">
+  <section class="top">
+    <span (click)='turnToSingleCompariseDetails()'>
+      <span class="icon"></span>
+      <span>返回</span>
+    </span>
+  </section>
+  <section class="content">
+    对比组管理
+    <div *ngIf='pnListDetailsData.length>0'>
+      <ng-template ngFor let-item let-i=index [ngForOf]='pnListDetailsData'>
+        <app-single-search [applyMode]='"singleComparisonManage"' [parentDataObj]='item' [curIndex]='i'
+          (singleComparisonManageDelEmit)='singleComparisonManageDel($event)'
+          (singleComparisonManageChangeEmit)='singleComparisonManageChange($event)'
+          (singleComparisonManageCancelEmit)='singleComparisonManageCancel($event)' [isAllowChange]='i===0'>
+        </app-single-search>
+      </ng-template>
+    </div>
+  </section>
+</div>

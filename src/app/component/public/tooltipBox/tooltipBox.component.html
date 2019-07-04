@@ -1,0 +1,22 @@
+<section id="tooltipBox-body" *ngIf='tooltipBoxService.getTooltipBoxInfo().message.length'>
+  <div class="shadow"
+    style="position:absolute;left:0;right:0;top:0;bottom:0;z-index:9999;background-color:rgba(0,0,0,0.1);width:100%;height:100%;">
+
+  </div>
+  <section class="content" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);">
+    <section class="main">
+      <ng-template ngFor let-item let-i=index [ngForOf]='tooltipBoxService.getTooltipBoxInfo().message'>
+        <span [ngStyle]="item?.style">
+          {{item.text}}
+        </span>
+      </ng-template>
+    </section>
+    <footer class="footer">
+      <ul [ngStyle]="tooltipBoxService.getTooltipBoxInfo().btnTextParentStyles()">
+        <ng-template ngFor let-item let-i=index [ngForOf]='tooltipBoxService.getTooltipBoxInfo().btnText'>
+          <li [attr.class]='item.className' (click)='item.callback()'>{{item.text}}</li>
+        </ng-template>
+      </ul>
+    </footer>
+  </section>
+</section>

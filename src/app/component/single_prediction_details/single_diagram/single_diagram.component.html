@@ -1,0 +1,18 @@
+<section id='curveParameter'>
+  <app-single-diagram-parameter #diagramParamter (editCalculateClick)='diagramShow.editCalculate($event)'
+    (editSaveLinesClick)='diagramShow.editSaveLines($event)' (setEditDataClick)='diagramShow.setEditData($event)'
+    (editChangeLastTimeBuy)='diagramShow.editChangeLastTimeBuy($event)'
+    (selectContent)='diagramShow.setFcContent($event)' (cancelEditEvent)='diagramShow.cacelEdit($event)'
+    (isShowPopEmit)='isShowPop($event)' (updatePlaceHolderEmit)='updateSavePlaceHolder($event)'
+    (setDiagramParameterToShowDataEmit)='diagramShow.getDiagramData($event)'>
+  </app-single-diagram-parameter>
+
+  <app-single-prediction-show #diagramShow (clickDefFc)='diagramParamter.getSeleValue($event)'
+    (default_forecastName)='diagramParamter.setForecast($event)' (fcLineOne_time)='diagramParamter.bjOneTime($event)'
+    (isShowPopEmit)='isShowPop($event)' (updatePlaceHolderEmit)='updateSavePlaceHolder($event)'
+    (setShowDataToDiagramParameterEmit)='diagramParamter.getShowData($event)'>
+  </app-single-prediction-show>
+</section>
+
+<app-save-line-pop [isShowSavePop]='isShowSavePop' [placeholder]='placeholder'
+  (editSaveLinesEmit)='editSaveLines($event)' (isHideSavePopEmit)='isHideSavePop($event)'></app-save-line-pop>

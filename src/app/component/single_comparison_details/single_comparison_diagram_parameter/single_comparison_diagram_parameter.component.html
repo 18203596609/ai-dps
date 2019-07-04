@@ -1,0 +1,149 @@
+<section id='forecastParameter' (mouseenter)='mouseenterPanel()' (mouseleave)='mouseleavePanel()' #forecastParameter
+  [attr.class]='"forecastParameter"+curIndex' [class.curIsEditIng]='parentData?.curIsEditIng'
+  [attr.curIsEditIng]='parentData?.curIsEditIng'>
+
+  <div class="panel-wrap">
+    <section class="panel-content" [class.curIsEditIng]='parentData?.curIsEditIng'>
+      <ng-container>
+        <div class="edit-box" [ngStyle]="{'display': parentData?.curIsEditIng?'block':'none'}">
+          <button (click)='editCalculate()' class="calculate-lines-btn">计算</button>
+          <button (click)='isHideSavePop(true)' class="save-lines-btn">保存</button>
+          <button (click)='cacelEdit(parentData,curIndex)' class="cacel-edit-btn">取消编辑</button>
+        </div>
+      </ng-container>
+      <div class="panel-top">
+        <span class="pn-text">{{parentData?.btnList}}</span>
+        <div class='selectList'>
+          <div class="dropdown">
+            <div class="select" (click)='$event.stopPropagation();showCurPredictionLineSelect($event)'>
+              <!-- <span class="select-color-area" [attr.bgcolor]='fcSelect ? fcSelect[fcSelect.length - 1].color : false'
+                #selectColorArea [appWatchChange]='[0,selectColorArea.getAttribute("bgcolor")||(fcSelect?fcSelect[fcSelect.length - 1].color:false),changeSelectColor]'></span>
+              <span class="select-value" #selectValue>{{fcSelect?fcSelect[fcSelect.length - 1].value:false}}</span> -->
+
+
+              <!-- [appWatchChange]='[0,selectColorArea.getAttribute("bgcolor")||(fcSelect?fcSelect[fcSelect.length - 1].color:false),changeSelectColor]' -->
+              <span class="select-color-area" [attr.id]='"bgcolor"+curIndex'
+                [attr.bgcolor]='(fcSelect?fcSelect[fcSelect.length - 1].color:false)' #selectColorArea
+                [ngStyle]="changeSelectColor('bgcolor'+curIndex)"></span>
+              <span class="select-value" #selectValue>{{fcSelect?fcSelect[fcSelect.length - 1].value:"默认预测"}}</span>
+
+              <span class="icon">
+                <i [appWatchChange]='[0,selectOption.style.display,changeSelectIcon]' #selectListIcon class=""></i>
+              </span>
+            </div>
+            <ul class="select-option" [attr.id]='curIndex' #selectOption>
+              <li *ngFor="let item of fcSelect;let i=index" [attr.id]='"selectOptionLiId"+curIndex+i'
+                (click)='$event.stopPropagation();getCurValue(selectColorArea,selectValue,"selectOptionLiId"+curIndex+i,i,item.id,parentData?.btnList)'>
+                <span class="select-option-color-area" [attr.id]='"bgcolor"+curIndex+i' [attr.bgcolor]='item.color'
+                  [ngStyle]="changeSelectColor('bgcolor'+curIndex+i)"></span>
+                <span class="select-option-value">{{item.value}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <span [ngStyle]="{'display': !parentData?.curIsEditIng?'block':'none'}" class="edit-icon"
+          (click)='editCurLine()'></span>
+      </div>
+      <div class="panel-center">
+        <ul>
+          <li>
+            <div class="left">
+              <span>AI算法参数</span>
+            </div>
+            <div class="right">
+              <ul>
+                <li>
+                  <span>月需求率</span>
+                  <span class="Gotham-Book" *ngIf='!parentData?.curIsEditIng'>{{ai||0.01}}</span>
+                  <span class="Gotham-Book" *ngIf='!parentData?.curIsEditIng'>%</span>
+
+                  <span *ngIf='parentData?.curIsEditIng' class="input-number-parent">
+                    <input class="Gotham-Book" type="number" [(ngModel)]="ai" class='aiInput' min='0' max='100'
+                      step='0.01'
+                      oninput='if (value > 100)value = 100; if (value < 0) value = 0;if ((value.toString())[0] == 0&& (value.toString()).length >= 2)value = (value).slice(0, 6)'>
+                    <span class="Gotham-Book">%</span>
+                  </span>
+                </li>
+                <li>
+                  <span>延保率</span>
+                  <span class="Gotham-Book" *ngIf='!parentData?.curIsEditIng'>
+                    {{aiInwarrantyRate||1}}</span>
+                  <span class="Gotham-Book" *ngIf='!parentData?.curIsEditIng'>%</span>
+
+                  <span *ngIf='parentData?.curIsEditIng' class="input-number-parent">
+                    <input class="Gotham-Book" type="number" [(ngModel)]="aiInwarrantyRate"
+                      class='aiInwarrantyRateInput' min='0' max='100' step='1' *ngIf='parentData?.curIsEditIng'
+                      oninput='if (value > 100)value = 100; if (value < 0) value = 0;if ((value.toString())[0] == 0&& (value.toString()).length >= 2)value = (value).slice(0, 4)'>
+                    <span class="Gotham-Book">%</span>
+                  </span>
+                </li>
+                <li>
+                  <span style="margin-right:0.3rem;">时间</span>
+                  <!-- <span *ngIf='!parentData?.curIsEditIng'>{{last_time_buy}}</span>
+                  <input type="date" id='lastTimeBuyDate' *ngIf='parentData?.curIsEditIng'
+                    (change)='lastTimeBuyChange()' [(ngModel)]="last_time_buy"> -->
+
+                  <span class="Gotham-Book" *ngIf='!parentData?.curIsEditIng'>{{last_time_buy}}</span>
+                  <span *ngIf='parentData?.curIsEditIng' id='lastTimeBuyDate'>
+                    <nz-demo-date-picker-basic [date]='last_time_buy' (getDatePickerDate)='getDatePickerDate($event)'>
+                    </nz-demo-date-picker-basic>
+                  </span>
+
+
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div class="left">
+              <span>人工算法参数</span>
+            </div>
+            <div class="right">
+              <ul>
+                <li>
+                  <span>月需求率</span>
+                  <span class="Gotham-Book">{{parentData?.projectModel?.diagramModel?.huInwarrantyRate}}%</span>
+                </li>
+                <li>
+                  <span>延保率</span>
+                  <span class="Gotham-Book">{{parentData?.projectModel?.diagramModel?.demandRate}}%</span>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="panel-bottom " (click)='isShowDetailsClick()'>
+        <span class="more-info-text">更多信息</span>
+        <span class="icon" [ngStyle]="{'transform': parentData?.isShowDetails ? 'rotate(180deg)' : 'rotate(0deg)' }"
+          #arrowBottom></span>
+      </div>
+      <div class="clearBoth"></div>
+    </section>
+  </div>
+</section>
+
+
+<ng-template #selectListTemplate>
+  <div class='selectList'>
+    <div class="dropdown">
+      <div class="select" (click)='$event.stopPropagation();showCurPredictionLineSelect()'>
+        <span class="select-color-area" [attr.bgcolor]='orange' #selectColorArea
+          [ngStyle]="changeSelectColor($event.target)"></span>
+        <span class="select-value" #selectValue>默认预测</span>
+        <span class="icon">
+          <i [appWatchChange]='[0,selectOption.style.display,changeSelectIcon]' class=""></i>
+        </span>
+      </div>
+      <ul class="select-option" #selectOption>
+        <li *ngFor="let item of parentData.selectList;let i=index" [attr.id]='"selectOptionLiId"+curIndex+i'
+          (click)='$event.stopPropagation();getCurValue(selectColorArea,selectValue,"selectOptionLiId"+curIndex+i,i)'>
+          <span class="select-option-color-area" [attr.bgcolor]='item.color'
+            [ngStyle]="changeSelectColor($event.target)"></span>
+          <span class="select-option-value">{{item.value}}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</ng-template>

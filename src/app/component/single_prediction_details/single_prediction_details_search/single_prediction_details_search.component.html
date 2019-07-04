@@ -1,0 +1,51 @@
+<div class="search">
+  <ng-template
+    [ngIf]="isShowSearch(['singlePrediction/singleDetailsComponent','AIPrediction/AIDetailsComponent','humanPrediction/humanDetailsComponent'])">
+    <section class="return-bar" (click)="returnSearchPage()">
+      <i class="icon"></i>
+      <span class="text">返回</span>
+    </section>
+
+    <span class="cur-off-line"></span>
+  </ng-template>
+
+  <section class="search-bar"
+    [ngStyle]="{'width':isShowSearch(['singlePrediction/singleDetailsComponent','AIPrediction/AIDetailsComponent','humanPrediction/humanDetailsComponent']) ? 'calc(100 - 6rem)' : '100%' }">
+
+    <!-- 单组预测搜索框 -->
+    <ng-template [ngIf]='isShowSearch("singlePrediction/singleDetailsComponent")'>
+      <app-single-search (startPredictionEvent)='startPrediction($event)' (exportEvent)='export()'
+        [applyMode]='"singlePredictionDetailsSearch"' [curIndex]='9999999999'>
+      </app-single-search>
+    </ng-template>
+    <!-- AI预测搜索框 -->
+    <ng-template [ngIf]='isShowSearch("AIPrediction/AIDetailsComponent")'>
+      <app-single-search (startPredictionEvent)='startPrediction($event)' (exportEvent)='export()'
+        [applyMode]='"AIPredictionDetailsSearch"' [curIndex]='99999999990'>
+      </app-single-search>
+    </ng-template>
+    <!-- A人工预测搜索框 -->
+    <ng-template [ngIf]='isShowSearch("humanPrediction/humanDetailsComponent")'>
+      <app-single-search (startPredictionEvent)='startPrediction($event)' (exportEvent)='export()'
+        [applyMode]='"humanPredictionDetailsSearch"' [curIndex]='99999999991'>
+      </app-single-search>
+    </ng-template>
+
+
+
+    <ng-template [ngIf]='isShowSearch("batchPrediction/batchSingleDetails")'>
+      <section class="return-batchDetails" (click)="turnToBatchDetails()">
+        <span class="icon"></span>
+        <span>返回</span>
+      </section>
+      <section class="operator">
+        <div class="export" (click)='export()'>
+          <i class="icon"></i>
+          <span style="margin-left:0.5rem;">导出</span>
+        </div>
+      </section>
+    </ng-template>
+    <strong style="width:100%;display:block;clear:both;"></strong>
+  </section>
+
+</div>

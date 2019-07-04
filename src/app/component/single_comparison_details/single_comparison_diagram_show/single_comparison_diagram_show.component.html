@@ -1,0 +1,160 @@
+<section id='chartShow'>
+  <div id='chartShowTop'>
+    <p>图表区</p>
+    <div class='chartMode'>
+      <span class='chartWay'>图表展示方式</span>
+      <div class='mergeBox'>
+        <span class='dmValue' (click)='clickDmValue()'>{{dmValue}}
+          <i class='dmValueBg'></i>
+        </span>
+        <ul class='dmUl'>
+          <li *ngFor="let item of detachAndMerge" #merge>{{item}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div id='chartOne'>
+    <div echarts [options]='forecastOptions' class='forecastChart' [autoResize]='true'
+      (chartInit)='forecastChartInit($event)' (chartDblClick)='dbClickFc($event)' (chartDataZoom)='dataZoomFc($event)'
+      (chartMouseOver)="onChartEventOver($event)" (chartMouseOut)='onChartEventOut($event)'></div>
+    <!-- [loading]='isLoading'  -->
+    <div class="fc-check-box checkBox">
+      <ul class='checkList'>
+        <li *ngFor="let item of fcCheckBox;let i=index;" class='checkList_li'>
+          <p class='checkList_pnNum'>{{item.pnNum}}</p>
+          <div class='checkList_box' *ngFor="let mm of item.pnCont;let k=index;"
+            [comparisonShowEnsure]='[mm.ensure,i,k]' (mouseleave)='hideSetChart(mm.legendName)'>
+            <div class='check_one_Box' (click)="fcLegendClick($event, 'fc', mm.isShow, i, k,mm.legendName);"
+              (mouseenter)='showSetChart($event,mm.lineType,k,i,mm.legendName,item.pnNum,mm)'>
+              <input type="checkbox" [(ngModel)]='mm.isShow' class='checkbox_null' />
+              <label class="label_checkbox">
+                <input type="checkbox" [(ngModel)]='mm.isShow' />
+                <div [attr.class]='"show_box showBox_fc"+mm.num' [ngStyle]="{'background': fcColor[i%3][k%4]}"></div>
+              </label>
+              <div class='check_box_right'>
+                <span class='check_value'>{{mm.content}}</span>
+              </div>
+              <p [attr.class]='"ensure ensure"+i+k+" ensure"+i'>确</p>
+            </div>
+
+            <!-- <ul class='setChartBtn' [attr.class]='"setChartBtn setChartBtn"+i+mm.num'>
+              <li class='nowChart' (click)='clickNowChart(item.pnNum,mm.id,mm.content,i,k)'>设为当前预测</li>
+              <li [attr.class]='"conSave conSave"+i+k' (click)='clickSave(mm.lineCode,mm.content,i)'>保存</li>
+              <li [attr.class]='"confirmChart confirmChart"+i+k' (click)='clickConfirmUse(mm.id,i,k)'>确认使用</li>
+              <li [attr.class]='"delChart delChart"+i+k' (click)='clickDelLine(mm.lineCode,i,k)'>删除曲线</li>
+            </ul> -->
+          </div>
+        </li>
+      </ul>
+      <!-- <div class='confirmUseBox'>
+        <p class='closeEnsure' (click)='clickClock()'>X</p>
+        <p class='userTime'>确认使用时间</p>
+        <span class='time_box'>
+          <nz-demo-date-picker-basic [date]='last_time_buy'>
+          </nz-demo-date-picker-basic>
+        </span>
+      </div> -->
+      <div class='delLineBox'>
+        <p class='isDel'>确认删除该曲线吗？</p>
+        <p class='isDelHint'>删除后无法找回</p>
+        <p class='delBut'>
+          <button class='isDelBtn' (click)='confirmDelLine()'>删除</button>
+          <button class='isDelCancel' (click)='countermandLine()'>取消</button>
+        </p>
+      </div>
+      <div class='exceedTenLine'>
+        <p>图表中曲线已超过10根</p>
+        <p>适当删减或隐藏曲线</p>
+        <button class='isYes' (click)='useIsYes()'>知道了</button>
+      </div>
+    </div>
+
+    <ul class='setChartBtn' (mouseenter)='setFcOperation()' (mouseleave)='hideSetChart()'>
+      <li class='nowChart' (click)='clickNowChart()'>设为当前预测</li>
+      <li class='conSave' (click)='clickSave()'>保存</li>
+      <li class='confirmChart' (click)='clickConfirmUse()'>确认使用</li>
+      <li class='delChart' (click)='clickDelLine()'>删除曲线</li>
+    </ul>
+    <p class='nowFcLocation'>当前预测曲线</p>
+    <p class='nowBjLocation'>编辑中曲线</p>
+    <div class='fcMarkpoint'>
+      <p>{{markPoint_name}}时间：</p>
+      <span>{{fc_markPoint_time}}</span>
+    </div>
+    <div class='timeBtn' *ngIf='showtimeBox'>
+      <div class='timeStart timeStartFc'>
+        <span (click)='fcClickStn()' class='startNum startNumfc'>{{startNum}}</span>
+        <app-time-select [timeList]='timeStartList' [className]='"start"' [chartName]='"fc"'
+          (fcData)='clickStartNum($event,"fc")'></app-time-select>
+      </div>
+      <div class='timeEnd timeEndFc'>
+        <span (click)='fcClickEtn()' class='endNum endNumfc'>{{endNum}}</span>
+        <app-time-select [timeList]='timeEndList' [className]='"end"' [chartName]='"fc"'
+          (fcData)='clickEndNum($event,"fc")'></app-time-select>
+      </div>
+    </div>
+  </div>
+  <div id='chartTwo'>
+    <div echarts [options]='malfunctionOptions' class='malfunctionChart' (chartInit)='malfunctionChartInit($event)'
+      (chartDataZoom)='dataZoomFc($event)' (chartMouseOver)="onChartEventOver($event)"
+      (chartMouseOut)='onChartEventOut($event)'></div>
+    <div class="checkBox">
+      <ul>
+        <li *ngFor="let item of mlCheckBox;let i=index;">
+          <p class='checkList_pnNum'>{{item.pnNum}}</p>
+          <div class='checkList_box' *ngFor="let mm of item.pnCont;let k=index;"
+            (mouseleave)='mfHideSetChart(mm.legendName)'>
+            <div class='check_one_Box' (click)="fcLegendClick($event, 'mf', mm.isShow,i, k,mm.legendName);"
+              (mouseenter)='mfShowSetChart(mm.legendName)'>
+              <input type="checkbox" [(ngModel)]='mm.isShow' class='checkbox_null' />
+              <label class="label_checkbox">
+                <input type="checkbox" [(ngModel)]="mm.isShow" />
+                <div [attr.class]='"show_box showBox_mf"+mm.num' [ngStyle]="{'background': mfColor[i%3][k%3]}"></div>
+              </label>
+              <div class='check_box_right'>
+                <span class='check_value'>{{mm.content}}</span>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class='mfMarkpoint'>
+      <p>{{markPoint_name}}时间：</p>
+      <span>{{fc_markPoint_time}}</span>
+    </div>
+    <div class='timeBtn' *ngIf='showtimeBox'>
+      <div class='timeStart timeStartMf'>
+        <span (click)='mfClickStn()' class='startNum startNummf'>{{startNum}}</span>
+        <app-time-select [timeList]='timeStartList' [className]='"start"' [chartName]='"mf"'
+          (mfData)='clickStartNum($event,"mf")'></app-time-select>
+      </div>
+      <div class='timeEnd timeEndMf'>
+        <span (click)='mfClickEtn()' class='endNum endNummf'>{{endNum}}</span>
+        <app-time-select [timeList]='timeEndList' [className]='"end"' [chartName]='"mf"'
+          (mfData)='clickEndNum($event,"mf")'></app-time-select>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<ng-template #timeListTemplate>
+  <div class='timeBox'>
+    <ul class='year'>
+      <li class='yearLi' #yearLi *ngFor="let item of yearList;let i = index">
+        <i class='left_move' (click)='leftMove(i)'></i>
+        {{item}}
+        <i class='right_move' (click)='rightMove(i)'></i>
+      </li>
+    </ul>
+    <ul class='month'>
+      <li class='month_List' *ngFor="let item of monthList;let i=index;">
+        <ul>
+          <li class='monthLi' #monthLi *ngFor="let time of item" (click)='clickStartNum(time,i)'>{{time}}</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+</ng-template>

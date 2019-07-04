@@ -1,0 +1,132 @@
+@function pxToRem($number) {
+  @return ($number/20)+rem;
+  // @return $number+px;
+}
+
+.vertivalAlign-middle {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#singlePredictionDetailsSearchBody {
+  height: pxToRem(70.5);
+  border-bottom: 1px solid rgba(168, 173, 180, 0.25);
+  width: 100%;
+
+  .search-box {
+    height: 100%;
+
+    .iconSearch {
+      margin-left: pxToRem(42);
+      margin-right: pxToRem(23);
+      @extend .vertivalAlign-middle;
+
+    }
+
+    .input-history {
+      width: 80%;
+      height: 100%;
+      @extend .vertivalAlign-middle;
+      white-space: nowrap;
+      overflow-x: auto;
+
+      span.vertivalAlign-middle {
+        height: 100%;
+        width: 0;
+      }
+
+      div.input-history-btn {
+        background-color: #EDF1F5;
+        border-radius: pxToRem(12);
+        height: pxToRem(28);
+        line-height: pxToRem(28);
+        font-size: pxToRem(20);
+        padding: 0 pxToRem(31) 0 pxToRem(4.5);
+        @extend .vertivalAlign-middle;
+        position: relative;
+
+        // :after {
+        //   content: '';
+        //   position: absolute;
+
+
+        // }
+      }
+
+      input {
+        height: pxToRem(28);
+        line-height: pxToRem(28);
+        font-size: pxToRem(20);
+        @extend .vertivalAlign-middle;
+      }
+    }
+  }
+
+  .pnlist {
+    width: 100%;
+
+    .pnUl {
+      width: 100%;
+      background-color: #fff;
+      color: #3b200c;
+      border: none;
+      position: absolute;
+      z-index: 100;
+
+      .pnCont {
+        height: 61/20+rem;
+        font-family: 'PingFangSC-Regular';
+        font-size: 1rem;
+        color: #152C2C;
+        letter-spacing: 0;
+        text-align: justify;
+        line-height: 35px;
+        padding: 16/20+rem 0 0 91/20+rem;
+
+        &:hover {
+          background-color: #949EB6;
+
+        }
+
+        &.bg {
+          background-color: #949EB6;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .edit-box {
+    // position: absolute;
+    // left: 0;
+    // top: 0;
+    // z-index: 1001;
+    
+    ul {
+      z-index: 1001;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: #FFFFFF;
+      border: 1px solid rgba(124, 134, 159, 0.16);
+      -webkit-box-shadow: -6px 3px 11px 0 rgba(204, 214, 223, 0.22);
+      box-shadow: -6px 3px 11px 0 rgba(204, 214, 223, 0.22);
+      border-radius: 2px;
+
+      li {
+        font-family: 'MicrosoftYaHeiUI';
+        font-size: pxToRem(12);
+        color: #3F4659;
+        // letter-spacing: pxToRem(15);
+        text-align: justify;
+        line-height: pxToRem(15);
+        padding: pxToRem(2) pxToRem(10);
+        margin: pxToRem(6) 0;
+        &:hover{
+          background-color: gray;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

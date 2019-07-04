@@ -1,0 +1,55 @@
+<section class="batch_search" id="batchSearch" style="display:block;">
+  <!-- <section class="batch_search" id="batchSearch" style="display:none;"> -->
+  <p>请输入物料号或替换组编号</p>
+  <section id="operatorArea">
+    <ul>
+      <li id='addPrediction' (click)="addPrediction()">
+        <span class="icon"></span>
+        <span class="text">添加预测组</span>
+      </li>
+      <li id='moreLeadin' (click)='getFile()'>
+        <section id="leadIn">
+          <span class="icon"></span>
+          <span class="text">
+            批量导入</span>
+        </section>
+      </li>
+    </ul>
+  </section>
+  <section id="searchArea">
+    <ng-template ngFor let-item let-i=index [ngForOf]='pnListDetailsData'>
+      <section class="search-wraper">
+        <span class="serial-number">
+          {{ i+1<10 ? "0"+(i+1) : (i+1)   }}
+        </span>
+        <span class="search-component">
+
+          <app-single-search
+            (batchSearchWatchPnArrAndPnindexAndChangeOr)='batchSearchWatchPnArrAndPnindexAndChangeOr($event)'
+            [applyMode]='"batchSearchMode"' [parentDataObj]='item' [curIndex]='i' [isAllowChange]='i===-1'>
+          </app-single-search>
+        </span>
+      </section>
+    </ng-template>
+  </section>
+
+  <ul class='pnUl' *ngIf='pnArr.length>0'>
+    <li class='pnCont' #pnCont [attr.index]='i' (click)='getCode(searchCode,pnCont);' style="display:none;">
+      {{keyWord}}</li>
+    <li *ngFor="let item of pnArr; let i = index" class='pnCont' #pnCont [attr.index]='i+1'
+      [ngClass]="{'bg':pnIndex == i+1}" (click)='getCode(changeOr,pnCont);'>{{item.code}}</li>
+  </ul>
+
+  <section class="prediction-btn">
+    <section class="message" [ngStyle]="numNotExitsIsShow()">
+      <span class="icon"></span>
+      <span class="text">编号不存在</span>
+    </section>
+    <span class="start-prediction" [ngStyle]="isDisabledStartPrediction()" id="batchStartPrediction"
+      (click)='startPredicton("batchStartPrediction")'>预测</span>
+  </section>
+</section>
+
+
+<app-dragupload *ngIf='isShowUploadComponent' [textContent]="{titleText:'拖拽文件进行上传',descriptionText: '将Excel文件拖放至此处'}"
+  (dropedEvent)='dropedEvent($event)' (closeComponent)='closeDragUpload($event)'></app-dragupload>

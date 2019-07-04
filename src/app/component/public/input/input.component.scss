@@ -1,0 +1,127 @@
+@function pxToRem($number) {
+  @return ($number/20)+rem;
+  // @return $number+px;
+}
+
+.inlineBlockAndVerTicalAlignMiddle {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.shadow {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.hide-arrow::-webkit-inner-spin-button,
+.hide-arrow::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+}
+
+.hide-arrow[type=number] {
+  -moz-appearance: none !important;
+}
+
+
+
+input {
+  &:hover {
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: block !important;
+    }
+
+    &[type=number] {
+      -moz-appearance: block !important;
+    }
+
+    &+span.unit {
+      display: none;
+    }
+  }
+
+  &:focus {
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none !important;
+    }
+
+    &[type=number] {
+      -moz-appearance: none !important;
+    }
+
+    &+span.unit {
+      display: inline-block;
+    }
+  }
+}
+
+// input{
+//   background-color: transparent;
+//   color: #aaa;
+//   border: 1px solid #aaa;
+// }
+
+.type-number {
+  position: relative;
+  border: 1px solid #000;
+  width: pxToRem(100);
+  height: pxToRem(18);
+
+  input {
+    position: absolute;
+    height: 100%;
+    width: calc(100% - 1rem);
+    left: 0;
+  }
+
+  .operator {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: pxToRem(20);
+    background-color: transparent;
+
+    button {
+      float: right;
+      width: 100%;
+      height: 50%;
+      line-height: 50%;
+      background: yellow;
+      line-height: 0.8;
+      cursor: pointer;
+    }
+
+    button:first-child {
+      background-color: orange;
+
+      &:hover {
+        background-color: purple;
+      }
+    }
+
+    button:last-child {
+      transform: rotate(180deg);
+      padding-right: pxToRem(1);
+
+      &:hover {
+        background-color: red;
+      }
+    }
+  }
+
+  .unit {
+    position: absolute;
+    right: 0;
+
+  }
+}

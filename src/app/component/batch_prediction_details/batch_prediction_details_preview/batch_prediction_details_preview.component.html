@@ -1,0 +1,21 @@
+<section id='barch_chart'>
+  <div  echarts [options]='chartOption' class='chartOption'></div>
+  <div class="checkBox">
+    <ul class='checkList'>
+      <ng-container *ngFor="let item of fcCheckBox;let i=index;">
+        <li>
+          <div class='check_one_Box'>
+            <input type="checkbox" [(ngModel)]='item.isShow' class="checkbox_null" />
+            <label class="label_checkbox">
+              <input type="checkbox" [(ngModel)]='item.isShow' />
+              <div [attr.class]='"show_box showBox_fc"+item.num' [ngStyle]="{'background': fcColor[i%5]}"></div>
+            </label>
+            <div class='check_box_right'>
+              <span class='check_value'>{{item.content}}</span>
+            </div>
+          </div>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</section>

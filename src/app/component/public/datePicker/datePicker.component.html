@@ -1,0 +1,5 @@
+<span [attr.id]='"datePicker"+curIndex+type' class="datePicker" [attr.type]='type'>
+  <nz-date-picker [(ngModel)]="date" [nzAllowClear]='false' [nzDisabled]='false' [nzDisabledDate]='disabledDate'
+    [nzStyle]='dataPickerInputStyle' [nzPopupStyle]='dataPickerPopupStyle' (ngModelChange)="onChange($event)"
+    [nzAutoFocus]='false' [nzFormat]='"yyyy-MM-dd"'></nz-date-picker>
+</span>

@@ -1,0 +1,10 @@
+@function pxToRem($number) {
+  @return ($number/20)+rem;
+  // @return $number+px;
+}
+
+#curveParameter {
+  width: pxToRem(832);
+  width: 100%;
+  // margin-left: pxToRem(24);
+}

@@ -1,0 +1,64 @@
+<section id="batchPredictionDetails">
+  <header class="details-header">
+    <section class="left">
+      <span class="return-bar" (click)="reBatchSearPage()">
+        <span class="icon"></span>
+        <span class="text">返回</span>
+      </span>
+      <ul id="panelOrList">
+        <li class="panel" [ngClass]="{'panel_bar': showPanelOrList}" (click)='showPanelOrListToggle(false)'></li>
+        <li class="list" [ngClass]="{'list_bar': showPanelOrList}" (click)='showPanelOrListToggle(true)'></li>
+      </ul>
+    </section>
+    <section class="right">
+      <ul id="predictionOperator">
+        <li class="add-prediction" (click)="showSearchBox(true)">
+          <i class='add_img'></i>
+          <span class='prediction_cont'>添加预测组</span>
+        </li>
+        <li class="more-leading" (click)='getFile()'>
+          <i class='more_img'></i>
+          <span class='prediction_cont'>批量导入</span>
+        </li>
+        <li class="manage-prediction" (click)='enterManageGroup()'>
+          <i class='manage_img'></i>
+          <span class='prediction_cont'>管理预测组</span>
+        </li>
+        <li class="prediction_export" (click)='exportBatch()'>
+          <i class='export_img'></i>
+          <span class='prediction_cont'>导出</span>
+        </li>
+      </ul>
+    </section>
+  </header>
+  <section id="batchPredictionDetailsPanelWraper" *ngIf="!showPanelOrList">
+    <app-batch-prediction-details-panel [allData]='batchPredictionDetailsData'
+      (changeParentData)='changeParentData($event)'>
+    </app-batch-prediction-details-panel>
+  </section>
+  <section id="batchPredictionDetailsListWraper" *ngIf="showPanelOrList">
+    <app-batch-prediction-details-list [allData]='batchPredictionDetailsData'></app-batch-prediction-details-list>
+  </section>
+  <footer *ngIf="!showPanelOrList">
+    <section class="all-select">
+      <label (click)='allSelect()' for="batchPredictionDetailsAllSelect">
+        <input id="batchPredictionDetailsAllSelect" type="checkbox" [(ngModel)]="isAllSelect">
+        <span class="virtual-ipt"></span>
+        <span class="text">全选</span>
+      </label>
+    </section>
+    <section class="contrast-save">
+      <span class="contrast" [ngStyle]="contrastIsAllow()" (click)='startContrast()'>对比</span>
+      <span class="save" [ngStyle]="contrastIsAllow()" (click)='allSave()'>保存</span>
+    </section>
+  </footer>
+</section>
+
+<ng-template [ngIf]='isShowSearchBox'>
+  <app-single-search (batchDetailsStartPredictionClick)='startPrediction($event)'
+    (batchDetailsClosePredictionClick)='closeSearchBox($event)' [applyMode]='"batchDetails"'>
+  </app-single-search>
+</ng-template>
+
+<app-save-line-pop #saveLinePop [isShowSavePop]='isShowSavePop' [placeholder]='saveLinePopPlaceHolder'
+  (editSaveLinesEmit)='editSaveLines($event)' (isHideSavePopEmit)='isHideSavePop($event)'></app-save-line-pop>

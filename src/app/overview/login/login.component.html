@@ -1,0 +1,47 @@
+<section id="login-body">
+  <img id="imgLoginBg" src="./assets/login/bg.png" alt="">
+  <section class="form-panel">
+    <h1>CSSC</h1>
+    <h1>AI Demand Prediction System</h1>
+    <form action="">
+      <div class="account">
+        <span [style.display]='account.value?"inline-block":"none"' [style.height]='account.value?"auto":"0px"'>IT
+          code</span>
+        <input type="text" [style.height]='account.value?"50%":"100%"' class='account-input' #account
+          (focus)='accountFocus(account)' (blur)='accountBlur(account)' placeholder="IT code"
+          autocomplete="new-password" readonly>
+      </div>
+      <div class="password">
+        <span [style.display]='password.value?"inline-block":"none"'
+          [style.height]='password.value?"auto":"0px"'>密码</span>
+        <input #password type="password" [style.height]='password.value?"50%":"100%"' class="password-input"
+          (keydown)='replaceXing(password)' (change)='replaceXing(password)' (keyup)='replaceXing(password)'
+          (keyup.enter)='register(account,password)' (focus)='accountFocus(password)' (blur)='accountBlur(password)'
+          autocomplete="new-password" placeholder="密码" readonly>
+        <img (click)='showPassword(password)'
+          [attr.src]="password.type=='text' ? './assets/login/img_password_show.png' : './assets/login/img_password_hide.png' "
+          src="./assets/login/img_password_hide.png" alt="">
+      </div>
+      <div class="remember-password">
+        <label for="item">
+          <input id='item' #rememberPassword type="checkbox">
+          <span></span>
+          <i style="display:inline-block;">记住我</i>
+        </label>
+        <div class="wangji-mima" (mouseenter)='forgetPassWordEnter()' (mouseleave)='forgetPassWordLeave()'>
+          <span [ngClass]="{'forgetPasswordIsEnter': forgetPasswordIsEnter}"
+            (click)='showTipsPassword(wangjiPasswordTips,$event.target)'>
+            忘记密码?
+          </span>
+          <div class="wangji-mima-tips" [ngStyle]="{'display':forgetPasswordIsEnter?'block':'none'}"
+            #wangjiPasswordTips>
+            <p>如忘记密码请联系管理员：</p>
+            <p class="Gotham-Book">18610103454</p>
+            <span #isCopySuccess (click)='copyPhone(isCopySuccess)'>复制联系方式</span>
+          </div>
+        </div>
+      </div>
+      <button type='button' #btnRegister (click)='register(account,password);' class="btn-register">登录</button>
+    </form>
+  </section>
+</section>

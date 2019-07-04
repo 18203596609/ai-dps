@@ -1,0 +1,63 @@
+@function pxToRem($number) {
+  @return ($number/20)+rem;
+  // @return $number+px;
+}
+
+#singlePredictionDetails {
+  position: relative;
+  height: pxToRem(768);
+  width: pxToRem(1220);
+  overflow-x: hidden;
+  overflow-y: hidden;
+
+  height: 100%;
+  width: 100%;
+  background: #F5F6F9;
+  // border: 1px solid rgba(87, 18, 18, 0.25);
+  box-shadow: 0 2px 7px 0 rgba(98, 98, 99, 0.05);
+
+  .detail-area-parent {
+    height: calc(100% - 3.525rem);
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0 4.1rem;
+  }
+
+  .detail-area {
+    padding: pxToRem(29.5) pxToRem(82) 0 pxToRem(83);
+    width: 100%;
+    // height: calc(100% - 3.525rem);
+    padding: 0;
+    padding-top: pxToRem(29.5);
+    // width: pxToRem(1096);
+    margin: 0 auto;
+
+    .detail-parameter {
+      display: flex;
+
+      .left {
+        width: pxToRem(240);
+        margin-right: pxToRem(24);
+      }
+
+      .right {
+        width: 100%;
+        // min-width: pxToRem(545);
+      }
+    }
+
+
+    // .comparison {
+    //   width: pxToRem(1095);
+    //   height: pxToRem(108);
+    //   background: #FFFFFF;
+    //   border: 1px solid rgba(148, 158, 182, 0.16);
+    //   box-shadow: 0 1px 11px 0 rgba(204, 214, 223, 0.22);
+    //   border-radius: 8px;
+    //   margin: pxToRem(25) 0 pxToRem(150) pxToRem(84);
+    //   margin: 0 auto;
+    // }
+
+  }
+}

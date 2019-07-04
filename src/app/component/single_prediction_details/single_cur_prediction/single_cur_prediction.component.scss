@@ -1,0 +1,104 @@
+@function pxToRem($number) {
+  @return ($number/20)+rem;
+  // @return $number+px;
+}
+
+
+
+#singleCurPrediction {
+  width: pxToRem(240);
+  background: #FFFFFF;
+  border: 1px solid rgba(148, 158, 182, 0.16);
+  box-shadow: 0 1px 11px 0 rgba(204, 214, 223, 0.22);
+  border-radius: pxToRem(8);
+  div.title {
+    height: pxToRem(55.5);
+    line-height: pxToRem(55.5);
+    border-bottom: 1px solid rgba(168, 173, 180, 0.25);
+    margin-bottom: pxToRem(9.5);
+    padding-left: 0.9rem;
+
+    span.title {
+      opacity: 0.8;
+      font-family: MicrosoftYaHeiUI;
+      font-size: pxToRem(14);
+      color: #3F4659;
+      letter-spacing: 0;
+      text-align: justify;
+      line-height: pxToRem(24);
+    }
+  }
+
+  section.content {
+    padding: pxToRem(18);
+    padding-top: 0;
+    position: relative;
+    height: calc(100% - 2.775rem - 0.475rem);
+
+    ul {
+      margin: 0;
+
+      li {
+        display: block;
+        clear: both;
+        margin-bottom: pxToRem(12);
+        position: relative;
+
+        span {
+          display: inline-block;
+          vertical-align: middle;
+          font-family: MicrosoftYaHeiUI;
+          font-size: pxToRem(12);
+          color: #3F4659;
+          letter-spacing: 0;
+          text-align: justify;
+          line-height: pxToRem(24);
+          overflow: hidden;
+        }
+
+        span:first-child {
+          width: 65%;
+          float: left;
+        }
+
+        span:nth-child(2) {
+          width: 35%;
+          float: right;
+          font-family: Gotham-Bold;
+          font-size: pxToRem(20);
+          color: #3F4659;
+          letter-spacing: -0.4px;
+          line-height: pxToRem(24);
+        }
+
+        span.morenzhi {
+          font-family: MicrosoftYaHeiUI;
+          font-size: 0.6rem;
+        }
+
+        i {
+          clear: both;
+          display: block;
+        }
+      }
+
+      li:last-child {
+        margin: 0;
+        position: relative;
+
+        span.btn-span {
+          padding: 0;
+          margin: 0;
+          font-family: MicrosoftYaHeiUI;
+          font-size: pxToRem(12);
+          color: #00B9FF;
+          letter-spacing: 0;
+          line-height: pxToRem(24);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+
+}

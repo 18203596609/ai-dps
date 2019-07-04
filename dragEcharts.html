@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.2.1/echarts.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #draggable {
+            width: 20px;
+            height: 20px;
+            /* border: 1px solid #000; */
+            border-radius: 50%;
+            background-color: red;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        main {
+            position: relative;
+        }
+
+        #changeRaNum {
+            width: 50px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            border: 1px solid #000;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div id="main" style="width: 600px;height:400px;"></div>
+        <input type="number" id="changeRaNum">
+        <div id="draggable"></div>
+    </main>
+
+    <script type="text/javascript">
+        var symbolSize = 20;
+        // var data = [15, 50, 56.5, 46.5, 22.1];
+        var data = [
+            {
+                name: '01',
+                value: 15,
+                symbolSize: '0'
+            },
+            {
+                name: '02',
+                value: 50,
+                symbolSize: '20'
+            },
+            {
+                name: '03',
+                value: 56.5,
+                symbolSize: '0'
+            },
+            {
+                name: '04',
+                value: 46.5,
+                symbolSize: '20'
+            },
+            {
+                name: '05',
+                value: 22.1,
+                symbolSize: '20'
+            },
+        ];
+
+        var myChart = echarts.init(document.getElementById('main'));
+        myChart.setOption({
+            // # 表示不使用默认的『显示』『隐藏』触发规则。
+            tooltip: {
+                triggerOn: 'mousemove',
+                formatter: function (params) {
+                    // console.log(params);
+                    return `<span>${params.value.toFixed(2)}</span>`;
+                    // return `X:${params.data.toFixed(2)}`;
+                }
+            },
+            xAxis: {
+                type: 'category',
+                axisLine: { onZero: false },
+                data: ['周一', '周二', '周三', '周四', '周五', '周六']
+            },
+            yAxis: {
+                min: -30,
+                max: 60,
+                type: 'value',
+                axisLine: { onZero: false }
+            },
+            series: [
+                {
+                    id: 'a',
+                    type: 'line',
+                    smooth: true,
+                    hoverAnimation: false,
+                    // symbolSize: symbolSize,
+                    data: data
+                }
+            ],
+        });
+
+        isHide = false; // 是否允许冒泡到document上后隐藏掉输入框
+        saveIndex = 0; // 保存当前点击的是哪一个点
+        isMouseDown = false; // 判断当前是否鼠标按下中
+        const dragW = $("#draggable")[0].offsetWidth / 2; // 获取到当前拖拽元素的宽
+        const dragH = $("#draggable")[0].offsetHeight / 2; // 获取到当前拖拽元素的高
+
+        function showTooltip(dataIndex) {
+            myChart.dispatchAction({
+                type: 'showTip',
+                seriesIndex: 0,
+                dataIndex: dataIndex
+            });
+        }
+        function hideTooltip(dataIndex) {
+            myChart.dispatchAction({
+                type: 'hideTip'
+            });
+        }
+
+        myChart.on('click', function (param) {
+            console.log(param);
+            isHide = true;
+            // console.log(this);
+            // console.log(param, 123);
+            // console.log(param.event.offsetX, param.event.offsetY);
+            // console.log(myChart.convertFromPixel('grid', [param.event.offsetX, param.event.offsetY]));
+            saveIndex = myChart.convertFromPixel('grid', [param.event.offsetX, param.event.offsetY])[0];
+
+            $('#changeRaNum').show().val('');
+            $('#changeRaNum').css({ left: param.event.offsetX - dragW, top: param.event.offsetY - dragW });
+
+            setTimeout(() => { isHide = false; }, 10);
+        })
+        myChart.getZr().on('click', function (param) {
+            setTimeout(() => {
+                if (!isHide) {
+                    console.log(param);
+                }
+            }, 0);
+        })
+
+        myChart.on('mousedown', function (param) {
+            console.log('mousedown');
+            isMouseDown = true;
+            saveIndex = myChart.convertFromPixel('grid', [param.event.offsetX, param.event.offsetY])[0];
+
+
+        })
+
+        myChart.getZr().on('mousemove', function (param) {
+            const dIndex = myChart.convertFromPixel('grid', [param.event.offsetX, param.event.offsetY])[0];
+            showTooltip(dIndex);
+
+            if (isMouseDown) {
+                $('#draggable').css({ top: param.offsetY - dragH });
+                const position = myChart.convertFromPixel('grid', [param.event.offsetX, param.offsetY - dragH + 10]);
+                data[saveIndex]['value'] = position[1];
+
+                myChart.setOption({
+                    series: [{
+                        id: 'a',
+                        data: data
+                    }]
+                });
+                // console.log(data);
+            }
+        })
+        myChart.getZr().on('globalout', function (param) {
+            // console.log('globalout');
+            hideTooltip();
+        });
+        myChart.getZr().on('mouseup', function (param) {
+            isMouseDown = false;
+            saveIndex = -1;
+            // console.log('mouseup');
+        });
+
+
+
+        $('#changeRaNum').on('change', function (event) {
+            console.log(event.target.value.length, 'change');
+            if (event.target.value.length > 0) {
+
+                data[saveIndex]['value'] = Number(event.target.value);
+                myChart.setOption({
+                    series: [{
+                        id: 'a',
+                        data: data
+                    }]
+                });
+            }
+        })
+
+        document.addEventListener('click', (event) => {
+            console.log(event);
+            const changeRaNum = document.querySelector('#changeRaNum');
+            if (!isHide && event.target !== changeRaNum) {
+                saveIndex = -1;
+                $('#changeRaNum').hide();
+            }
+        })
+
+
+        // $("#draggable").draggable();
+
+    </script>
+</body>
+
+</html>

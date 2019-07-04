@@ -1,0 +1,142 @@
+<!-- {{leftpos}}--{{toppos}} -->
+<section id="batchPredictionPanelBody" class="sortable">
+  <ng-template ngFor let-item let-i=index let-curIndex=index [ngForOf]='allData'>
+    <section class="panel-waper" [attr.id]='"sortableChild"+i' (mouseover)='mouseoverPanel(i)'
+      (mouseout)='mouseoutPanel(i)' [attr.curElement]='"curElement"+curIndex'>
+      <div class="panel">
+        <section class="panel-top">
+          <div class="form-input">
+            <input [attr.id]='"isChecked"+i' [(ngModel)]="item.isChecked" type="checkbox">
+            <span (click)='selectPanel(item,i)'></span>
+          </div>
+          <span class="pnCode ellipsis" (mouseenter)='pnCodeDetailsIsShow($event,true)'
+            (mouseleave)='pnCodeDetailsIsShow($event,false)'><i
+              style="display:none;">{{curIndex}}----</i>{{item.btnList}}</span>
+          <div class="pnCode-title" (mouseenter)='pnCodeDetailsIsShow($event,true)'
+            (mouseleave)='pnCodeDetailsIsShow($event,false)'>
+            <ng-template ngFor let-cont let-i=index [ngForOf]='item.pnList'>
+              <span>{{cont}}</span>
+            </ng-template>
+          </div>
+          <div class='selectList'>
+            <div class="dropdown">
+              <div class="select">
+                {{item.fcSelect.length}}asdf
+                <span *ngIf='item.fcSelect.length'
+                  (click)='$event.stopPropagation();showCurPredictionLineSelect($event)'
+                  style="position:absolute;left:0;top:0;bottom:0;right:0;z-index:0;width:100%;height:100%;background-color: rgba(255, 0, 0,0);"></span>
+                <span *ngIf='!item.fcSelect.length'
+                  style="position:absolute;left:0;top:0;bottom:0;right:0;z-index:0;width:100%;height:100%;background-color: rgba(0,0,0,0);cursor: not-allowed;"></span>
+                <span class="select-color-area" [attr.id]='"bgcolor"+curIndex'
+                  [attr.bgcolor]='item.fcSelect.length>0?item.fcSelect[0].color:"transparent"' #selectColorArea
+                  [ngStyle]="changeSelectColor('bgcolor'+curIndex)" style="width:0rem;"></span>
+                <span class="select-value" #selectValue
+                  [attr.id]='"selectValue"+curIndex'>{{item.fcSelect.length>0?item.fcSelect[0].value:''}}</span>
+
+
+                <span class="icon">
+                  <i [appWatchChange]='[0,selectOption.style.display,changeSelectIcon]' #selectListIcon class=""></i>
+                </span>
+              </div>
+              <ul class="select-option" [attr.id]='curIndex' #selectOption>
+                <li *ngFor="let cont of item.fcSelect;let i=index" [attr.id]='"selectOptionLiId"+curIndex+i'
+                  (click)='$event.stopPropagation();getCurValue(selectColorArea,selectValue,"selectOptionLiId"+curIndex+i,i,cont,parentData?.btnList,true)'>
+                  <span class="select-option-color-area" [attr.id]='"bgcolor"+curIndex+i' [attr.bgcolor]='cont.color'
+                    [ngStyle]="changeSelectColor('bgcolor'+curIndex+i)" style="width:0rem;"></span>
+                  <span class="select-option-value">{{cont.value}}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <section class="panel-center">
+          <section class="ai-algorithm-parameters">
+            <span class="algorithm-title">AI算法参数</span>
+            <ul class="algorithm-parameter">
+              <li>
+                <span>月需求率</span>
+                <span class="parameter-value">{{item.forcastParams.flRaByMounth}}%</span>
+              </li>
+              <li>
+                <span>延保率</span>
+                <span class="parameter-value">{{item.forcastParams.flWarranty}}%</span>
+              </li>
+              <li>
+                <span>时间</span>
+                <span class="parameter-value">{{item.forcastParams.last_time_buy}}</span>
+              </li>
+            </ul>
+          </section>
+
+          <section class="human-algorithm-parameters">
+            <span class="algorithm-title">人工算法参数</span>
+            <ul class="algorithm-parameter">
+              <li>
+                <span>月需求率</span>
+                <span class="parameter-value">{{item.forcastParams.huInwarrantyRate}}%</span>
+              </li>
+              <li>
+                <span>延保率</span>
+                <span class="parameter-value">{{item.forcastParams.demandRate}}%</span>
+              </li>
+            </ul>
+          </section>
+
+          <section class="edit-area">
+            <section class="edit-preview">
+
+              <span *ngIf='item.projectModelIsNull' (mouseenter)='previewChartShow($event,item)'>预览</span>
+              <span *ngIf='!item.projectModelIsNull' class="disabled" style="cursor:not-allowed;">预览</span>
+
+            </section>
+            <section class="edit-change">
+              <span (click)='modifiCurGroup(item)' *ngIf='item.projectModelIsNull'>修改</span>
+              <span *ngIf='!item.projectModelIsNull' class="disabled" style="cursor:not-allowed;">修改</span>
+            </section>
+            <section class="edit-save">
+              <span *ngIf='item.projectModelIsNull' (click)="isHideSavePop($event,true)" [attr.index]='curIndex'
+                [attr.batchSaveLineBtn]='false' class="batchSaveLineBtn">保存</span>
+              <span *ngIf='!item.projectModelIsNull' [attr.index]='curIndex' [attr.batchSaveLineBtn]='false'
+                style="cursor:not-allowed;" class="disabled">保存</span>
+            </section>
+          </section>
+        </section>
+
+        <section class="panel-bottom">
+          <section class="isSaveOrApply">
+            <span class="apply" *ngIf='item.curPredLineIsUsed'>确</span>
+            <span class="save">存</span>
+          </section>
+          <section class="more-info" (click)="showMoreInfo(item,i)">
+            <span class="info-text">更多信息</span>
+            <span class="icon more-info-icon"></span>
+          </section>
+        </section>
+      </div>
+    </section>
+
+    <!-- 如果是往下顶的结构，则需要在第三个后边添加标签，可以重新分数据，每一个行分一个数组然后遍历两次，一个显示数据，一个显示详情 -->
+    <!-- <section *ngIf='item.isShowMoreInfo' style="background-color: #000;height:500px;margin: 0 0.65rem; clear:both;"
+      class="param-area">
+      {{i}}{{item.isShowMoreInfo}}
+    </section> -->
+
+    <!-- 当前数据直接渲染，会产生好多个html标签内容 -->
+    <!-- <section *ngIf='item.isShowMoreInfo'
+      style="background-color: #000;height:500px;position: absolute;left: 4.15rem;right: 4.15rem;opacity:0.5;z-index:1;color:#fff;font-size: 150px;"
+      [ngStyle]="getPanelParamTop(i)" class="param-area">
+      {{i}}{{item.isShowMoreInfo}}
+    </section> -->
+  </ng-template>
+
+  <!-- 当前数据只会存在一个标签 -->
+  <section *ngIf='showMoreInfoData.length>0' [ngStyle]="getPanelParamTop()" class="param-area">
+    <app-detailsdata-panel [panelData]='showMoreInfoData' [allData]='allData'
+      [curIndex]='this.getCurActivePanelIndex.moreInfo'></app-detailsdata-panel>
+  </section>
+
+  <!-- 预览显示图表 -->
+  <div *ngIf="isShowChart" class='chart_box' style="display:none;" (mouseleave)='previewChartNot($event)'>
+    <app-batch-prediction-details-preview [allData]='chartData'></app-batch-prediction-details-preview>
+  </div>
+</section>

@@ -1,0 +1,141 @@
+<section id='batch_prediction_box'>
+  <div id='batch_prediction_top'>
+    <div class='batch_prediction_table'>
+      <!-- 表头 -->
+      <!-- <ul class='table_head'>
+        <li *ngFor="let item of tableHead">{{item}}</li>
+      </ul> -->
+      <!-- 表格部分 -->
+      <table class='batch_table_show' id='batch_table_box' #batchTable>
+        <!-- <tr class='table_cont'></tr> -->
+        <tr class="table_cont_head">
+          <td [attr.class]="'tHead_td tHead_td'+h" *ngFor="let item of tableHead;let h=index" #thead>{{item}}</td>
+        </tr>
+        <ng-container *ngFor="let item of allData;let i=index">
+          <tr [attr.class]='"table_cont table_contTr table_cont"+i' #tableCont>
+            <td class='part_checkd_box table_cont_td0' #batchTd (mouseleave)='hideTopOrBottom(i)'>
+              <span [attr.class]='"part_number part_number"+i'
+                (mouseenter)='showTopOrBottom($event,tableCont,i)'>{{i+1<10?'0'+(i+1):i+1}}</span>
+              <!-- <td class='part_checkd_box' #batchTd>
+              <span [attr.class]='"part_number part_number"+i'>{{i+1<10?'0'+(i+1):i+1}}</span> -->
+              <div [attr.class]='"toggle_top_bottom toggle_top_bottom"+i'>
+                <span class='toggle_top' (click)='moveUp(i,"up")'></span>
+                <span class='toggle_bottom' (click)='moveUp(i,"down")'></span>
+              </div>
+              <div class='part_checkd' (click)='clickChecked(item,i,item.isChecked)'>
+                <input class="input_check" type="checkbox" [(ngModel)]='item.isChecked' />
+                <div class='show_check'></div>
+              </div>
+            </td>
+            <td class='replace_number table_cont_td1'>
+              <!-- <span class='cont'>{{item.pnList}}</span> -->
+              <span class='cont' (mouseenter)='showReplaceNum($event,i,"repNum_hover",item.pnList)'
+                (mouseleave)='hideReplaceNum("repNum_hover")'>{{item.pnList}}</span>
+            </td>
+            <td class='replace_name table_cont_td2'>
+              <!-- <span class='cont'>{{item.projectModel?.basicModel?.groupName}}</span> -->
+              <span class='cont'
+                (mouseenter)='showReplaceNum($event,i,"repName_hover",item.projectModel?.basicModel.groupName)'
+                (mouseleave)='hideReplaceNum("repName_hover")'>{{item.projectModel?.basicModel?.groupName}}</span>
+            </td>
+            <td class='demand_forecast_gross table_cont_td3'>
+              <span>{{item?.previewLineData?.lTotalFocast}}</span>
+            </td>
+            <td class='demand_time_du table_cont_td4'>
+              <span>{{item?.previewLineData?.forcastPeriod}}月</span>
+            </td>
+            <td class='demand_month table_cont_td5'>
+              <span class='be_num demand_month_num'>{{item.projectModel?.historyModel.nAverageMounth}}</span>
+              <span class='divide_num'
+                [appWatchChange]='[0,item.data?.projectModel?.historyModel?.nAverageMounth,nAverageMounthIsHighOrLow]'></span>
+            </td>
+            <td class='cost_price table_cont_td6'>
+              <span class='be_num cost_price_num'>{{item.projectModel?.historyModel.nCoust | appPercentage:2}}</span>
+              <span class='divide_num'
+                [appWatchChange]='[0,item.data?.projectModel?.historyModel?.nAverageMounth,nCoustIsHighOrLow]'></span>
+            </td>
+            <td class='operation_button table_cont_td7'>
+              <!-- <button class='batch_preview'>预览</button> -->
+              <button class='batch_preview' (mouseenter)='previewChartShow($event,item)'>预览</button>
+              <button class='batch_amend' (click)='modifiCurGroup(item)'>修改</button>
+              <button class='batch_save' (click)='clickSaveName(i)'>保存</button>
+              <button class='batch_use'>确认使用</button>
+            </td>
+            <td class='all_status table_cont_td8'>
+              <span [attr.class]='"batch_ensure batch_ensure"+i'>确</span>
+              <span [attr.class]='"batch_cun batch_cun"+i'>存</span>
+            </td>
+            <td class='even_more table_cont_td9' (click)='showMoreInfo($event,item,i)'>
+              <span [attr.class]='"select_down select_down"+i'></span>
+              <span [attr.class]='"select_up select_up"+i'></span>
+            </td>
+          </tr>
+        </ng-container>
+      </table>
+
+    </div>
+  </div>
+
+  <!-- 表格下操作部分 -->
+  <div id='batch_prediction_buttom'>
+    <div class='batch_buttom_left'>
+      <div class='check_box' (click)='allChecked()'>
+        <input type="checkbox" class='checkbox' [(ngModel)]='isAllChecked'>
+        <div class='show_check'></div>
+      </div>
+      <span>全选</span>
+    </div>
+    <div class='batch_buttom_right'>
+      <p class='selectSum'>
+        已选择<span>4</span>个预测组
+      </p>
+      <button class='batch_comparison' [ngClass]='{"batch_comparison_check":checkNum}' #batch_comparison
+        (click)='toComparisonPage("对比")'>对比</button>
+      <button class='bach_save' [ngClass]='{"batch_comparison_check":checkNum}' (click)='toComparisonPage("保存")'>保存</button>
+    </div>
+  </div>
+
+  <!-- <section>
+    <table class='testTable batch_table_show' border="1">
+      <ng-container *ngFor="let item of allData;let i=index">
+        <tr class='table_cont'>
+          <td class='part_checkd_box'>1111</td>
+          <td class='replace_number'>1111</td>
+          <td class='replace_name'>1111</td>
+          <td class='demand_forecast_gross'>1111</td>
+          <td class='demand_time_du'>1111</td>
+          <td class='demand_month'>1111</td>
+          <td class='cost_price'>1111</td>
+          <td class='operation_button'>1111</td>
+          <td class='all_status'>1111</td>
+          <td class='even_more'>1111</td>
+        </tr>
+      </ng-container>
+    </table>
+
+  </section> -->
+  <!-- 替换组编号 -->
+  <div [attr.class]='"repNum_hover"'>
+    <span class='startNum'>原始编号</span>
+    <p class='pnNum'>{{replaceValue}}</p>
+  </div>
+  <!-- 替换组名称 -->
+  <div [attr.class]='"repName_hover"'>
+    <span>{{replaceValue}}</span>
+  </div>
+
+  <!-- 显示保存框 -->
+  <div class='saveName_box' *ngIf="saveSingle.ifSaveName">
+    <app-save-line-pop [isShowSavePop]='saveSingle.ifSaveName' [placeholder]='saveSingle.placeholderName'
+      (editSaveLinesEmit)='getSaveName($event)' (isHideSavePopEmit)='getSaveName($event)'></app-save-line-pop>
+  </div>
+
+  <!-- 显示更多列表信息 -->
+  <div class='moreList' *ngIf="isShowMore">
+    <app-detailsdata-panel [panelData]='showMoreInfoData' [allData]='allData'></app-detailsdata-panel>
+  </div>
+  <!-- 显示预览图表 -->
+  <div *ngIf="isShowChart" class='chart_box' (mouseleave)='previewChartNot($event)'>
+    <app-batch-prediction-details-preview [allData]='chartData'></app-batch-prediction-details-preview>
+  </div>
+</section>

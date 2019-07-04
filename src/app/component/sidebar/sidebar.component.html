@@ -1,0 +1,122 @@
+<div class='sidebar' id="sideBar">
+  <p class="userName" [ngStyle]="{'visibility': sideBarService.isFold ? 'visible' : 'hidden' }">
+    Hi,
+    <span>{{userName}}</span>
+  </p>
+  <div class="setting" [ngStyle]="{'visibility': sideBarService.isFold ? 'visible' : 'hidden' }">
+    <button class="btn-setting" (click)='showSetting()'>设置</button>
+    <ul class=" btn-list">
+      <ng-template [ngIf]='sideBarService.isShowSetting'>
+        <li (click)="turnToEditPassword()">修改密码</li>
+        <li (click)="showExitPop()">退出登陆</li>
+      </ng-template>
+    </ul>
+  </div>
+  <ul>
+    <li class="singlePrediction">
+      <div class="singlePrediction-parent" [ngClass]="{
+        'single-active-parent': sideBarService.isBarActive.singlePrediction.active,
+        'paddLeft18px': !sideBarService.isFold
+      }" (click)='openOrCloseChildList($event,"singlePrediction")' [attr.isHasChild]='"true"'
+        [ngStyle]="{'backgroundColor': sideBarService.isBarActive.singlePrediction.active && !sideBarService.isBarActive.singlePrediction.isShow  ? '#00B9FF' : '#fff' }">
+
+        <span style="margin-left: 0.175rem;" class="singlePrediction-icon"
+          [ngClass]="{'singlePrediction-whiteImg':sideBarService.isBarActive.singlePrediction.active && !sideBarService.isBarActive.singlePrediction.isShow }"></span>
+
+        <span style="margin-left: 0.35rem;" *ngIf='!sideBarService.isFold' [ngClass]="{
+            'close-whiteImg': !sideBarService.isBarActive.singlePrediction.isShow && !sideBarService.isFold,
+
+          'close-blueImg':((sideBarService.isBarActive.singlePrediction.isShow && !sideBarService.isFold)||!sideBarService.isBarActive.singlePrediction.active),
+
+          'close-blueImg-top': ((sideBarService.isBarActive.singlePrediction.isShow && !sideBarService.isFold)||!sideBarService.isBarActive.singlePrediction.active)&&sideBarService.isBarActive.singlePrediction.isShow,
+
+          'close-blueImg-bottom': ((sideBarService.isBarActive.singlePrediction.isShow && !sideBarService.isFold)||!sideBarService.isBarActive.singlePrediction.active)&&!sideBarService.isBarActive.singlePrediction.isShow
+        }">
+        </span>
+
+        <span class="text" *ngIf='sideBarService.isFold'
+          [ngStyle]="{'color': !sideBarService.isBarActive.singlePrediction.isShow && sideBarService.isBarActive.singlePrediction.active ? '#fff' : !sideBarService.isBarActive.singlePrediction.active ? '#717C96' : '#00B9FF' }">
+          单组预测
+          <i class="drop-down-icon" [ngClass]="{
+            'close-whiteImg': !sideBarService.isBarActive.singlePrediction.isShow && sideBarService.isFold,
+            
+          'close-blueImg':((sideBarService.isBarActive.singlePrediction.isShow && sideBarService.isFold)||!sideBarService.isBarActive.singlePrediction.active),
+
+          'close-blueImg-top': ((sideBarService.isBarActive.singlePrediction.isShow && sideBarService.isFold)||!sideBarService.isBarActive.singlePrediction.active)&&sideBarService.isBarActive.singlePrediction.isShow,
+
+          'close-blueImg-bottom': ((sideBarService.isBarActive.singlePrediction.isShow && sideBarService.isFold)||!sideBarService.isBarActive.singlePrediction.active)&&!sideBarService.isBarActive.singlePrediction.isShow
+        }">
+          </i>
+        </span>
+
+        <!-- <hr /> -->
+      </div>
+      <ul *ngIf='sideBarService.isBarActive.singlePrediction.isShow' style="margin-bottom: 0.5rem;">
+        <li class="singlePrediction-AI">
+          <div class="singlePrediction-child01"
+            [ngClass]="{'active': sideBarService.isBarActive.singlePrediction.child.AIPrediction.active}"
+            (click)='routeTurn($event,"AIPrediction")' [attr.isHasChild]='"false"'>
+            <span class="singlePredictionAI-icon" *ngIf='!sideBarService.isFold'>AI</span>
+
+            <span style="margin-left: 0.175rem;opacity: 0;" *ngIf='sideBarService.isFold'
+              class="singlePrediction-icon"></span>
+            <!-- 为了使子集与父级左边距相同，使用图片空出相同的左边距 -->
+
+            <span class="text" *ngIf='sideBarService.isFold'>AI预测</span>
+
+            <!-- <hr /> -->
+          </div>
+        </li>
+        <li class="singlePrediction-human">
+          <div class="singlePrediction-child02"
+            [ngClass]="{'active': sideBarService.isBarActive.singlePrediction.child.humanPrediction.active}"
+            (click)='routeTurn($event,"humanPrediction")' [attr.isHasChild]='"false"'>
+            <span class="singlePredictionHuman-icon" *ngIf='!sideBarService.isFold'>人工</span>
+
+            <span style="margin-left: 0.175rem;opacity:0;" *ngIf='sideBarService.isFold'
+              class="singlePrediction-icon"></span>
+            <!-- 为了使子集与父级左边距相同，使用图片空出相同的左边距 -->
+
+            <span class="text" *ngIf='sideBarService.isFold'>人工预测</span>
+            <!-- <hr /> -->
+          </div>
+        </li>
+      </ul>
+    </li>
+
+    <li class="batchPrediction">
+      <div class="batchPrediction-parent" [ngClass]="{'active': sideBarService.isBarActive.batchPrediction.active}"
+        (click)='routeTurn($event,"batchPrediction")' [attr.isHasChild]='"false"'>
+        <span class="batchPrediction-icon"></span>
+        <span class="text" *ngIf='sideBarService.isFold'>批量预测</span>
+        <!-- <hr /> -->
+      </div>
+    </li>
+    <li class="predictionHistory">
+      <div class="predictionHistory-parent" [ngClass]="{'active': sideBarService.isBarActive.predictionHistory.active}"
+        (click)='routeTurn($event,"predictionHistory")' [attr.isHasChild]='"false"'>
+        <span class="predictionHistory-icon"></span>
+        <span class="text" *ngIf='sideBarService.isFold'>历史记录</span>
+        <!-- <hr /> -->
+      </div>
+    </li>
+    <li class="warningHistory">
+      <div class="warningHistory-parent" [ngClass]="{'active': sideBarService.isBarActive.warningHistory.active}"
+        (click)='routeTurn($event,"warningHistory")' [attr.isHasChild]='"false"'>
+        <span class="warningHistory-icon glyphicon glyphicon-warning-sign" style="font-size: 0.8rem;"></span>
+        <span class="text" *ngIf='sideBarService.isFold'>预警记录</span>
+        <!-- <hr /> -->
+      </div>
+    </li>
+  </ul>
+  <span class="closeSideBar" [class.center]='!sideBarService.isFold' (click)='closeSideBar($event.target)'>
+    <span *ngIf='sideBarService.isFold'>
+      <i class="close"></i>
+      <span>收起侧边栏</span>
+    </span>
+    <span *ngIf='!sideBarService.isFold'>
+      <i class="close"></i>
+      <span>展开</span>
+    </span>
+  </span>
+</div>

@@ -1,0 +1,297 @@
+@function pxToRem($number) {
+  @return ($number/20)+rem;
+  // @return $number+px;
+}
+
+.inlineBlockAndVerTicalAlignMiddle {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+span[class*=icon],
+i[class*=icon] {
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center center;
+  @extend .inlineBlockAndVerTicalAlignMiddle;
+}
+
+.batch_search {
+  width: pxToRem(800);
+  margin: 0 auto;
+  padding-top: pxToRem(60);
+
+  position: relative;
+  height: 100%;
+  //   background-color: red;
+
+  &>p {
+    text-align: center;
+    font-family: MicrosoftYaHeiUI;
+    font-size: pxToRem(24);
+    color: #3F4659;
+    margin-bottom: pxToRem(40);
+  }
+
+
+
+  #operatorArea {
+    margin-bottom: pxToRem(21);
+
+    ul {
+      font-size: 0;
+      width: 100%;
+      text-align: right;
+      height: pxToRem(40);
+      line-height: pxToRem(40);
+      //   display: flex;
+      //   justify-content: flex-end;
+      //   align-items: center;
+
+      li {
+        @extend .inlineBlockAndVerTicalAlignMiddle;
+        font-size: 0;
+        margin-left: pxToRem(54.5);
+        cursor: pointer;
+        position: relative;
+        height: 2rem;
+        overflow: hidden;
+
+        span {
+          @extend .inlineBlockAndVerTicalAlignMiddle;
+        }
+
+        .icon {
+          margin-right: pxToRem(11.7);
+          background-size: 100%;
+          background-position: center center;
+          background-repeat: no-repeat;
+        }
+
+
+      }
+
+      .text {
+        font-family: MicrosoftYaHeiUI;
+        font-size: pxToRem(16);
+        color: #3F4659;
+        text-align: center;
+      }
+
+      li#addPrediction {
+        .icon {
+          cursor: pointer;
+          width: pxToRem(26);
+          height: pxToRem(26);
+          background-image: url(../../../assets/batch_prediction/btn_big_addnormal.png);
+        }
+
+        &:hover .icon {
+          background-image: url(../../../assets/batch_prediction/btn_big_addhover.png);
+
+        }
+
+        &:active .icon {
+          background-image: url(../../../assets/batch_prediction/btn_big_addconfirm.png);
+        }
+
+      }
+
+      li#moreLeadin {
+        #form-upload {
+          position: absolute;
+          width: 100%;
+          height: 2rem;
+          opacity: 0;
+          overflow: hidden;
+          cursor: pointer;
+
+          input[type=file],
+          input[type=button] {
+            width: 100%;
+            height: 100%;
+            font-size: 0;
+            cursor: pointer;
+            padding: 0;
+          }
+
+        }
+
+        #leadIn {
+          .icon {
+            cursor: pointer;
+            width: pxToRem(26);
+            height: pxToRem(26);
+            width: pxToRem(26);
+            height: pxToRem(26);
+            background-image: url(../../../assets/batch_prediction/dashboard_excel_normal.png);
+          }
+
+          &:hover .icon {
+            background-image: url(../../../assets/batch_prediction/dashboard_excel_hover.png);
+          }
+
+          &:active .icon {
+            background-image: url(../../../assets/batch_prediction/dashboard_excel_normal.png);
+          }
+        }
+
+
+      }
+    }
+  }
+
+  #searchArea {
+    // height: pxToRem(488);
+    max-height: pxToRem(470);
+    overflow-x: hidden;
+    overflow-y: auto;
+
+
+
+    .search-wraper {
+      font-size: 0;
+      margin-bottom: pxToRem(16);
+
+      span.serial-number {
+        font-family: Gotham-Medium;
+        font-size: pxToRem(20);
+        color: rgba(0, 0, 0, 0.7);
+        width: 5.5%;
+        text-align: left;
+        @extend .inlineBlockAndVerTicalAlignMiddle;
+      }
+
+      .search-component {
+        width: 94.5%;
+        @extend .inlineBlockAndVerTicalAlignMiddle;
+      }
+    }
+  }
+
+  .prediction-btn {
+    width: 100%;
+    text-align: right;
+    margin-top: pxToRem(33);
+    font-size: 0;
+
+    section.message {
+      @extend .inlineBlockAndVerTicalAlignMiddle;
+
+      span {
+        @extend .inlineBlockAndVerTicalAlignMiddle;
+      }
+
+      span.icon {
+        width: pxToRem(20);
+        height: pxToRem(20);
+        background-image: url(../../../assets/single_prediction/icon_Error.png)
+      }
+
+
+
+      span.text {
+        font-family: MicrosoftYaHeiUI;
+        font-size: pxToRem(16);
+        color: rgba(255, 131, 78, 0.85);
+        margin: 0 pxToRem(18) 0 pxToRem(9.5);
+      }
+    }
+
+    span.start-prediction {
+      // width: pxToRem(107);
+      // height: pxToRem(36);
+      // line-height: pxToRem(36);
+      background: rgba(148, 158, 182, 0.4);
+      border-radius: pxToRem(18);
+      font-family: MicrosoftYaHeiUI;
+      font-size: pxToRem(16);
+      color: #3F4659;
+      letter-spacing: pxToRem(0.69);
+      text-align: center;
+      cursor: default;
+      @extend .inlineBlockAndVerTicalAlignMiddle;
+      padding: pxToRem(6) pxToRem(36);
+
+      &.active {
+        background: #5FD0F9;
+        color: #fff;
+        cursor: pointer;
+        border-radius: pxToRem(18);
+
+        &:hover {
+          background: #21C1FC;
+        }
+
+        &:active {
+          background: #00AFEF;
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 1366px) {
+// @media screen and (max-width: 1366px) {
+  #searchArea {
+    // height: pxToRem(386) !important;
+    max-height: pxToRem(360) !important;
+
+    .search-wraper {
+      margin-bottom: pxToRem(14) !important;
+    }
+  }
+
+  .prediction-btn {
+    margin-top: pxToRem(31) !important;
+  }
+
+  .batch_search {
+    padding-top: pxToRem(56);
+
+    &>p {
+      margin-bottom: pxToRem(40) !important;
+    }
+  }
+}
+
+// @media screen and (max-width: 1600px) {
+//   #searchArea {
+//     max-height: pxToRem(448) !important;
+//   }
+// }
+
+
+.pnUl {
+  width: 94.5%;
+  background-color: #fff;
+  color: #3b200c;
+  border: none;
+  position: absolute;
+  z-index: 100;
+  right: 0;
+
+  .pnCont {
+    height: pxToRem(61);
+    font-family: 'PingFangSC-Regular';
+    font-size: 1rem;
+    color: #152C2C;
+    letter-spacing: 0;
+    text-align: justify;
+    line-height: pxToRem(35);
+    padding: pxToRem(16) 0 0 pxToRem(25);
+
+    &:hover {
+      background-color: #949EB6;
+
+    }
+
+    &.bg {
+      background-color: #949EB6;
+      color: #fff;
+    }
+  }
+
+
+}

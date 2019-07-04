@@ -1,0 +1,210 @@
+@function pxToRem($number) {
+  @return ($number/20)+rem;
+  // @return $number+px;
+}
+
+.search {
+  font-size: 0;
+  border-bottom: 1px solid rgba(168, 173, 180, 0.25);
+  line-height: pxToRem(70.5);
+
+  .return-bar {
+    height: pxToRem(70.5);
+    width: pxToRem(110);
+    display: inline-block;
+    vertical-align: top;
+    padding-left: pxToRem(26);
+    cursor: pointer;
+    font-size: 0;
+    letter-spacing: -4px;
+
+
+
+    .icon {
+      display: inline-block;
+      vertical-align: middle;
+      width: pxToRem(19);
+      height: pxToRem(25);
+      background-image: url(../../../../assets/single_prediction/single_comparison_details/back_normal.png);
+
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      margin-right: 0.3rem;
+    }
+
+    .text {
+      height: pxToRem(70.5);
+      line-height: pxToRem(70.5);
+      font-family: MicrosoftYaHeiUI;
+      color: #00B9FF;
+      letter-spacing: 0;
+      font-size: pxToRem(16);
+      text-align: center;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+
+    &:hover {
+      .icon {
+        background-image: url(../../../../assets/single_prediction/single_comparison_details/back_hover.png);
+      }
+    }
+
+    &:active {
+      .icon {
+        background-image: url(../../../../assets/single_prediction/single_comparison_details/back_confirm.png);
+      }
+    }
+
+  }
+
+  .cur-off-line {
+    height: pxToRem(44);
+    width: 1px;
+    background-color: rgba(168, 173, 180, 0.25);
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .search-bar {
+    width: calc(100% - 6rem);
+    display: inline-block;
+    vertical-align: top;
+  }
+}
+
+.return-batchDetails {
+  display: inline-block;
+  vertical-align: middle;
+  height: pxToRem(70.5);
+  line-height: pxToRem(70.5);
+  float: left;
+  padding-left: pxToRem(26);
+  cursor: pointer;
+
+  &>span.icon {
+    width: pxToRem(19);
+    height: pxToRem(25);
+    background-image: url(../../../../assets/single_prediction/single_comparison_details/back_normal.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    background-size: 100% 100%;
+    margin: 0;
+  }
+
+  span {
+    font-family: MicrosoftYaHeiUI;
+    font-size: pxToRem(16);
+    color: #00B9FF;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: pxToRem(6);
+  }
+
+  &:hover {
+    &>span.icon {
+      background-image: url(../../../../assets/single_prediction/single_comparison_details/back_hover.png);
+    }
+  }
+
+  &:hover {
+    &>span.icon {
+      background-image: url(../../../../assets/single_prediction/single_comparison_details/back_confirm.png);
+    }
+  }
+}
+
+.operator {
+  float: right;
+  height: pxToRem(70.5);
+  line-height: pxToRem(70.5);
+  font-size: 0;
+  white-space: nowrap;
+
+  button {
+    width: 5.35rem;
+    color: #fff;
+    font-family: PingFangSC-Regular;
+    // font-size: 1rem;
+    background: #5FD0F9;
+    border-radius: 0.9rem;
+    outline-style: none;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    // padding: 0.45rem 0 0.47rem 0;
+    cursor: pointer;
+    height: 1.8rem;
+    line-height: 1.8rem;
+    font-size: 1rem;
+
+
+
+    &:hover {
+      background: #21C1FC;
+    }
+
+    &:active {
+      background: #00AFEF;
+    }
+  }
+
+  // .disForcast {
+  //   background: gray;
+  // }
+
+  .export {
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    // position: absolute;
+    // right: 0;
+    margin-right: pxToRem(30);
+    margin-left: pxToRem(48);
+
+    // button {
+    //   display: inline-block;
+    //   vertical-align: middle;
+    // }
+
+    i.icon {
+      background: url(../../../../assets/single_prediction/btn_export_normal.png) no-repeat 0 center;
+      height: 100%;
+      display: inline-block;
+      vertical-align: middle;
+      width: pxToRem(24);
+      background-size: 100%;
+      cursor: pointer;
+    }
+
+    span {
+      font-family: MicrosoftYaHeiUI;
+      font-size: pxToRem(16);
+      color: #3F4659;
+      letter-spacing: 0;
+      text-align: center;
+      line-height: pxToRem(18);
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    &:hover {
+      i.icon {
+        background: url(../../../../assets/single_prediction/btn_export_hover.png) no-repeat 0 center;
+        background-size: 100%;
+      }
+    }
+
+    &:active {
+      i.icon {
+        background: url(../../../../assets/single_prediction/btn_export_confirm.png) no-repeat 0 center;
+        background-size: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,359 @@
+<section id='forecastParameter' [class.curIsEditIng]='curIsEditIng'>
+  <div id='nowForecast'>
+    <div class='nowForecastLeft'>
+      <p class='nowForecastLeft_title'>当前预测曲线</p>
+      <ng-container *ngTemplateOutlet="selectListTemplate"></ng-container>
+    </div>
+    <div class='nowForecastRight'>
+      <ng-template [ngIf]='curIsEditIng'>
+        <button (click)='editCalculate()' class="calculate-lines-btn">计算</button>
+        <button (click)='isHideSavePop(true)' class="save-lines-btn">保存</button>
+        <button (click)='cacelEdit()' class="cacel-edit-btn">取消编辑</button>
+      </ng-template>
+      <ng-template [ngIf]='!curIsEditIng'>
+        <p style="float:right;margin-bottom:0;" class='bjParmeter' (click)='editCurLine()'>
+          <i></i>
+          编辑当前预测曲线
+        </p>
+      </ng-template>
+    </div>
+  </div>
+
+
+  <section class="humanPrediction" *ngIf="curSingleAIOrHuman==='humanPrediction'">
+    <div id='predictionMethods'>
+      <p class="item-title">预测方法</p>
+      <ul>
+        <li>
+          <span class='pmNum Gotham-Book' *ngIf='!curIsEditIng'>{{curPredictionFunListDetails}}</span>
+          <div *ngIf='curIsEditIng' class="select" id="selectList">
+            <button class="select predictionFun-btn"
+              [ngStyle]="{'border': predictionFunList.style.display!=='none' ? '1px solid rgb(63, 70, 89)'  : '1px solid rgba(92, 92, 92, 0.2)'  }"
+              (click)="isShowPredictionFunList()">
+              {{curPredictionFunListDetails}}
+              <span class="icon">
+                <i [appWatchChange]='[0,predictionFunList.style.display,changeSelectIcon]'></i>
+              </span>
+            </button>
+            <ol #predictionFunList class="predictionFun-list" style='position: absolute;'>
+              <ng-template ngFor let-item let-i=index [ngForOf]='curPredictionFunList'>
+                <li (click)="getPredictionFunListDetails(item.content);isShowPredictionFunList()"
+                  (mouseenter)='showDoubts($event,true,item)' (mouseleave)='showDoubts($event,false,null)'>
+                  {{item.content}}</li>
+              </ng-template>
+            </ol>
+          </div>
+          <span class="doubts-icon" (mouseenter)='showDoubts($event,true)'
+            (mouseleave)='showDoubts($event,false)'></span>
+        </li>
+
+        <li *ngIf="curPredictionFunListDetails==='自定义需求率'">
+          <span class='pmName'>自定义需求率</span>
+          <span class='pmNum Gotham-Book'
+            *ngIf='!curIsEditIng'>{{ singlePrediction.customAi || singlePrediction.customAi == 0 ?  singlePrediction.customAi : 0.01}}</span>
+          <span class="Gotham-Book" *ngIf='!curIsEditIng'>%</span>
+
+          <span *ngIf='curIsEditIng' class="input-number-parent">
+            <input class='Gotham-Book' type="number" [(ngModel)]="singlePrediction.customAi" id='customAiInput' min='0'
+              max='1' step='0.01' *ngIf='curIsEditIng'
+              oninput='if (value > 100)value = 100; if (value < 0) value = 0;if ((value.toString())[0] == 0&& (value.toString()).length >= 2)value = (value).slice(0, 6)'
+              (input)='inputChange()'>
+            <span class="Gotham-Book">%</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div id='predictionParameter'>
+      <p class="item-title">预测参数</p>
+      <ul>
+        <li>
+          <span class='pmName'>标准保修期</span>
+
+          <span class='pmNum Gotham-Book'
+            *ngIf='!curIsEditIng'>{{ singlePrediction.standardWarrantyPeriod || singlePrediction.standardWarrantyPeriod == 0 ? singlePrediction.standardWarrantyPeriod : 1}}</span>
+          <span class="Gotham-Book" *ngIf='!curIsEditIng'>月</span>
+
+          <span *ngIf='curIsEditIng' class="input-number-parent">
+            <input class='Gotham-Book' type="number" id='standardWarrantyPeriodInput' min='0' step='1'
+              [(ngModel)]="singlePrediction.standardWarrantyPeriod" (input)='inputChange()'>
+            <span class="Gotham-Book">月</span>
+          </span>
+        </li>
+        <li>
+          <span class='pmName'>延保率</span>
+          <span class='pmNum Gotham-Book'
+            *ngIf='!curIsEditIng'>{{ singlePrediction.aiInwarrantyRate || singlePrediction.aiInwarrantyRate == 0 ? singlePrediction.aiInwarrantyRate : 1}}</span>
+          <span class="Gotham-Book" *ngIf='!curIsEditIng'>%</span>
+
+          <span *ngIf='curIsEditIng' class="input-number-parent">
+            <input class='Gotham-Book' type="number" id='aiInwarrantyRateInput' min='0' max='100' step='1'
+              [(ngModel)]="singlePrediction.aiInwarrantyRate"
+              oninput='if (value > 100)value = 100; if (value < 0) value = 0;if ((value.toString())[0] == 0&& (value.toString()).length >= 2)value = (value).slice(0, 4)'
+              (input)='inputChange()'>
+            <span class="Gotham-Book">%</span>
+          </span>
+        </li>
+        <li>
+          <span class=' pmName'>时间</span>
+          <!-- <span class='pmNum' *ngIf='!curIsEditIng'>{{last_time_buy.slice(0,7)}}</span> -->
+          <span class='Gotham-Book' class='pmNum' *ngIf='!curIsEditIng'>{{last_time_buy}}</span>
+          <!-- <app-timer-select (exportCurTime)='changeLastTimeBuy($event)' [curTimeString]='last_time_buy'></app-timer-select> -->
+          <!-- <input type="date" id='lastTimeBuyDate' *ngIf='curIsEditIng' (change)='lastTimeBuyChange()'
+              [(ngModel)]="last_time_buy"> -->
+          <span *ngIf='curIsEditIng' style='line-height: initial;'>
+
+            <app-timer-select (exportCurTime)='getDatePickerDate($event)' [timerBegin]='"2000-01"'
+              [timerEnd]='"3000-12"' [isShowMounth]='true' [curIndex]='999999000000009' [curTimeString]='last_time_buy'>
+            </app-timer-select>
+
+            <!-- <nz-demo-date-picker-basic [date]='last_time_buy' (getDatePickerDate)='getDatePickerDate($event)'>
+            </nz-demo-date-picker-basic> -->
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <div id="predictionDemandRates">
+      <p class="item-title"></p>
+      <span class="demandRates-title">需求率</span>
+      <ul class="clearfix">
+        <ng-template ngFor let-item let-i=index [ngForOf]='demandRatesList'>
+          <li [attr.notDel]='item.notDel' #demandRatesListDetails
+            [appWatchChange]='[0,demandRatesListDetails.offsetLeft,watchIsShowCutOffLine,this]'>
+            <span class="cutOff-line"></span>
+            <div class="beishu" [ngStyle]="{'border-width': curIsEditIng?'1px':'0px'}">
+              <span *ngIf='!curIsEditIng'>{{item.scale}}</span>
+              <span *ngIf='!curIsEditIng'>倍</span>
+
+              <span *ngIf='curIsEditIng' class="input-number-parent">
+                <input *ngIf='curIsEditIng' type="number" min='0' step='0.01' [(ngModel)]="item.scale"
+                  (input)='inputChange()' />
+                <span>倍</span>
+              </span>
+            </div>
+            <span class="cong">从</span>
+            <div class="start-time" *ngIf='!curIsEditIng' [ngStyle]="{'width': curIsEditIng?'5.4rem':'4.5rem'}">
+              {{item.startBar.curTime}}
+            </div>
+            <div class="start-time" *ngIf='curIsEditIng'>
+              <app-timer-select (exportCurTime)='demandRatesGetDatePickerDate($event)'
+                [timerBegin]='item.startBar.timerBegin' [timerEnd]='item.startBar.timerEnd'
+                [isShowMounth]='i===0?true:false' [curIndex]='i*2+0' [curTimeString]='item.startBar.curTime'>
+              </app-timer-select>
+              <!-- <nz-demo-date-picker-basic [date]='item.startTime'
+                (getDatePickerDate)='demandRatesGetDatePickerDate($event)'>
+              </nz-demo-date-picker-basic> -->
+            </div>
+            <span class="zhi">至</span>
+            <div class="end-time" *ngIf='!curIsEditIng' [ngStyle]="{'width': curIsEditIng?'5.4rem':'4.5rem'}">
+              {{item.endBar.curTime}}
+            </div>
+            <div class="end-time" *ngIf='curIsEditIng'>
+              <app-timer-select (exportCurTime)='demandRatesGetDatePickerDate($event)'
+                [timerBegin]='item.endBar.timerBegin' [timerEnd]='item.endBar.timerEnd' [isShowMounth]='false'
+                [curIndex]='i*2+1' [curTimeString]='item.endBar.curTime'>
+              </app-timer-select>
+              <!-- <nz-demo-date-picker-basic [date]='item.endTime'
+                (getDatePickerDate)='demandRatesGetDatePickerDate($event)'>
+              </nz-demo-date-picker-basic> -->
+            </div>
+          </li>
+        </ng-template>
+        <li>
+          <span class="operator-demandRates-list" *ngIf='curIsEditIng'>
+            <button class="add-icon" (click)="addDemandRates()"></button>
+            <button class="subtract-icon" *ngIf="demandRatesList.length>1" (click)="subtractDemandRates()"></button>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+
+  <section class="singlePrediction" *ngIf="curSingleAIOrHuman==='singlePrediction'">
+    <div id='AIParameter'>
+      <p class="item-title">AI算法参数</p>
+      <ul>
+        <li>
+          <span class='pmName'>月需求率</span>
+          <span class='pmNum Gotham-Book'
+            *ngIf='!curIsEditIng'>{{ singlePrediction.ai || singlePrediction.ai == 0 ?  singlePrediction.ai : 0.01}}</span>
+          <span class="Gotham-Book" *ngIf='!curIsEditIng'>%</span>
+
+          <span *ngIf='curIsEditIng' class="input-number-parent">
+            <input class='Gotham-Book' type="number" [(ngModel)]="singlePrediction.ai" id='aiInput' min='0' max='1'
+              step='0.01' *ngIf='curIsEditIng'
+              oninput='if (value > 100)value = 100; if (value < 0) value = 0;if ((value.toString())[0] == 0&& (value.toString()).length >= 2)value = (value).slice(0, 6)'
+              (input)='inputChange()'>
+            <span class="Gotham-Book">%</span>
+          </span>
+        </li>
+        <li>
+          <span class='pmName'>延保率</span>
+          <span class='pmNum Gotham-Book'
+            *ngIf='!curIsEditIng'>{{ singlePrediction.aiInwarrantyRate || singlePrediction.aiInwarrantyRate == 0 ? singlePrediction.aiInwarrantyRate : 1}}</span>
+          <span class="Gotham-Book" *ngIf='!curIsEditIng'>%</span>
+          <span *ngIf='curIsEditIng' class="input-number-parent">
+            <input class='Gotham-Book' type="number" id='aiInwarrantyRateInput' min='0' max='100' step='1'
+              *ngIf='curIsEditIng' [(ngModel)]="singlePrediction.aiInwarrantyRate"
+              oninput='if (value > 100)value = 100; if (value < 0) value = 0;if ((value.toString())[0] == 0&& (value.toString()).length >= 2)value = (value).slice(0, 4)'
+              (input)='inputChange()'>
+            <span class="Gotham-Book">%</span>
+          </span>
+        </li>
+        <li>
+          <span class='pmName'>时间</span>
+          <!-- <span class='pmNum' *ngIf='!curIsEditIng'>{{last_time_buy.slice(0,7)}}</span> -->
+          <span class='Gotham-Book' class='pmNum' *ngIf='!curIsEditIng'>{{last_time_buy}}</span>
+          <!-- <app-timer-select (exportCurTime)='changeLastTimeBuy($event)' [curTimeString]='last_time_buy'></app-timer-select> -->
+          <!-- <input type="date" id='lastTimeBuyDate' *ngIf='curIsEditIng' (change)='lastTimeBuyChange()'
+              [(ngModel)]="last_time_buy"> -->
+          <span *ngIf='curIsEditIng'>
+
+            <app-timer-select (exportCurTime)='getDatePickerDate($event)' [timerBegin]='"2000-01"'
+              [timerEnd]='"3000-12"' [isShowMounth]='true' [curIndex]='999999000000001' [curTimeString]='last_time_buy'>
+            </app-timer-select>
+
+            <!-- <nz-demo-date-picker-basic [date]='last_time_buy' (getDatePickerDate)='getDatePickerDate($event)'>
+            </nz-demo-date-picker-basic> -->
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div id='manParameter'>
+      <p class="item-title">人工算法参数</p>
+      <ul>
+        <li>
+          <span class='pmName'>延保率</span>
+          <span class='pmNum Gotham-Book'>{{curData?.huInwarrantyRate}}%</span>
+        </li>
+        <li>
+          <span class='pmName'>需求率</span>
+          <span class='pmNum Gotham-Book'>{{curData?.demandRate}}%</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <section class="AIPrediction" *ngIf="curSingleAIOrHuman==='AIPrediction'">
+    <div id='adjustableParameters'>
+      <p class="item-title">可调参数</p>
+      <ul>
+        <li>
+          <span class='pmName'>人工月需求率</span>
+          {{singlePrediction.ai || singlePrediction.ai == 0}}
+          <span class='pmNum Gotham-Book'
+            *ngIf='!curIsEditIng'>{{ singlePrediction.ai || singlePrediction.ai == 0 ?  singlePrediction.ai : 0.01}}</span>
+          <span class="Gotham-Book" *ngIf='!curIsEditIng'>%</span>
+
+          <span *ngIf='curIsEditIng' class="input-number-parent">
+            <input class='Gotham-Book' type="number" [(ngModel)]="singlePrediction.ai" id='aiInput' min='0' max='1'
+              step='0.01' *ngIf='curIsEditIng'
+              oninput='if (value > 100)value = 100; if (value < 0) value = 0;if ((value.toString())[0] == 0&& (value.toString()).length >= 2)value = (value).slice(0, 6)'
+              (input)='inputChange()'>
+            <span class="Gotham-Book">%</span>
+          </span>
+        </li>
+        <li>
+          <span class='pmName'>延保率</span>
+          <span class='pmNum Gotham-Book'
+            *ngIf='!curIsEditIng'>{{ singlePrediction.aiInwarrantyRate || singlePrediction.aiInwarrantyRate == 0 ? singlePrediction.aiInwarrantyRate : 1}}</span>
+          <span class="Gotham-Book" *ngIf='!curIsEditIng'>%</span>
+
+          <span *ngIf='curIsEditIng' class="input-number-parent">
+            <input class='Gotham-Book' type="number" id='aiInwarrantyRateInput' min='0' max='100' step='1'
+              *ngIf='curIsEditIng' [(ngModel)]="singlePrediction.aiInwarrantyRate"
+              oninput='if (value > 100)value = 100; if (value < 0) value = 0;if ((value.toString())[0] == 0&& (value.toString()).length >= 2)value = (value).slice(0, 4)' (input)='inputChange()'>
+            <span class="Gotham-Book">%</span>
+          </span>
+        </li>
+        <li>
+          <span class='pmName'>标准保修期</span>
+          <span class='pmNum Gotham-Book'
+            *ngIf='!curIsEditIng'>{{ singlePrediction.standardWarrantyPeriod || singlePrediction.standardWarrantyPeriod == 0 ? singlePrediction.standardWarrantyPeriod : 1}}</span>
+          <span class="Gotham-Book" *ngIf='!curIsEditIng'>月</span>
+
+          <span *ngIf='curIsEditIng' class="input-number-parent">
+            <input class='Gotham-Book' type="number" id='standardWarrantyPeriodInput' min='0' step='1'
+              *ngIf='curIsEditIng' [(ngModel)]="singlePrediction.standardWarrantyPeriod" (input)='inputChange()'>
+            <span class="Gotham-Book">月</span>
+          </span>
+        </li>
+        <li>
+          <span class='pmName'>时间</span>
+          <!-- <span class='pmNum' *ngIf='!curIsEditIng'>{{last_time_buy.slice(0,7)}}</span> -->
+          <span class='Gotham-Book' class='pmNum' *ngIf='!curIsEditIng'>{{last_time_buy}}</span>
+          <!-- <app-timer-select (exportCurTime)='changeLastTimeBuy($event)' [curTimeString]='last_time_buy'></app-timer-select> -->
+          <!-- <input type="date" id='lastTimeBuyDate' *ngIf='curIsEditIng' (change)='lastTimeBuyChange()'
+              [(ngModel)]="last_time_buy"> -->
+          <span *ngIf='curIsEditIng'>
+            <app-timer-select (exportCurTime)='getDatePickerDate($event)' [timerBegin]='"2000-01"'
+              [timerEnd]='"3000-12"' [isShowMounth]='true' [curIndex]='999999000000002' [curTimeString]='last_time_buy'>
+            </app-timer-select>
+
+            <!-- <nz-demo-date-picker-basic [date]='last_time_buy' (getDatePickerDate)='getDatePickerDate($event)'>
+            </nz-demo-date-picker-basic> -->
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div id='fixedParameter'>
+      <p class="item-title">固定参数</p>
+      <ul>
+        <li>
+          <span class='pmName'>AI月需求率</span>
+          <span class='pmNum Gotham-Book'>{{AICurData?.huInwarrantyRate}}%</span>
+        </li>
+        <li>
+          <span class='pmName'>AI置信度</span>
+          <span class='pmNum Gotham-Book'>{{AICurData?.demandRate}}%</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <span style="display:none;position:absolute;left:-99999999999999px;"
+    [appWatchChange]='[0,curIsEditIng,syncCurIsEditIngService,this]'></span>
+</section>
+
+
+
+
+<section id="doubtsContent">
+  <span id="doubtsContentSanJiao"></span>
+  <ol>
+    <li>
+      <p>计算步骤:</p>
+    </li>
+    <ng-template ngFor let-item let-i=index [ngForOf]='showBouncedBoxContent.content'>
+      <li>
+        <span>{{i+1}}.</span>
+        <p>{{item}}</p>
+      </li>
+    </ng-template>
+  </ol>
+</section>
+
+
+
+<ng-template #selectListTemplate>
+  <div class='selectList'>
+    <div class="dropdown">
+      <div class="select" (click)='$event.stopPropagation();showCurPredictionLineSelect()'>
+        <span class="select-color-area" [attr.bgcolor]='orange' #selectColorArea
+          [appWatchChange]='[0,selectColorArea.getAttribute("bgcolor"),changeSelectColor]'></span>
+        <span class="select-value" #selectValue>默认预测</span>
+        <span class="icon">
+          <i [appWatchChange]='[0,selectOption.style.display,changeSelectIcon]' class=""></i>
+        </span>
+      </div>
+      <ul class="select-option" #selectOption>
+        <li *ngFor="let item of selectListLi;let i=index" [attr.id]='"selectOptionLiId"+i'
+          (click)='$event.stopPropagation();getCurValue(selectColorArea,selectValue,item,"selectOptionLiId"+i)'>
+          <span class="select-option-color-area" [attr.bgcolor]='item.color'
+            [appWatchChange]='[0,item.color,changeSelectColor]'></span>
+          <span class="select-option-value">{{item.value}}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,402 @@
+@function pxToRem($num) {
+  @return ($num/20)+rem;
+}
+
+ul,
+li,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+#batch_prediction_manage {
+  width: 100%;
+  height: 100%;
+
+  #pageBack {
+    // width: 100%;
+    height: pxToRem(70);
+    line-break: pxToRem(70);
+    border-bottom: 1px solid rgba(168, 173, 189, 0.25);
+
+    .goBack {
+      display: inline-block;
+      height: 100%;
+      margin-left: pxToRem(25.1);
+      cursor: pointer;
+
+      i {
+        display: inline-block;
+        vertical-align: middle;
+        width: pxToRem(10.9);
+        height: pxToRem(20);
+        background: url(../../../assets/single_prediction/single_comparison_details/little_arrowconfirm.png) no-repeat;
+        background-size: pxToRem(10.9) pxToRem(20);
+        transform: rotate(90deg);
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        margin-right: pxToRem(14);
+      }
+
+      span {
+        font-family: 'MicrosoftYaHeiUI';
+        font-size: pxToRem(16);
+        color: #4ECEFF;
+        letter-spacing: 0;
+        vertical-align: middle;
+        line-height: pxToRem(70);
+      }
+
+    }
+  }
+
+  #prediction_manage_details {
+    width: 100%;
+    height: calc(100% - 3.5rem);
+    padding: pxToRem(28) 1% pxToRem(32) 6.6%;
+
+    .details_table_head {
+      // width: (calc(100%-9rem)/100*87);
+      width: 87%;
+      height: pxToRem(44);
+      line-height: pxToRem(44);
+      background: #3F4659;
+      border-radius: 8px 8px 0px 0px;
+      position: relative;
+      top: pxToRem(44);
+      z-index: 20;
+      font-size: 0;
+
+      span {
+        display: inline-block;
+        font-family: 'MicrosoftYaHeiUI';
+        font-size: pxToRem(14);
+        color: #FFFFFF;
+        letter-spacing: 0;
+        text-align: center;
+
+        &:nth-of-type(1) {
+          width: 83%;
+        }
+
+        &:nth-of-type(2) {
+          width: 17%;
+        }
+      }
+
+    }
+
+    // 表格部分
+
+    .details_top {
+      width: 100%;
+      max-height: 82%;
+      overflow-y: auto;
+
+      /*滚动条样式*/
+      &::-webkit-scrollbar {
+        /*滚动条整体样式*/
+        width: pxToRem(11);
+        /*高宽分别对应横竖滚动条的尺寸*/
+        height: pxToRem(30);
+      }
+
+      /*滚动条里面小方块*/
+      &::-webkit-scrollbar-thumb {
+        border-radius: pxToRem(5.5);
+        background: rgba(200, 211, 236, 0.4);
+        -webkit-border-radius: pxToRem(5.5);
+        -moz-border-radius: pxToRem(5.5);
+        -ms-border-radius: pxToRem(5.5);
+        -o-border-radius: pxToRem(5.5);
+      }
+
+      /*滚动条里面轨道*/
+      &::-webkit-scrollbar-track {
+        border-radius: pxToRem(5.5);
+        // background: #fff;
+        -webkit-border-radius: pxToRem(5.5);
+        -moz-border-radius: pxToRem(5.5);
+        -ms-border-radius: pxToRem(5.5);
+        -o-border-radius: pxToRem(5.5);
+      }
+
+      .details_del_table {
+        width: 87%;
+        height: 100%;
+
+
+
+        ul {
+
+          .details_table_tr {
+            width: 100%;
+            height: pxToRem(43);
+            background: #FFFFFF;
+            border-radius: 0 0 8px 8px;
+            -webkit-border-radius: 0 0 8px 8px;
+            -moz-border-radius: 0 0 8px 8px;
+            -ms-border-radius: 0 0 8px 8px;
+            -o-border-radius: 0 0 8px 8px;
+            // padding-top: pxToRem(44);
+
+            ul {
+              li {
+                float: left;
+                height: pxToRem(43);
+                border-bottom: 1px solid rgba(148, 158, 182, 0.25);
+                background: #FFFFFF;
+              }
+
+              .check_box {
+                text-align: center;
+                width: 6.5%;
+                border-right: 1px solid rgba(113, 124, 150, 0.35);
+                line-height: pxToRem(43);
+
+                .check_num {
+                  display: inline-block;
+                  vertical-align: middle;
+                  width: pxToRem(24);
+                  font-family: 'Gotham-Book';
+                  font-size: pxToRem(14);
+                  color: #000000;
+                  letter-spacing: 0;
+                  margin-right: 5%;
+                }
+
+                .checkedBox {
+                  display: inline-block;
+                  vertical-align: middle;
+                  position: relative;
+                  font-size: 0;
+
+                  input {
+                    width: pxToRem(22);
+                    height: pxToRem(22);
+                    opacity: 0;
+                    z-index: 1;
+                    margin-top: 0px;
+
+                    &:checked {
+                      &+.showBox {
+                        background: #949EB6;
+
+                        &::before {
+                          display: block;
+                        }
+                      }
+                    }
+                  }
+
+                  .showBox {
+                    width: pxToRem(22);
+                    height: pxToRem(22);
+                    border: 1px solid #A8ADB4;
+                    border-radius: 3px;
+                    position: absolute;
+                    top: 0px;
+                    left: 0px;
+
+
+                    &::before {
+                      display: none;
+                      content: '';
+                      position: absolute;
+                      top: pxToRem(4);
+                      left: pxToRem(4);
+                      width: pxToRem(12);
+                      height: pxToRem(8);
+                      border: 0px solid #FFFFFF;
+                      border-width: 0 0 2px 2px;
+                      transform: rotate(-45deg);
+                      -webkit-transform: rotate(-45deg);
+                      -moz-transform: rotate(-45deg);
+                      -ms-transform: rotate(-45deg);
+                      -o-transform: rotate(-45deg);
+                    }
+                  }
+                }
+              }
+
+              .replace_num {
+                width: 76.5%;
+                border-right: 1px solid rgba(113, 124, 150, 0.35);
+                // padding-left: pxToRem(18.5);
+                line-height: pxToRem(43);
+
+                .disSear {
+                  width: 100%;
+                  height: 100%;
+                  position: absolute;
+                  z-index: 10;
+                }
+              }
+
+              .operation_btn {
+                width: 17%;
+                padding: 0 pxToRem(22);
+                line-height: pxToRem(43);
+
+                button {
+                  background: none;
+                  border: none;
+                  outline: none;
+                  font-family: 'MicrosoftYaHeiUI';
+                  font-size: pxToRem(16);
+                  color: #FFFFFF;
+                  letter-spacing: 0;
+                }
+
+                .no_operation {
+                  .ameng_num {
+                    float: left;
+                    color: #00B9FF;
+                  }
+
+                  .del_num {
+                    float: right;
+                    color: #FF0000;
+                  }
+
+                }
+
+                .is_operation {
+                  .finish {
+                    float: left;
+                    color: #00B9FF;
+                  }
+
+                  .cancel {
+                    float: right;
+                    color: #000;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .details_bottom {
+      width: 86%;
+      margin-top: pxToRem(28);
+
+      .details_allSelet {
+        float: left;
+
+        .all_checkBox {
+          display: inline-block;
+          position: relative;
+          vertical-align: middle;
+
+          input {
+            width: pxToRem(20);
+            height: pxToRem(20);
+            position: relative;
+            cursor: pointer;
+            opacity: 0;
+            z-index: 2;
+
+            &:checked {
+              cursor: pointer;
+
+              &+.show_allCheck {
+                background: #5FD0F9;
+                &::before {
+                  display: block;
+                }
+              }
+            }
+          }
+
+          .show_allCheck {
+            z-index: 0;
+            width: pxToRem(20);
+            height: pxToRem(20);
+            border: 1px solid #5FD0F9;
+            border-radius: pxToRem(2);
+            position: absolute;
+            top: pxToRem(4);
+            left: 0px;
+            -webkit-border-radius: pxToRem(2);
+            -moz-border-radius: pxToRem(2);
+            -ms-border-radius: pxToRem(2);
+            -o-border-radius: pxToRem(2);
+
+            &::before {
+              content: '';
+              display: none;
+              width: pxToRem(12);
+              height: pxToRem(8);
+              position: absolute;
+              top: pxToRem(3);
+              left: pxToRem(3);
+              border: solid 2px #fff;
+              border-width: 0 0 2px 2px;
+              transform: rotate(-45deg);
+              -webkit-transform: rotate(-45deg);
+              -moz-transform: rotate(-45deg);
+              -ms-transform: rotate(-45deg);
+              -o-transform: rotate(-45deg);
+            }
+          }
+        }
+
+        .all_selet {
+          font-family: 'MicrosoftYaHeiUI';
+          font-size: pxToRem(16);
+          color: #949EB6;
+          letter-spacing: 0;
+          vertical-align: middle;
+          margin-left: pxToRem(9);
+        }
+      }
+
+      .details_allDel {
+        float: right;
+
+        .del_sum {
+          display: inline-block;
+          vertical-align: middle;
+          font-family: 'PingFangSC-Medium';
+          font-size: pxToRem(16);
+          color: #000000;
+          letter-spacing: 0;
+          text-align: justify;
+          margin-right: pxToRem(23);
+
+          span {
+            font-family: 'Gotham-Medium';
+          }
+
+        }
+
+        .all_del,
+        .all_del_check {
+          width: pxToRem(102);
+          height: pxToRem(35);
+          background: rgba(148, 158, 182, 0.4);
+          border-radius: pxToRem(17.5);
+          font-family: 'MicrosoftYaHeiUI';
+          font-size: pxToRem(16);
+          color: #3F4659;
+          letter-spacing: 0.69px;
+          -webkit-border-radius: pxToRem(17.5);
+          -moz-border-radius: pxToRem(17.5);
+          -ms-border-radius: pxToRem(17.5);
+          -o-border-radius: pxToRem(17.5);
+        }
+
+        .all_del_check {
+          background: rgba(214, 0, 0, 0.7);
+          color: #fff;
+        }
+      }
+    }
+
+  }
+}

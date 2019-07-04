@@ -1,0 +1,497 @@
+@function pxToRem($number) {
+  @return ($number/20)+rem;
+  // @return $number+px;
+}
+
+@mixin imageUrlAndWH($url, $w, $h) {
+  background-image: url($url);
+  width: pxToRem($w);
+  height: pxToRem($h);
+}
+
+.inlineBlockAndVerTicalAlignMiddle {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.setBackground {
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+.sidebar {
+  .closeSideBar {
+    position: absolute;
+    top: 0;
+    cursor: pointer;
+
+    &.center {
+      width: 100%;
+      // text-align: center;
+    }
+
+    i {
+      display: inline-block;
+      vertical-align: middle;
+      position: absolute;
+      top: 0.4rem;
+      left: 1rem;
+    }
+
+
+    .close {
+      width: pxToRem(2);
+      height: pxToRem(12);
+      background-color: #4ECEFF;
+      background-image: '';
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 pxToRem(2) 0 pxToRem(11);
+      position: initial;
+      float: none;
+
+      &+span {
+        font-family: MicrosoftYaHeiUI;
+        font-size: pxToRem(12);
+        color: #4ECEFF;
+        letter-spacing: 0;
+      }
+    }
+
+  }
+
+  p {
+    width: 100%;
+    font-family: 'MicrosoftYaHeiUI-Bold';
+    font-size: 22/20+rem;
+    color: #3F4659;
+    letter-spacing: 1px;
+    text-align: center;
+    line-height: 18/20+rem;
+    margin: 66/20+rem auto 20/20+rem;
+    // margin: 66/20+rem 51/20+rem 20/20+rem 49/20+rem;
+    white-space: nowrap;
+  }
+
+  .setting {
+
+    // 设置按钮
+    button.btn-setting {
+      font-size: pxToRem(12);
+      color: #8BE3FE;
+      background: #fff;
+      border: 1px solid #8BE3FE;
+      margin: 0 pxToRem(67) pxToRem(93) pxToRem(67);
+      padding: 0 pxToRem(10);
+      white-space: nowrap;
+      margin: 0 auto;
+      display: block;
+      margin-bottom: pxToRem(5);
+      border-radius: pxToRem(9.5);
+
+      &:hover {
+        background: #4ECEFF;
+        border: 1px solid #4ECEFF;
+        color: #fff;
+      }
+    }
+
+    .btn-list {
+      width: pxToRem(100);
+      margin: 0 auto pxToRem(16);
+      border-radius: pxToRem(5);
+      overflow: hidden;
+      min-height: pxToRem(72);
+
+      li {
+        width: pxToRem(100);
+        height: pxToRem(36);
+        line-height: pxToRem(36);
+        background: rgb(78, 206, 255);
+        font-family: MicrosoftYaHeiUI;
+        font-size: pxToRem(14);
+        color: rgba(255, 255, 255, 0.9);
+        letter-spacing: pxToRem(0.18);
+        text-align: center;
+        margin: 0;
+
+        &:hover {
+          background: #05B1F2;
+          color: rgba(255, 255, 255, 1);
+        }
+      }
+    }
+  }
+
+  ul {
+    li {
+      text-align: center;
+      cursor: pointer;
+
+      span[class$=-icon] {
+        @extend .setBackground;
+        @extend .inlineBlockAndVerTicalAlignMiddle;
+      }
+
+      span[class*=text] {
+        width: pxToRem(75);
+        text-align: left;
+        font-family: MicrosoftYaHeiUI;
+        font-size: pxToRem(16);
+        color: #717C96;
+        letter-spacing: 1px;
+        margin-left: pxToRem(11);
+        position: relative;
+        @extend .inlineBlockAndVerTicalAlignMiddle;
+      }
+
+      span.singlePredictionAI-icon {
+        width: 100%;
+        font-family: Gotham-Book;
+        font-size: pxToRem(16);
+        color: #717C96;
+        letter-spacing: 1px;
+      }
+
+      span.singlePredictionHuman-icon {
+        width: 100%;
+        font-family: MicrosoftYaHeiUI;
+        font-size: pxToRem(14);
+        color: #717C96;
+        letter-spacing: 0.88px;
+      }
+
+      div[class*=active] {
+        background-color: #00B9FF;
+
+        span {
+          color: #FFFFFF;
+          // font-family: MicrosoftYaHeiUI-Bold;
+        }
+      }
+
+      // 含有子菜单的激活前置图标
+      div[class*=active-parent] {
+        background-color: #fff;
+
+        span[class*=text] {
+          color: #4ECEFF;
+          font-family: MicrosoftYaHeiUI;
+        }
+      }
+
+      &>div {
+        width: 100%;
+        height: pxToRem(47);
+        line-height: pxToRem(47);
+        font-size: 0;
+        letter-spacing: -4px;
+        position: relative;
+        cursor: pointer;
+        margin-left: -0.15rem;
+        width: calc(100% + 0.15rem);
+        padding-right: 0.15rem;
+
+        .drop-down-icon {
+          @include imageUrlAndWH('../../../assets/sideBar/blue.png', 18, 13);
+          @extend .setBackground;
+          @extend .inlineBlockAndVerTicalAlignMiddle;
+          position: absolute;
+          right: pxToRem(-16);
+          top: 50%;
+          margin-top: pxToRem(-6.5);
+        }
+
+        .close-whiteImg,
+        .close-blueImg {
+          @extend .setBackground;
+          @extend .inlineBlockAndVerTicalAlignMiddle;
+        }
+
+
+        .close-whiteImg {
+          @include imageUrlAndWH('../../../assets/sideBar/white.png', 18, 14);
+        }
+
+        .close-blueImg {
+          @include imageUrlAndWH('../../../assets/sideBar/blue.png', 18, 13);
+        }
+
+        .close-blueImg-top {
+          transform: rotate(0deg);
+        }
+
+        .close-blueImg-bottom {
+          transform: rotate(180deg);
+        }
+
+
+        hr {
+          margin: 0;
+          padding: 0;
+          width: 86%;
+          float: right;
+          clear: both;
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          display: none;
+          background-color: #48D3FF;
+        }
+
+        // &:not([class*=active]):hover {
+        &:hover {
+          // text-align: left;
+          // color: #00B9FF;
+          // padding-left: 14%;
+          // background: #fff !important;
+          // background: #fff;
+
+          span[class*=text] {
+            font-size: pxToRem(16.5);
+            // color: #717C96;
+          }
+
+          hr {
+            display: block;
+          }
+
+
+          // hover时的图标
+          // span.singlePrediction-icon {
+          //   @include imageUrlAndWH('../../../assets/sideBar/btn_single_prediction.png', 21, 20);
+          // }
+
+          // span.batchPrediction-icon {
+          //   @include imageUrlAndWH('../../../assets/sideBar/btn_plyc_normal.png', 23, 15);
+          // }
+
+          // span.predictionHistory-icon {
+          //   @include imageUrlAndWH('../../../assets/sideBar/btn_yclsnormal.png', 22, 22);
+          // }
+
+          span.singlePredictionAI-icon,
+          span.singlePredictionHuman-icon {
+            // color: #717C96;
+          }
+
+          // .close-whiteImg {
+          //   @include imageUrlAndWH('../../../assets/sideBar/blue.png', 18, 13);
+          //   transform: rotate(180deg);
+          // }
+        }
+      }
+
+      &>div[class*=child] {
+        height: pxToRem(42);
+        line-height: pxToRem(42);
+      }
+
+      // 默认图标
+      .singlePrediction-icon {
+        @include imageUrlAndWH('../../../assets/sideBar/btn_single_prediction.png', 21, 20);
+      }
+
+      .batchPrediction-icon {
+        @include imageUrlAndWH('../../../assets/sideBar/btn_plyc_normal.png', 23, 15);
+      }
+
+      .predictionHistory-icon {
+        @include imageUrlAndWH('../../../assets/sideBar/btn_yclsnormal.png', 22, 22);
+      }
+
+      // 不含有子菜单的激活前置图标
+      .active {
+        .singlePrediction-icon {
+          @include imageUrlAndWH('../../../assets/sideBar/btn_single_prediction_select.png', 21, 20);
+        }
+
+        .batchPrediction-icon {
+          @include imageUrlAndWH('../../../assets/sideBar/icon_piliang_white.png', 23, 22);
+        }
+
+        .predictionHistory-icon {
+          @include imageUrlAndWH('../../../assets/sideBar/icon_history_white.png', 22, 22);
+        }
+
+        span.singlePredictionAI-icon,
+        span.singlePredictionHuman-icon {
+          color: #fff;
+          font-weight: 900;
+        }
+
+        .warningHistory-icon {
+          // background-image: url(../../../assets/sideBar/btn_single_prediction_select.png);
+        }
+      }
+
+      div[class*=active-parent] {
+        .singlePrediction-icon {
+          @include imageUrlAndWH('../../../assets/sideBar/icon_blue.png', 21, 20);
+        }
+
+        // 如果当前侧边栏处于折叠状态并且单组预测按钮处于折合状态并且当前所在的按钮是AI预测或者人工预测，那么改变按钮的背景色为蓝色，改变按钮的按钮的状态为白色按钮
+        .singlePrediction-whiteImg {
+          @extend .setBackground;
+          @extend .inlineBlockAndVerTicalAlignMiddle;
+          @include imageUrlAndWH('../../../assets/sideBar/btn_single_prediction_select.png', 21, 20);
+        }
+      }
+
+
+      .warningHistory-icon {
+        width: pxToRem(22);
+        height: pxToRem(22);
+      }
+    }
+  }
+
+  // ul {
+  //   width: 100%;
+  //   // .activeli,.active1,.active2,.active3{
+  //   //   padding-bottom: 8.5/20+rem;
+  //   //   border-bottom: 1px solid #48D3FF;
+  //   // }
+
+  //   li {
+  //     // margin-left: 29/20+rem;
+  //     width: 100%;
+  //     text-align: center;
+  //     // height: 47/20+rem;
+  //     line-height: 47/20+rem;
+  //     margin-bottom: 4/20+rem;
+  //     cursor: pointer;
+
+  //     .active1,
+  //     .active2,
+  //     .active3,
+  //     .active4 {
+  //       display: block;
+  //       // height: 47/20+rem;
+  //       // line-height: 47/20+rem;
+  //       background: #00B9FF;
+  //       color: #FFFFFF;
+  //       text-align: center;
+  //       padding: 15/20+rem 0;
+  //       font-family: MicrosoftYaHeiUI-Bold;
+
+  //       &:hover {
+  //         line-height: 1rem;
+  //       }
+  //     }
+
+  //     a {
+  //       font-family: 'MicrosoftYaHeiUI';
+  //       font-size: 16/20+rem;
+  //       color: #717C96;
+  //       letter-spacing: 1px;
+  //       text-align: justify;
+  //       line-height: 18/20+rem;
+  //     }
+
+  //     &:hover>a {
+  //       text-decoration: none;
+  //       text-align: left;
+  //       display: block;
+  //       height: 47/20+rem;
+  //       // vertical-align: middle;
+  //       line-height: 47/20+rem;
+  //       background: #fff;
+  //       color: #00B9FF;
+  //       padding-bottom: 8.5/20+rem;
+  //       border-bottom: 1px solid #48D3FF;
+  //       margin-left: 29/20+rem;
+  //     }
+
+
+  //     .singlePrediction-icon {
+  //       background-image: url(../../../assets/sideBar/btn_single_prediction.png);
+  //       display: inline-block;
+  //       vertical-align: middle;
+  //       width: pxToRem(21);
+  //       height: pxToRem(20);
+  //       margin-right: pxToRem(8);
+  //       background-size: 100% 100%;
+  //       background-position: center center;
+  //     }
+
+  //     .batchPrediction-icon {
+  //       background-image: url(../../../assets/sideBar/btn_plyc_normal.png);
+  //       display: inline-block;
+  //       vertical-align: middle;
+  //       width: pxToRem(23);
+  //       height: pxToRem(15);
+  //       margin-right: pxToRem(8);
+  //       background-size: 100% 100%;
+  //       background-position: center center;
+  //     }
+
+  //     .predictionHistory-icon {
+  //       background-image: url(../../../assets/sideBar/btn_yclsnormal.png);
+  //       display: inline-block;
+  //       vertical-align: middle;
+  //       width: pxToRem(22);
+  //       height: pxToRem(22);
+  //       margin-right: pxToRem(8);
+  //       background-size: 100% 100%;
+  //       background-position: center center;
+  //     }
+
+  //     .warningHistory-icon {
+  //       // background-image: url(../../../assets/sideBar/btn_yclsnormal.png);
+  //       display: inline-block;
+  //       vertical-align: middle;
+  //       width: pxToRem(22);
+  //       height: pxToRem(22);
+  //       margin-right: pxToRem(8);
+  //       background-size: 100% 100%;
+  //       background-position: center center;
+  //     }
+
+
+  //     .active1 .singlePrediction-icon {
+  //       background-image: url(../../../assets/sideBar/btn_single_prediction_select.png);
+  //     }
+
+  //     .active2 .batchPrediction-icon {
+  //       width: pxToRem(23);
+  //       height: pxToRem(22);
+  //       background-image: url(../../../assets/sideBar/icon_piliang_white.png);
+  //     }
+
+  //     .active3 .predictionHistory-icon {
+  //       background-image: url(../../../assets/sideBar/icon_history_white.png);
+  //     }
+
+  //     .active4 .warningHistory-icon {
+  //       // background-image: url(../../../assets/sideBar/btn_single_prediction_select.png);
+  //     }
+
+  //     &.singlePrediction:hover>a>span[class*=icon] {
+  //       background-image: url(../../../assets/sideBar/btn_single_prediction.png) !important;
+  //     }
+
+  //     &.batchPrediction:hover>a>span[class*=icon] {
+  //       width: pxToRem(23);
+  //       height: pxToRem(15);
+  //       background-image: url(../../../assets/sideBar/btn_plyc_normal.png) !important;
+  //     }
+
+  //     &.predictionHistory:hover>a>span[class*=icon] {
+  //       background-image: url(../../../assets/sideBar/btn_yclsnormal.png) !important;
+  //     }
+
+  //     &.warningHistory:hover>a>span[class*=icon] {
+  //       // background-image: url(../../../assets/sideBar/btn_yclsnormal.png) !important;
+  //     }
+
+  //   }
+  // }
+}
+
+
+.paddLeft18px {
+  padding-left: pxToRem(18);
+}

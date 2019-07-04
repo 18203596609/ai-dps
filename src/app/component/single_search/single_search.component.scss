@@ -1,0 +1,1747 @@
+@function pxToRem($number) {
+  @return ($number/20)+rem;
+  // @return $number+px;
+}
+
+.scrollbarStyle::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3) !important;
+  background-color: #F5F5F5 !important;
+}
+
+.scrollbarStyle::-webkit-scrollbar {
+  // width: 2px !important;
+  height: 3px !important;
+  background-color: #F5F5F5 !important;
+}
+
+.scrollbarStyle::-webkit-scrollbar-thumb {
+  // background-color: #000000 !important;
+  opacity: 0.4 !important;
+  background: #949EB6 !important;
+  border-radius: 5.5px !important;
+}
+
+
+
+.search {
+  width: 100%;
+  height: 100%;
+  background: #F4F5F8;
+  box-shadow: 0 2px 7px 0 rgba(98, 98, 99, 0.05);
+  text-align: center;
+  position: relative;
+
+  .pnList {
+    font-family: 'MicrosoftYaHeiUI';
+    font-size: pxToRem(24);
+    color: #3F4659;
+    letter-spacing: 0;
+    text-align: justify;
+    padding: 13.5rem 24.3rem 1.9rem 24.35rem;
+    white-space: nowrap;
+    margin: 0;
+    text-align: center;
+    padding-top: 0;
+  }
+
+  .form {
+    // padding-left: 253/20+rem;
+    position: relative;
+    display: inline-block;
+    // input[type='text']{
+    //   display: inline;
+    //   background: red;
+    // }
+
+    .numBox {
+      width: pxToRem(756);
+      height: pxToRem(81);
+      background: #FFFFFF;
+      display: flex;
+      border: 1px solid rgba(148, 158, 182, 0.16);
+      box-shadow: 0 1px 11px 0 rgba(204, 214, 223, 0.22);
+      overflow: hidden;
+      border-radius: pxToRem(2);
+      white-space: nowrap;
+      text-align: left;
+
+      .bgImg {
+        width: pxToRem(90);
+        height: 100%;
+        display: inline-block;
+        background: #fff url(../../../assets/single_prediction/button_search.png) no-repeat pxToRem(38) center;
+        background-size: pxToRem(28.1) pxToRem(28.1);
+        vertical-align: middle;
+        z-index: 100;
+      }
+
+      .btnBox {
+        width: pxToRem(666);
+        height: 100%;
+        font-size: 1rem;
+        line-height: pxToRem(18);
+        overflow: hidden;
+        white-space: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        // position: relative;
+
+        .btnNum {
+          z-index: 110;
+          position: absolute;
+          left: 0;
+          top: 0;
+          background: #FFFFFF;
+          border: 1px solid rgba(124, 134, 159, 0.16);
+          box-shadow: -6px 3px 11px 0 rgba(204, 214, 223, 0.22);
+          border-radius: pxToRem(2);
+
+          .num {
+            font-family: 'MicrosoftYaHeiUI';
+            font-size: pxToRem(12);
+            color: #3F4659;
+            letter-spacing: pxToRem(0.75);
+            text-align: justify;
+            line-height: pxToRem(15);
+            padding: pxToRem(2) pxToRem(10);
+            margin: pxToRem(6) 0;
+          }
+
+          .num0:hover,
+          .num1:hover,
+          .num2:hover {
+            background: #40424C;
+            color: #ffffff;
+          }
+
+          .num0:active,
+          .num1:active,
+          .num2:active {
+            background: #000000;
+          }
+
+          // .num1:hover {
+          //   background: #949EB6;
+          // }
+
+          // .num2:hover {
+          //   background: #949EB6;
+          // }
+        }
+
+        .searchInput,
+        .btnSearch {
+          // width: 30px;
+          // width: 650/20+rem;
+          // line-line-: 81/20+rem;
+          background: #FFFFFF;
+          // padding-left: 90/20+rem;
+          font-size: 1rem;
+          line-height: pxToRem(81);
+          color: #3F4659;
+          font-family: 'PingFangSC-Regular';
+        }
+
+        .btnBg {
+          background: #EDF1F5 url(../../../assets/single_prediction/d4ad00e93772cf026bc49bef5e740e8.png) no-repeat 85% center;
+          background-size: pxToRem(16) pxToRem(16);
+          border-radius: pxToRem(12);
+          padding: pxToRem(5) pxToRem(31) pxToRem(5) pxToRem(9);
+          margin-right: pxToRem(18);
+          -webkit-border-radius: pxToRem(12);
+          -moz-border-radius: pxToRem(12);
+          -ms-border-radius: pxToRem(12);
+          -o-border-radius: pxToRem(12);
+          font-family: 'PingFangSC-Regular';
+          font-size: 1rem;
+          color: #3F4659;
+          letter-spacing: 0;
+          text-align: justify;
+          line-height: pxToRem(18);
+          background-position: right 11px top 55%;
+        }
+
+        .clickBtnBg {
+          background: #5FD0F9;
+        }
+
+        .bgTf {
+          background: #EDF1F5 url(../../../assets/single_prediction/71e7d2ea07a8c7f2d05e7de435b16ff.png) no-repeat 85% center;
+          background-size: pxToRem(16) pxToRem(16);
+          background-position: right 11px top 55%;
+        }
+
+      }
+    }
+
+    .pnUl {
+      width: pxToRem(756);
+      background-color: #fff;
+      color: #3b200c;
+      border: none;
+      position: absolute;
+      z-index: 100;
+
+      .pnCont {
+        height: pxToRem(61);
+        font-family: 'PingFangSC-Regular';
+        font-size: 1rem;
+        color: #152C2C;
+        letter-spacing: 0;
+        text-align: justify;
+        line-height: pxToRem(35);
+        padding: pxToRem(16) 0 0 pxToRem(91);
+
+        &:hover {
+          background-color: #949EB6;
+
+        }
+
+        &.bg {
+          background-color: #949EB6;
+          color: #fff;
+        }
+      }
+
+
+    }
+
+
+
+    .message {
+      width: pxToRem(756);
+      margin-top: pxToRem(42);
+      height: pxToRem(40);
+      line-height: pxToRem(40);
+      // font-size: 0;
+
+      .text-tips {
+        float: left;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      p {
+        opacity: 0.7;
+        font-family: MicrosoftYaHeiUI;
+        font-size: pxToRem(16);
+        color: #727C93;
+        letter-spacing: 0;
+        text-align: justify;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .forecastBtn {
+        float: right;
+        height: 2rem;
+        line-height: 2rem;
+
+        p {
+          opacity: 0.85;
+          font-family: MicrosoftYaHeiUI;
+          font-size: pxToRem(16);
+          color: #FF834E;
+          letter-spacing: 0;
+          text-align: justify;
+          display: inline-block;
+          vertical-align: middle;
+          font-size: 0;
+
+          .alarmImg {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            background: url(../../../assets/single_prediction/icon_Error.png) no-repeat center;
+            background-size: 1rem 1rem;
+            margin-right: pxToRem(9.5);
+            vertical-align: middle;
+          }
+
+          span {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 0.8rem;
+
+          }
+        }
+
+
+
+        button {
+          width: 5.35rem;
+          color: #fff;
+          font-family: MicrosoftYaHeiUI;
+          // font-size: 1rem;
+          background: #5FD0F9;
+          border-radius: 0.9rem;
+          outline-style: none;
+          display: inline-block;
+          vertical-align: middle;
+          text-align: center;
+          // padding: 0.45rem 0 0.47rem 0;
+          cursor: pointer;
+          height: 1.8rem;
+          line-height: 1.8rem;
+          font-size: 1rem;
+
+
+
+          &:hover {
+            background: #21C1FC;
+          }
+
+          &:active {
+            background: #00AFEF;
+          }
+        }
+
+        // .disForcast {
+        //   background: gray;
+        // }
+      }
+    }
+  }
+
+}
+
+#comparisonDetails {
+  width: 100%;
+  height: 100%;
+  background: rgba(244, 245, 248, 0.25);
+  -webkit-box-shadow: 0 2px 7px 0 rgba(98, 98, 99, 0.05);
+  box-shadow: 0 2px 7px 0 rgba(98, 98, 99, 0.05);
+  text-align: center;
+  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000000000000000000000;
+  color: #fff;
+
+  &>div {
+    position: absolute;
+    width: pxToRem(886);
+    margin: 0 auto;
+    left: 50%;
+    top: 10%;
+    transform: translate(-50%, -10%);
+    padding: 1rem 0;
+
+    background: rgba(63, 70, 89, 0.95);
+    border-radius: pxToRem(8);
+
+    .pnList {
+      padding-left: 0;
+      padding-right: 0;
+      color: #F0F0F0;
+    }
+
+    .message {
+      p {
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .forecastBtn {
+        float: right;
+        height: 2rem;
+        line-height: 2rem;
+
+        p {
+          opacity: 0.85;
+          font-family: MicrosoftYaHeiUI;
+          font-size: pxToRem(16);
+          color: #FF834E;
+          letter-spacing: 0;
+          text-align: justify;
+          display: inline-block;
+          vertical-align: middle;
+          font-size: 0;
+
+          .alarmImg {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            background: url(../../../assets/single_prediction/icon_Error.png) no-repeat center;
+            background-size: 1rem 1rem;
+            margin-right: pxToRem(9.5);
+            vertical-align: middle;
+          }
+
+          span {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 0.8rem;
+
+          }
+        }
+
+        button.forecast {
+          width: 5.35rem;
+          color: #fff;
+          font-family: MicrosoftYaHeiUI;
+          background: #5FD0F9;
+          border-radius: 0.9rem;
+          outline-style: none;
+          display: inline-block;
+          vertical-align: middle;
+          text-align: center;
+          // padding: 0.45rem 0 0.45rem 0;
+          cursor: pointer;
+          height: 1.8rem;
+          line-height: 1.8rem;
+          font-size: 1rem;
+
+          &:hover {
+            background: #21C1FC;
+          }
+
+          &:active {
+            background: #00AFEF;
+          }
+        }
+
+        .closePrediction {
+          background: rgba(168, 173, 180, 0.75);
+          border-radius: pxToRem(18);
+          font-family: PingFangSC-Regular;
+          color: #3F4659;
+          text-align: center;
+          width: pxToRem(107);
+          height: pxToRem(36);
+          line-height: 1.8rem;
+
+          &:hover {
+            background: rgba(168, 173, 180, 0.55);
+          }
+
+          &:active {
+            background: rgba(168, 173, 180, 0.35);
+          }
+        }
+      }
+    }
+  }
+}
+
+div.search#singlePredictionDetailsSearch,
+div.search#AIPredictionDetailsSearch,
+div.search#humanPredictionDetailsSearch {
+  width: 100%;
+  height: pxToRem(70.5);
+  background: #F4F5F8;
+  text-align: center;
+  position: relative;
+
+  &>div#mmmm {
+    height: pxToRem(72);
+
+    .pnList {
+      font-family: 'MicrosoftYaHeiUI';
+      font-size: pxToRem(24);
+      color: #3F4659;
+      letter-spacing: 0;
+      text-align: justify;
+      padding: 13.5rem 24.3rem 1.9rem 24.35rem;
+      white-space: nowrap;
+      margin: 0;
+      text-align: center;
+      padding-top: 0;
+    }
+
+    .form {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+
+      .numBox {
+        width: 75%;
+        height: pxToRem(70.5);
+        display: flex;
+        overflow: hidden;
+        border-radius: pxToRem(2);
+        white-space: nowrap;
+        text-align: left;
+        float: left;
+        font-size: 0;
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+
+        .bgImg {
+          width: pxToRem(90);
+          height: 100%;
+          display: inline-block;
+          background: url(../../../assets/single_prediction/button_search.png) no-repeat pxToRem(38) center;
+          background-size: pxToRem(28.1) pxToRem(28.1);
+          vertical-align: middle;
+          z-index: 100;
+        }
+
+        .btnBox {
+          width: 100%;
+          height: 100%;
+          font-size: 1rem;
+          line-height: pxToRem(70.5);
+          overflow: hidden;
+          white-space: nowrap;
+          font-size: 0;
+          overflow-x: auto;
+          overflow-y: hidden;
+
+          .btnNum {
+            z-index: 110;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #FFFFFF;
+            border: 1px solid rgba(124, 134, 159, 0.16);
+            box-shadow: -6px 3px 11px 0 rgba(204, 214, 223, 0.22);
+            border-radius: pxToRem(2);
+
+            .num {
+              font-family: 'MicrosoftYaHeiUI';
+              font-size: pxToRem(12);
+              color: #3F4659;
+              letter-spacing: pxToRem(0.75);
+              text-align: justify;
+              line-height: pxToRem(15);
+              padding: pxToRem(2) pxToRem(10);
+              margin: pxToRem(6) 0;
+            }
+
+            .num0:hover,
+            .num1:hover,
+            .num2:hover {
+              background: #40424C;
+              color: #ffffff;
+            }
+
+            .num0:active,
+            .num1:active,
+            .num2:active {
+              background: #000000;
+            }
+
+          }
+
+          .searchInput,
+          .btnSearch {
+            background: #F4F5F8;
+            font-size: 1rem;
+            line-height: pxToRem(70.5);
+            color: #3F4659;
+            font-family: 'PingFangSC-Regular';
+          }
+
+          .btnBg {
+            background: #EDF1F5 url(../../../assets/single_prediction/d4ad00e93772cf026bc49bef5e740e8.png) no-repeat 85% center;
+            background-size: pxToRem(16) pxToRem(16);
+            border-radius: pxToRem(12);
+            padding: pxToRem(5) pxToRem(31) pxToRem(5) pxToRem(9);
+            margin-right: pxToRem(18);
+            -webkit-border-radius: pxToRem(12);
+            -moz-border-radius: pxToRem(12);
+            -ms-border-radius: pxToRem(12);
+            -o-border-radius: pxToRem(12);
+            font-family: 'PingFangSC-Regular';
+            font-size: 1rem;
+            color: #3F4659;
+            letter-spacing: 0;
+            text-align: justify;
+            line-height: pxToRem(18);
+            background-position: right 11px top 55%;
+          }
+
+          .clickBtnBg {
+            background: #5FD0F9;
+          }
+
+          .bgTf {
+            background: #EDF1F5 url(../../../assets/single_prediction/71e7d2ea07a8c7f2d05e7de435b16ff.png) no-repeat 85% center;
+            background-size: pxToRem(16) pxToRem(16);
+            background-position: right 11px top 55%;
+          }
+
+        }
+      }
+
+      .pnUl {
+        width: 100%;
+        background-color: #fff;
+        color: #3b200c;
+        border: none;
+        position: absolute;
+        z-index: 100;
+        top: pxToRem(71.6);
+
+        .pnCont {
+          height: pxToRem(61);
+          font-family: 'PingFangSC-Regular';
+          font-size: 1rem;
+          color: #152C2C;
+          letter-spacing: 0;
+          text-align: justify;
+          line-height: pxToRem(35);
+          padding: pxToRem(16) 0 0 pxToRem(91);
+
+          &:hover {
+            background-color: #949EB6;
+
+          }
+
+          &.bg {
+            background-color: #949EB6;
+            color: #fff;
+          }
+        }
+
+
+      }
+
+
+
+      .message {
+        width: 25%;
+        margin-top: 0;
+        height: pxToRem(70.5);
+        line-height: pxToRem(70.5);
+        float: right;
+
+        .text-tips {
+          float: left;
+        }
+
+        p {
+          margin: 0;
+        }
+
+        p {
+          opacity: 0.7;
+          font-family: MicrosoftYaHeiUI;
+          font-size: pxToRem(16);
+          color: #727C93;
+          letter-spacing: 0;
+          text-align: justify;
+          display: inline-block;
+          vertical-align: middle;
+        }
+
+        .forecastBtn {
+          float: right;
+          height: pxToRem(70.5);
+          line-height: pxToRem(70.5);
+          font-size: 0;
+          white-space: nowrap;
+
+          // p {
+          //   opacity: 0.85;
+          //   font-family: MicrosoftYaHeiUI;
+          //   font-size: pxToRem(16);
+          //   color: #FF834E;
+          //   letter-spacing: 0;
+          //   text-align: justify;
+          //   display: inline-block;
+          //   vertical-align: middle;
+          //   font-size: 0;
+
+          //   .alarmImg {
+          //     display: inline-block;
+          //     width: 1rem;
+          //     height: 1rem;
+          //     background: url(../../../assets/single_prediction/icon_Error.png) no-repeat center;
+          //     background-size: 1rem 1rem;
+          //     margin-right: pxToRem(9.5);
+          //     vertical-align: middle;
+          //   }
+
+          //   span {
+          //     display: inline-block;
+          //     vertical-align: middle;
+          //     font-size: 0.8rem;
+
+          //   }
+          // }
+
+
+
+          button {
+            width: 5.35rem;
+            color: #fff;
+            font-family: MicrosoftYaHeiUI;
+            // font-size: 1rem;
+            background: #5FD0F9;
+            border-radius: 0.9rem;
+            outline-style: none;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            // padding: 0.45rem 0 0.47rem 0;
+            cursor: pointer;
+            height: 1.8rem;
+            line-height: 1.8rem;
+            font-size: 0.9rem;
+
+
+
+            &:hover {
+              background: #21C1FC;
+            }
+
+            &:active {
+              background: #00AFEF;
+            }
+          }
+
+          // .disForcast {
+          //   background: gray;
+          // }
+
+          .export {
+            cursor: pointer;
+            display: inline-block;
+            vertical-align: middle;
+            height: 100%;
+            // position: absolute;
+            // right: 0;
+            margin-right: pxToRem(30);
+            margin-left: pxToRem(48);
+
+            // button {
+            //   display: inline-block;
+            //   vertical-align: middle;
+            // }
+
+            i.icon {
+              background: url(../../../assets/single_prediction/btn_export_normal.png) no-repeat 0 center;
+              height: 100%;
+              display: inline-block;
+              vertical-align: middle;
+              width: pxToRem(24);
+              background-size: 100%;
+              cursor: pointer;
+              float: left;
+            }
+
+            span {
+              font-family: MicrosoftYaHeiUI;
+              font-size: pxToRem(16);
+              color: #3F4659;
+              letter-spacing: 0;
+              text-align: center;
+              line-height: pxToRem(18);
+              display: inline-block;
+              vertical-align: middle;
+              float: right;
+              line-height: pxToRem(70.5);
+            }
+
+            &:hover {
+              i.icon {
+                background: url(../../../assets/single_prediction/btn_export_hover.png) no-repeat 0 center;
+                background-size: 100%;
+              }
+            }
+
+            &:active {
+              i.icon {
+                background: url(../../../assets/single_prediction/btn_export_confirm.png) no-repeat 0 center;
+                background-size: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+}
+
+
+
+div#singleComparisonManage {
+  width: 100%;
+  height: 100%;
+  background: #F4F5F8;
+  box-shadow: 0 0px 0px 0 rgba(98, 98, 99, 0);
+  text-align: center;
+  position: relative;
+
+  .pnList {
+    font-family: 'MicrosoftYaHeiUI';
+    font-size: pxToRem(24);
+    color: #3F4659;
+    letter-spacing: 0;
+    text-align: justify;
+    padding: 13.5rem 24.3rem 1.9rem 24.35rem;
+    white-space: nowrap;
+    margin: 0;
+    text-align: center;
+    padding-top: 0;
+  }
+
+  div.form {
+    width: 100%;
+    // padding-left: 253/20+rem;
+    position: relative;
+    display: inline-block;
+    // input[type='text']{
+    //   display: inline;
+    //   background: red;
+    // }
+
+    .numBox {
+      width: 100%;
+      height: pxToRem(59);
+      background: #FFFFFF;
+      display: flex;
+      border: 1px solid rgba(148, 158, 182, 0.16);
+      box-shadow: 0 1px 11px 0 rgba(204, 214, 223, 0.22);
+      overflow: hidden;
+      border-radius: pxToRem(2);
+      white-space: nowrap;
+      text-align: left;
+
+      .bgImg {
+        width: pxToRem(90);
+        height: 100%;
+        display: inline-block;
+        background: #fff url(../../../assets/single_prediction/button_search.png) no-repeat pxToRem(38) center;
+        background-size: pxToRem(28.1) pxToRem(28.1);
+        vertical-align: middle;
+        z-index: 100;
+      }
+
+      .btnBox {
+        width: 80%;
+        height: 100%;
+        font-size: 1rem;
+        line-height: pxToRem(18);
+        overflow: hidden;
+        white-space: nowrap;
+        padding-left: pxToRem(25);
+        overflow-x: auto;
+        overflow-y: hidden;
+        // position: relative;
+
+        .btnNum {
+          z-index: 110;
+          position: absolute;
+          left: 0;
+          top: 0;
+          background: #FFFFFF;
+          border: 1px solid rgba(124, 134, 159, 0.16);
+          box-shadow: -6px 3px 11px 0 rgba(204, 214, 223, 0.22);
+          border-radius: pxToRem(2);
+
+          .num {
+            font-family: 'MicrosoftYaHeiUI';
+            font-size: pxToRem(12);
+            color: #3F4659;
+            letter-spacing: pxToRem(0.75);
+            text-align: justify;
+            line-height: pxToRem(15);
+            padding: pxToRem(2) pxToRem(10);
+            margin: pxToRem(6) 0;
+          }
+
+          .num0:hover,
+          .num1:hover,
+          .num2:hover {
+            background: #40424C;
+            color: #ffffff;
+          }
+
+          .num0:active,
+          .num1:active,
+          .num2:active {
+            background: #000000;
+          }
+
+          // .num1:hover {
+          //   background: #949EB6;
+          // }
+
+          // .num2:hover {
+          //   background: #949EB6;
+          // }
+        }
+
+        .searchInput,
+        .btnSearch {
+          // width: 30px;
+          // width: 650/20+rem;
+          // line-line-: 81/20+rem;
+          background: #FFFFFF;
+          // padding-left: 90/20+rem;
+          font-size: 1rem;
+          line-height: pxToRem(59) !important;
+          color: #3F4659;
+          font-family: 'PingFangSC-Regular';
+        }
+
+        .btnBg {
+          background: #EDF1F5 url(../../../assets/single_prediction/d4ad00e93772cf026bc49bef5e740e8.png) no-repeat 85% center;
+          background-size: pxToRem(16) pxToRem(16);
+          border-radius: pxToRem(12);
+          padding: pxToRem(5) pxToRem(31) pxToRem(5) pxToRem(9);
+          margin-right: pxToRem(18);
+          -webkit-border-radius: pxToRem(12);
+          -moz-border-radius: pxToRem(12);
+          -ms-border-radius: pxToRem(12);
+          -o-border-radius: pxToRem(12);
+          font-family: 'PingFangSC-Regular';
+          font-size: 1rem;
+          color: #3F4659;
+          letter-spacing: 0;
+          text-align: justify;
+          line-height: pxToRem(18);
+          background-position: right 11px top 55%;
+        }
+
+        .clickBtnBg {
+          background: #5FD0F9;
+        }
+
+        .bgTf {
+          background: #EDF1F5 url(../../../assets/single_prediction/71e7d2ea07a8c7f2d05e7de435b16ff.png) no-repeat 85% center;
+          background-size: pxToRem(16) pxToRem(16);
+          background-position: right 11px top 55%;
+        }
+
+      }
+
+      .operator-btn {
+        line-height: pxToRem(59);
+        position: absolute;
+        right: pxToRem(20);
+
+        span {
+          // padding: 0.15rem 1.45rem;
+          background-color: #000;
+          color: #fff;
+          font-family: MicrosoftYaHeiUI;
+          font-size: pxToRem(16);
+          color: #FFFFFF;
+          letter-spacing: 0;
+          text-align: center;
+          width: pxToRem(90);
+          height: pxToRem(28);
+          display: inline-block;
+          line-height: pxToRem(28);
+          background: #00B9FF;
+          border-radius: pxToRem(21.5);
+          cursor: pointer;
+        }
+
+        span:nth-child(even) {
+          margin-left: pxToRem(12);
+        }
+
+
+
+        span.del {
+          opacity: 0.87;
+          color: #FF0000;
+          background: #D4D8E2;
+        }
+
+        // span.complete {}
+
+        span.cancel {
+          color: #3F4659;
+          background: rgba(148, 158, 182, 0.4);
+          border-radius: pxToRem(21.5);
+        }
+
+
+
+        span.edit:not(.forbid-click),
+        span.complete:not(.forbid-click) {
+          &:hover {
+            background: #21C1FC;
+          }
+
+          &:active {
+            background: #00AFEF;
+          }
+        }
+
+
+        span.forbid-click {
+          cursor: not-allowed;
+        }
+
+      }
+    }
+
+    .pnUl {
+      width: 100%;
+      background-color: #fff;
+      color: #3b200c;
+      border: none;
+      position: absolute;
+      z-index: 100;
+
+      .pnCont {
+        height: pxToRem(61);
+        font-family: 'PingFangSC-Regular';
+        font-size: 1rem;
+        color: #152C2C;
+        letter-spacing: 0;
+        text-align: justify;
+        line-height: pxToRem(35);
+        padding: pxToRem(16) 0 0 pxToRem(91);
+
+        &:hover {
+          background-color: #949EB6;
+
+        }
+
+        &.bg {
+          background-color: #949EB6;
+          color: #fff;
+        }
+      }
+
+
+    }
+
+
+
+    .message {
+      width: pxToRem(756);
+      margin-top: pxToRem(42);
+      height: pxToRem(40);
+      line-height: pxToRem(40);
+      // font-size: 0;
+
+      .text-tips {
+        float: left;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      p {
+        opacity: 0.7;
+        font-family: MicrosoftYaHeiUI;
+        font-size: pxToRem(16);
+        color: #727C93;
+        letter-spacing: 0;
+        text-align: justify;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .forecastBtn {
+        float: right;
+        height: 2rem;
+        line-height: 2rem;
+
+        p {
+          opacity: 0.85;
+          font-family: MicrosoftYaHeiUI;
+          font-size: pxToRem(16);
+          color: #FF834E;
+          letter-spacing: 0;
+          text-align: justify;
+          display: inline-block;
+          vertical-align: middle;
+          font-size: 0;
+
+          .alarmImg {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            background: url(../../../assets/single_prediction/icon_Error.png) no-repeat center;
+            background-size: 1rem 1rem;
+            margin-right: pxToRem(9.5);
+            vertical-align: middle;
+          }
+
+          span {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 0.8rem;
+
+          }
+        }
+
+
+
+        button {
+          width: 5.35rem;
+          color: #fff;
+          font-family: MicrosoftYaHeiUI;
+          // font-size: 1rem;
+          background: #5FD0F9;
+          border-radius: 0.9rem;
+          outline-style: none;
+          display: inline-block;
+          vertical-align: middle;
+          text-align: center;
+          // padding: 0.45rem 0 0.47rem 0;
+          cursor: pointer;
+          height: 1.8rem;
+          line-height: 1.8rem;
+          font-size: 1rem;
+
+
+
+          &:hover {
+            background: #21C1FC;
+          }
+
+          &:active {
+            background: #00AFEF;
+          }
+        }
+
+        // .disForcast {
+        //   background: gray;
+        // }
+      }
+    }
+  }
+}
+
+
+div#batchSearchMode {
+  width: 100%;
+  height: 100%;
+  background: #F4F5F8;
+  box-shadow: 0 0px 0px 0 rgba(98, 98, 99, 0);
+  text-align: center;
+  position: relative;
+
+  .pnList {
+    font-family: 'MicrosoftYaHeiUI';
+    font-size: pxToRem(24);
+    color: #3F4659;
+    letter-spacing: 0;
+    text-align: justify;
+    padding: 13.5rem 24.3rem 1.9rem 24.35rem;
+    white-space: nowrap;
+    margin: 0;
+    text-align: center;
+    padding-top: 0;
+  }
+
+  div.form {
+    width: 100%;
+    // padding-left: 253/20+rem;
+    position: relative;
+    display: inline-block;
+    // input[type='text']{
+    //   display: inline;
+    //   background: red;
+    // }
+
+    .numBox {
+      width: 100%;
+      height: pxToRem(81);
+      background: #FFFFFF;
+      display: flex;
+      border: 1px solid rgba(148, 158, 182, 0.16);
+      box-shadow: 0 1px 11px 0 rgba(204, 214, 223, 0.22);
+      overflow: hidden;
+      border-radius: pxToRem(2);
+      white-space: nowrap;
+      text-align: left;
+
+      .bgImg {
+        width: pxToRem(90);
+        height: 100%;
+        display: inline-block;
+        background: #fff url(../../../assets/single_prediction/button_search.png) no-repeat pxToRem(38) center;
+        background-size: pxToRem(28.1) pxToRem(28.1);
+        vertical-align: middle;
+        z-index: 100;
+      }
+
+      .btnBox {
+        width: 100%;
+        height: 100%;
+        font-size: 1rem;
+        line-height: pxToRem(18);
+        overflow: hidden;
+        white-space: nowrap;
+        padding-left: pxToRem(25);
+        overflow-x: auto;
+        overflow-y: hidden;
+        // position: relative;
+
+        .btnNum {
+          z-index: 110;
+          position: absolute;
+          left: 0;
+          top: 0;
+          background: #FFFFFF;
+          border: 1px solid rgba(124, 134, 159, 0.16);
+          box-shadow: -6px 3px 11px 0 rgba(204, 214, 223, 0.22);
+          border-radius: pxToRem(2);
+
+          .num {
+            font-family: 'MicrosoftYaHeiUI';
+            font-size: pxToRem(12);
+            color: #3F4659;
+            letter-spacing: pxToRem(0.75);
+            text-align: justify;
+            line-height: pxToRem(15);
+            padding: pxToRem(2) pxToRem(10);
+            margin: pxToRem(6) 0;
+          }
+
+          .num0:hover,
+          .num1:hover,
+          .num2:hover {
+            background: #40424C;
+            color: #ffffff;
+          }
+
+          .num0:active,
+          .num1:active,
+          .num2:active {
+            background: #000000;
+          }
+
+          // .num1:hover {
+          //   background: #949EB6;
+          // }
+
+          // .num2:hover {
+          //   background: #949EB6;
+          // }
+        }
+
+        .searchInput,
+        .btnSearch {
+          // width: 30px;
+          // width: 650/20+rem;
+          // line-line-: 81/20+rem;
+          background: #FFFFFF;
+          // padding-left: 90/20+rem;
+          font-size: 1rem;
+          line-height: pxToRem(81);
+          color: #3F4659;
+          font-family: 'PingFangSC-Regular';
+        }
+
+        .btnBg {
+          background: #EDF1F5 url(../../../assets/single_prediction/d4ad00e93772cf026bc49bef5e740e8.png) no-repeat 85% center;
+          background-size: pxToRem(16) pxToRem(16);
+          border-radius: pxToRem(12);
+          padding: pxToRem(5) pxToRem(31) pxToRem(5)pxToRem(9);
+          margin-right: pxToRem(18);
+          -webkit-border-radius: pxToRem(12);
+          -moz-border-radius: pxToRem(12);
+          -ms-border-radius: pxToRem(12);
+          -o-border-radius: pxToRem(12);
+          font-family: 'PingFangSC-Regular';
+          font-size: 1rem;
+          color: #3F4659;
+          letter-spacing: 0;
+          text-align: justify;
+          line-height: pxToRem(18);
+          background-position: right 11px top 55%;
+        }
+
+        .clickBtnBg {
+          background: #5FD0F9;
+        }
+
+        .bgTf {
+          background: #EDF1F5 url(../../../assets/single_prediction/71e7d2ea07a8c7f2d05e7de435b16ff.png) no-repeat 85% center;
+          background-size: pxToRem(16) pxToRem(16);
+          background-position: right 11px top 55%;
+        }
+
+      }
+
+      .operator-btn {
+        line-height: pxToRem(81);
+        position: absolute;
+        right: pxToRem(20);
+
+        span {
+          // padding: 0.15rem 1.45rem;
+          background-color: #000;
+          color: #fff;
+          font-family: MicrosoftYaHeiUI;
+          font-size: pxToRem(16);
+          color: #FFFFFF;
+          letter-spacing: 0;
+          text-align: center;
+          width: pxToRem(90);
+          height: pxToRem(28);
+          display: inline-block;
+          line-height: pxToRem(28);
+          background: #00B9FF;
+          border-radius: pxToRem(21.5);
+          cursor: pointer;
+        }
+
+        span:nth-child(even) {
+          margin-left: pxToRem(12);
+        }
+
+
+
+        span.del {
+          opacity: 0.87;
+          color: #FF0000;
+          background: #D4D8E2;
+        }
+
+        // span.complete {}
+
+        span.cancel {
+          color: #3F4659;
+          background: rgba(148, 158, 182, 0.4);
+          border-radius: pxToRem(21.5);
+        }
+
+
+
+        span.edit:not(.forbid-click),
+        span.complete:not(.forbid-click) {
+          &:hover {
+            background: #21C1FC;
+          }
+
+          &:active {
+            background: #00AFEF;
+          }
+        }
+
+
+        span.forbid-click {
+          cursor: not-allowed;
+        }
+
+      }
+    }
+
+    .pnUl {
+      width: 100%;
+      background-color: #fff;
+      color: #3b200c;
+      border: none;
+      position: absolute;
+      z-index: 100;
+
+      .pnCont {
+        height: pxToRem(61);
+        font-family: 'PingFangSC-Regular';
+        font-size: 1rem;
+        color: #152C2C;
+        letter-spacing: 0;
+        text-align: justify;
+        line-height: pxToRem(35);
+        padding: pxToRem(16) 0 0 pxToRem(25);
+
+        &:hover {
+          background-color: #949EB6;
+
+        }
+
+        &.bg {
+          background-color: #949EB6;
+          color: #fff;
+        }
+      }
+
+
+    }
+
+
+
+    .message {
+      width: pxToRem(756);
+      margin-top: pxToRem(42);
+      height: pxToRem(40);
+      line-height: pxToRem(40);
+      // font-size: 0;
+      display: none;
+
+      .text-tips {
+        float: left;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      p {
+        opacity: 0.7;
+        font-family: MicrosoftYaHeiUI;
+        font-size: pxToRem(16);
+        color: #727C93;
+        letter-spacing: 0;
+        text-align: justify;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .forecastBtn {
+        float: right;
+        height: 2rem;
+        line-height: 2rem;
+
+        p {
+          opacity: 0.85;
+          font-family: MicrosoftYaHeiUI;
+          font-size: pxToRem(16);
+          color: #FF834E;
+          letter-spacing: 0;
+          text-align: justify;
+          display: inline-block;
+          vertical-align: middle;
+          font-size: 0;
+
+          .alarmImg {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            background: url(../../../assets/single_prediction/icon_Error.png) no-repeat center;
+            background-size: 1rem 1rem;
+            margin-right: pxToRem(9.5);
+            vertical-align: middle;
+          }
+
+          span {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 0.8rem;
+
+          }
+        }
+
+
+
+        button {
+          width: 5.35rem;
+          color: #fff;
+          font-family: MicrosoftYaHeiUI;
+          // font-size: 1rem;
+          background: #5FD0F9;
+          border-radius: 0.9rem;
+          outline-style: none;
+          display: inline-block;
+          vertical-align: middle;
+          text-align: center;
+          // padding: 0.45rem 0 0.47rem 0;
+          cursor: pointer;
+          height: 1.8rem;
+          line-height: 1.8rem;
+          font-size: 1rem;
+
+
+
+          &:hover {
+            background: #21C1FC;
+          }
+
+          &:active {
+            background: #00AFEF;
+          }
+        }
+
+        // .disForcast {
+        //   background: gray;
+        // }
+      }
+    }
+  }
+
+  @media screen and (max-width: 1366px) {
+    .numBox {
+      height: pxToRem(61) !important;
+    }
+
+    .searchInput,
+    .btnSearch {
+      line-height: pxToRem(61) !important;
+    }
+  }
+
+  // @media screen and (max-width: 1600px) {
+  //   .numBox {
+  //     height: pxToRem(73) !important;
+  //   }
+
+  //   .searchInput,
+  //   .btnSearch {
+  //     line-height: pxToRem(73) !important;
+  //   }
+  // }
+}
+
+
+div.search#batchDetails {
+  width: 100%;
+  height: 100%;
+  background: rgba(244, 245, 248, 0.25);
+  -webkit-box-shadow: 0 2px 7px 0 rgba(98, 98, 99, 0.05);
+  box-shadow: 0 2px 7px 0 rgba(98, 98, 99, 0.05);
+  text-align: center;
+  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  color: #fff;
+
+  &>div {
+    position: absolute;
+    width: pxToRem(886);
+    margin: 0 auto;
+    left: 50%;
+    top: 10%;
+    transform: translate(-50%, -10%);
+    padding: 1rem 0;
+
+    background: rgba(63, 70, 89, 0.95);
+    border-radius: pxToRem(8);
+
+    .pnList {
+      padding-left: 0;
+      padding-right: 0;
+      color: #F0F0F0;
+    }
+
+    .pnUl {
+      width: pxToRem(756);
+      background-color: #fff;
+      color: #3b200c;
+      border: none;
+      position: absolute;
+      z-index: 100;
+
+      .pnCont {
+        height: pxToRem(61);
+        font-family: 'PingFangSC-Regular';
+        font-size: 1rem;
+        color: #152C2C;
+        letter-spacing: 0;
+        text-align: justify;
+        line-height: pxToRem(35);
+
+        &:hover {
+          background-color: #949EB6;
+
+        }
+
+        &.bg {
+          background-color: #949EB6;
+          color: #fff;
+        }
+      }
+    }
+
+    .message {
+      p {
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .forecastBtn {
+        float: right;
+        height: 2rem;
+        line-height: 2rem;
+
+        p {
+          opacity: 0.85;
+          font-family: MicrosoftYaHeiUI;
+          font-size: pxToRem(16);
+          color: #FF834E;
+          letter-spacing: 0;
+          text-align: justify;
+          display: inline-block;
+          vertical-align: middle;
+          font-size: 0;
+
+          .alarmImg {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            background: url(../../../assets/single_prediction/icon_Error.png) no-repeat center;
+            background-size: 1rem 1rem;
+            margin-right: pxToRem(9.5);
+            vertical-align: middle;
+          }
+
+          span {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 0.8rem;
+
+          }
+        }
+
+        button.forecast {
+          width: 5.35rem;
+          color: #fff;
+          font-family: MicrosoftYaHeiUI;
+          background: #5FD0F9;
+          border-radius: 0.9rem;
+          outline-style: none;
+          display: inline-block;
+          vertical-align: middle;
+          text-align: center;
+          // padding: 0.45rem 0 0.45rem 0;
+          cursor: pointer;
+          height: 1.8rem;
+          line-height: 1.8rem;
+          font-size: 1rem;
+
+          &:hover {
+            background: #21C1FC;
+          }
+
+          &:active {
+            background: #00AFEF;
+          }
+        }
+
+        .closePrediction {
+          background: rgba(168, 173, 180, 0.75);
+          border-radius: pxToRem(18);
+          font-family: PingFangSC-Regular;
+          color: #3F4659;
+          text-align: center;
+          width: pxToRem(107);
+          height: pxToRem(36);
+          line-height: 1.8rem;
+
+          &:hover {
+            background: rgba(168, 173, 180, 0.55);
+          }
+
+          &:active {
+            background: rgba(168, 173, 180, 0.35);
+          }
+        }
+      }
+    }
+  }
+}
+
+div#batchComparisonManage {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  box-shadow: 0;
+  font-size: 0;
+
+  .batch_box,
+  div.form,
+  section.numBox {
+    width: 100%;
+    height: 100%;
+  }
+
+  section.numBox {
+    border: none;
+    box-shadow: 0;
+
+
+    // .displaySear{
+    //   position: absolute;
+    //   width: 90%;
+    //   height: 100%;
+    //   z-index: 200;
+    // }
+
+    div.btnBox {
+      width: 90%;
+      float: left;
+      max-width: 90%;
+      height: 100%;
+      padding-left: 0.925rem;
+      overflow-x: auto;
+      overflow-y: hidden;
+
+      b {
+        display: inline-block;
+        vertical-align: middle;
+        width: 1px;
+        height: 100%;
+      }
+
+
+      input.searchInput,
+      input.btnSearch {
+        height: 100%;
+        font-size: pxToRem(14);
+      }
+
+
+      .btnBg {
+        font-size: pxToRem(14);
+        background: rgba(168, 173, 180, 0.17);
+        padding-right: pxToRem(9);
+      }
+    }
+
+    .forecastBtn {
+      float: right;
+      width: 10%;
+      height: 100%;
+      margin-right: pxToRem(10);
+
+      p {
+        opacity: 0.85;
+        font-family: MicrosoftYaHeiUI;
+        font-size: pxToRem(16);
+        color: #FF834E;
+        letter-spacing: 0;
+        text-align: justify;
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 0;
+
+        .alarmImg {
+          display: inline-block;
+          width: 1rem;
+          height: 1rem;
+          background: url(../../../assets/single_prediction/icon_Error.png) no-repeat center;
+          background-size: 1rem 1rem;
+          margin-right: pxToRem(9.5);
+          vertical-align: middle;
+        }
+
+        span {
+          display: inline-block;
+          vertical-align: middle;
+          font-size: 0.8rem;
+
+        }
+      }
+    }
+  }
+
+  ul.pnUl {
+    width: 100%;
+
+    .pnCont {
+      padding: 0 0 0 0.925rem;
+      font-size: pxToRem(14);
+      height: pxToRem(43);
+      line-height: pxToRem(43);
+    }
+  }
+}
+
+
+.btnListExist {}
+
+.btnListNotExist {
+  cursor: default !important;
+  background-color: rgba(148, 158, 182, 0.4) !important;
+  color: #3F4659 !important;
+}

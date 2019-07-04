@@ -1,0 +1,336 @@
+<section id='chartShow' [class.curIsEditIng]='isCurEditIng'>
+  <div id='chartShowTop'>
+    <section class="left">
+      <p>图表区</p>
+      <span class="scale-small-icon" *ngIf="chartAreaIsScale" (click)="scaleBigChart(false)"></span>
+      <span class='scale-big-icon' *ngIf="!chartAreaIsScale" (click)="scaleBigChart(true)"></span>
+    </section>
+    <section class="right-amendchart" *ngIf='curAIOrHumanOrSingle==="humanPrediction"'>
+      <ng-template [ngIf]='!isCurEditIng'>
+        <span (click)='amendChart($event)'>
+          <span class="icon"></span>
+          <button class="btn-text">修正图表</button>
+        </span>
+      </ng-template>
+      <ng-template [ngIf]='isCurEditIng'>
+        <button style="display: none;" class="amendChart-editPause" (click)="amendChartEditPause()">暂停</button>
+        <button class="amendChart-editComplete" (click)="amendChartEditComplete()">完成</button>
+        <button class="amendChart-editCancel" (click)='amendChartCancelEdit()'>取消编辑</button>
+      </ng-template>
+    </section>
+  </div>
+  <div id='chartOne' class='echart-area'>
+    <div class='chartMode'>
+      <span class='chartWay'>图表展示方式</span>
+      <div class='mergeBox'>
+        <span class='dmValue' (click)='clickDmValue()'>{{dmValue}}
+          <i class='dmValueBg'></i>
+        </span>
+        <ul class='dmUl'>
+          <li *ngFor="let item of detachAndMerge" #merge (click)='margeChart(merge)'>{{item}}</li>
+        </ul>
+      </div>
+    </div>
+    <div echarts [options]='forecastOptions' class='forecastChart' [autoResize]='true'
+      (chartInit)='forecastChartInit($event)' (chartMouseOver)="onChartEventOver($event)"
+      (chartMouseOut)='onChartEventOut($event)' (chartDblClick)='dbClickFc($event)' (chartDataZoom)='dataZoomFc($event)'
+      [forecastNowResize]='[positionNow,nowFcXZ,nowFcYZ,nowFcColor,this,startNum,endNum]'>
+    </div>
+    <input type="number" id="changeRaNum" class="changeRaNum">
+    <!-- [loading]='isLoading' -->
+    <div class="fc-chart-checkBox checkBox">
+      <ul class='checkList'>
+        <ng-container *ngFor="let item of fcCheckBox;let i=index;">
+          <li [forecastBoxShow]='[fcCheckBox,i,item.isShow,item.def]' (mouseleave)='hideSetChart()'
+            [showEnsure]='[i,item.ensure]'>
+            <div class='check_one_Box' (mouseenter)='showSetChart($event,item.lineType,item.num,item.id,item)'>
+              <input (click)="fcLegendClick($event, 'fc', item.isShow, item.num,item.legendName);" type="checkbox"
+                [(ngModel)]='item.isShow' class="checkbox_null" />
+              <label class="label_checkbox">
+                <input type="checkbox" [(ngModel)]='item.isShow' />
+                <div [attr.class]='"show_box showBox_fc"+item.num' [ngStyle]="{'background': item.color}"></div>
+              </label>
+              <div class='check_box_right'>
+                <span class='check_value'>
+                  <span>{{item.content}}</span>
+                </span>
+              </div>
+              <span class="pen-icon" (click)="editInEnsuring(item)"
+                *ngIf='item.lineType==="keDiagramLineType_ib"&&isCurEditIng'></span>
+              <p [attr.class]='"ensure ensure"+i'>确</p>
+            </div>
+            <!-- <ul class='setChartBtn' [attr.class]='"setChartBtn setChartBtn"+item.num'>
+              <li [attr.class]='"nowChart nowChart"+i' (click)='clickNowChart(item.id,i)'>设为当前预测</li>
+              <li [attr.class]='"conChart conChart"+i' (click)='clickSave(item.id,item.lineCode,i,item.content)'>保存</li>
+              <li [attr.class]='"isEnsure isEnsure"+i' (click)='clickConfirmUse(item.id,i,item.lineCode)'>确认使用</li>
+              <li [attr.class]='"amendChart amendChart"+i'>查看修正记录</li>
+              <li [attr.class]='"delChart delChart"+i' (click)='clickDelLine(i,item.lineCode)'>删除曲线</li>
+            </ul> -->
+          </li>
+        </ng-container>
+      </ul>
+      <div class='confirmUseBox' *ngIf='false'>
+        <p class='closeEnsure' (click)='clickClock()'>X</p>
+        <p class='userTime'>确认使用时间</p>
+        <span class='time_box'>
+          <nz-demo-date-picker-basic [date]='last_time_buy' (getDatePickerDate)='getDatePickerDate($event)'>
+          </nz-demo-date-picker-basic>
+        </span>
+      </div>
+      <div class='delLineBox' *ngIf='onOff.showDelLine'>
+        <p class='isDel'>确认删除该曲线吗？</p>
+        <p class='isDelHint'>删除后无法找回</p>
+        <p class='delBut'>
+          <button class='isDelBtn' (click)='confirmDelLine()'>删除</button>
+          <button class='isDelCancel' (click)='countermandLine()'>取消</button>
+        </p>
+      </div>
+      <div class='exceedTenLine' *ngIf="onOff.showExceedTenLine">
+        <p>图表中曲线已超过10根</p>
+        <p>适当删减或隐藏曲线</p>
+        <button class='isYes' (click)='useIsYes()'>知道了</button>
+      </div>
+    </div>
+    <ul class='fcOperation setChartBtn' (mouseleave)='hideSetChart()' (mouseenter)='showChartBtn()'>
+      <li class='nowChart' (click)='clickNowChart()'>设为当前预测</li>
+      <li class='conChart' (click)='clickSave()'>保存</li>
+      <li class='isEnsure' (click)='clickConfirmUse()'>确认使用</li>
+      <li class='amendChart'>查看修正记录</li>
+      <li class='delChart' (click)='clickDelLine("fc")'>删除曲线</li>
+    </ul>
+    <p class='nowFcLocation'>当前预测曲线</p>
+    <p class='nowBjLocation' *ngIf='displayBox.edit'>编辑中曲线</p>
+    <div class='fcMarkpoint'>
+      <p>{{markPoint_name}}时间：</p>
+      <span>{{fc_markPoint_time}}</span>
+    </div>
+    <div class='notDataBox'>
+      <span>no data available</span>
+    </div>
+    <div class='timeBtn' *ngIf='showtimeBox'>
+      <div class='timeStart timeStartFc'>
+        <span (click)='fcClickStn()' class='startNum startNumfc'>{{startNum}}</span>
+        <app-time-select [timeList]='timeStartList' [className]='"start"' [chartName]='"fc"'
+          (fcData)='clickStartNum($event)'></app-time-select>
+      </div>
+      <div class='timeEnd timeEndFc'>
+        <span (click)='fcClickEtn()' class='endNum endNumfc'>{{endNum}}</span>
+        <app-time-select [timeList]='timeEndList' [className]='"end"' [chartName]='"fc"' (fcData)='clickEndNum($event)'>
+        </app-time-select>
+      </div>
+    </div>
+  </div>
+  <div id='chartTwo' class="echart-area">
+    <div echarts [options]='malfunctionOptions' class='malfunctionChart' (chartInit)='malfunctionChartInit($event)'
+      (chartDataZoom)='dataZoomFc($event)' (chartDblClick)='dbClickFc($event)'
+      (chartMouseOver)="onChartEventOver($event)" (chartMouseOut)='onChartEventOut($event)'></div>
+    <input type="number" id="changeRaNum2" class="changeRaNum">
+    <div class="mf-chart-checkBox checkBox">
+      <ul>
+        <li *ngFor="let item of mlCheckBox;let i=index;" (mouseleave)='mfHideSetChart(item.legendName)'>
+          <div class='check_one_Box' (click)="fcLegendClick($event, 'mf', item.isShow, item.num,item.legendName);"
+            (mouseenter)='mfShowSetChart($event,item.legendName,item)'>
+            <input type="checkbox" [(ngModel)]='item.isShow' class="checkbox_null" />
+            <label class="label_checkbox">
+              <input type="checkbox" [(ngModel)]="item.isShow" />
+              <div [attr.class]='"show_box showBox_mf"+item.num' [ngStyle]="{'background': item.color}"></div>
+            </label>
+            <div class='check_box_right'>
+              <span class='check_value'>{{item.content}}</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <ul class='mfOperation' (mouseleave)='mfHideSetChart()' (mouseenter)='showChartBtn()'>
+      <li class='mf-nowChart'>设为当前预测</li>
+      <li class='mf-conChart'>保存</li>
+      <li class='mf-isEnsure'>确认使用</li>
+      <li class='mf-amendChart'>查看修正记录</li>
+      <li class='mf-delChart' (click)='clickDelLine("mf")'>删除曲线</li>
+    </ul>
+    <div class='notDataBox'>
+      <span>no data available</span>
+    </div>
+    <div class='mfMarkpoint'>
+      <p>{{markPoint_name}}时间：</p>
+      <span>{{fc_markPoint_time}}</span>
+    </div>
+    <div class='timeBtn' *ngIf='showtimeBox'>
+      <div class='timeStart timeStartMf'>
+        <span (click)='mfClickStn()' class='startNum startNummf'>{{startNum}}</span>
+        <!-- <app-time-select [timeList]='timeStartList' [className]='"start"' [chartName]='"fc"'
+          (fcData)='clickStartNum($event)'></app-time-select> -->
+        <app-time-select [timeList]='timeStartList' [className]='"start"' [chartName]='"mf"'
+          (mfData)='clickStartNum($event)'></app-time-select>
+      </div>
+      <div class='timeEnd timeEndMf'>
+        <span (click)='mfClickEtn()' class='endNum endNummf'>{{endNum}}</span>
+        <!-- <app-time-select [timeList]='timeEndList' [className]='"end"' [chartName]='"fc"' (fcData)='clickEndNum($event)'>
+        </app-time-select> -->
+        <app-time-select [timeList]='timeEndList' [className]='"end"' [chartName]='"mf"' (mfData)='clickEndNum($event)'>
+        </app-time-select>
+      </div>
+    </div>
+  </div>
+  <input type="number" id="changeRaNum" class="changeRaNum">
+</section>
+
+
+<!-- 填写修正记录---------start -->
+<!-- <section class="record-table-parent" *ngIf='isCurEditIng&&isShowRecordBox'> -->
+<section class="record-table-parent" *ngIf='isShowRecordBox'>
+  <!-- <section class="record-table-parent"> -->
+  <section class="record-table">
+    <header class="header">请填写修正原因及方法</header>
+    <main class="clearfix main">
+      <!-- 在保量 -->
+      <!-- <section class="install-base"> -->
+      <section class="install-base" *ngIf=' isShowRecordBox==="installBase"'>
+        <div class="title">在保量</div>
+        <section class="install-base-details">
+          <ul class="installBase-list">
+            <ng-template ngFor let-item let-i=index [ngForOf]=' recordInputData.installBase'>
+              <li [attr.id]='"installBase"+item.id+i' [attr.ratesOrBase]='"installBase"' [attr.type]='item.type'
+                [attr.dataId]='item.id'>
+                <span class="description"
+                  [ngStyle]='{"visibility":i===0||i===1?"visible":"hidden"}'>{{item.type==='reason'?"原因":"方法"}}</span>
+                <span class="value">
+                  <input *ngIf='item.type==="reason"' [attr.placeholderOld]='"请填写调整原因"' (focus)='recordIptFocus($event)'
+                    (blur)='recordIptBlur($event)' type="text" [(ngModel)]="item.value" placeholder='请填写调整原因' />
+                  <input *ngIf='item.type!=="reason"' [attr.placeholderOld]='"请填写调整方法"' (focus)='recordIptFocus($event)'
+                    (blur)='recordIptBlur($event)' type="text" [(ngModel)]="item.value" placeholder='请填写调整方法' />
+
+                  <ol *ngIf='item.type==="reason"' class="ol-list" (click)="getRecordContent($event)">
+                    <li>IT核算问题</li>
+                    <li>维修BOM拆分不准</li>
+                    <li>服务BOM拆分不准</li>
+                    <!-- <li>可以选填的原因9</li> -->
+                    <!-- <li>可以选填的原因10</li> -->
+                  </ol>
+
+                </span>
+                <span class="icon" [ngStyle]='{"visibility":i===0||i===1?"visible":"hidden"}'
+                  (click)="addRecordOrMethod($event)"></span>
+              </li>
+            </ng-template>
+          </ul>
+        </section>
+      </section>
+      <!-- 需求率 -->
+      <section class="demand-rates" *ngIf='isShowRecordBox==="demandRates"'>
+        <!-- <section class="demand-rates"> -->
+        <div class="title">需求率</div>
+        <section class="demand-rates-details">
+          <ul class="demandRates-list">
+            <ng-template ngFor let-item let-i=index [ngForOf]='recordInputData.demandRates'>
+              <li [attr.id]='"demandRates"+item.id+i' [attr.ratesOrBase]='"demandRates"' [attr.type]='item.type'
+                [attr.dataId]='item.id'>
+                <span class="description"
+                  [ngStyle]='{"visibility":i===0||i===1?"visible":"hidden"}'>{{item.type==='reason'?"原因":"方法"}}</span>
+                <span class="value">
+                  <input *ngIf="item.type==='reason'" [attr.placeholderOld]='"请填写调整原因"' (focus)='recordIptFocus($event)'
+                    (blur)='recordIptBlur($event)' type="text" [(ngModel)]="item.value" placeholder='请填写调整原因' />
+                  <input *ngIf="item.type!=='reason'" [attr.placeholderOld]='"请填写调整方法"' (focus)='recordIptFocus($event)'
+                    (blur)='recordIptBlur($event)' type="text" [(ngModel)]="item.value" placeholder='请填写调整方法' />
+                  <ol *ngIf="item.type==='reason'" class="ol-list" (click)="getRecordContent($event)">
+                    <li>质量问题</li>
+                    <li>生命周期阶段变化</li>
+                    <li>季节波动</li>
+                    <li>机型特性</li>
+                    <li>非正常申请(某月需求量虚高)</li>
+                    <li>需求量过小</li>
+                  </ol>
+                </span>
+                <span class="icon" (click)="addRecordOrMethod($event)"
+                  [ngStyle]='{"visibility":i===0||i===1?"visible":"hidden"}'></span>
+              </li>
+            </ng-template>
+          </ul>
+        </section>
+      </section>
+      <section class="tips">
+        <span class="icon"></span>
+        <span class="text">修正原因及方法必须填写</span>
+      </section>
+    </main>
+    <footer class="record-complete-cancel">
+      <button class="complete" (click)="completeRecord()">完成</button>
+      <button class="cancel" (click)="cancelRecord()">取消</button>
+    </footer>
+  </section>
+</section>
+<!-- 填写修正记录---------end -->
+
+<!-- 查看修正记录---------start -->
+<section class="check-amend-record-parent" *ngIf='checkAmendRecord'>
+  <section class="check-amend-record" *ngIf='checkAmendRecord'>
+    <header class="header">
+      <span class="left">修正记录-默认预测需求率</span>
+      <span class="right" (click)="closeCheckAmendRecord()">X</span>
+    </header>
+    <main class="main">
+      <ul class="title">
+        <li>修正原因</li>
+        <li>修正方法</li>
+        <li class="operator-name">操作员</li>
+      </ul>
+      <hr />
+      <ul class="record-list">
+        <li>
+          <p>修正原因如下:</p>
+          <ng-template ngFor let-item let-i=index [ngForOf]='amendRecordData.amendReasons'>
+            <p [attr.id]='item.id'>{{i+1}},{{item.content}}</p>
+          </ng-template>
+        </li>
+        <li>
+          <p>修正方法如下:</p>
+          <ng-template ngFor let-item let-i=index [ngForOf]='amendRecordData.amendMethods'>
+            <p [attr.id]='item.id'>{{i+1}},{{item.content}}</p>
+          </ng-template>
+        </li>
+        <li class="operator-name">
+          <p>王倩</p>
+        </li>
+      </ul>
+    </main>
+  </section>
+</section>
+<!-- 查看修正记录---------end -->
+
+<!-- 在保量修正完成提示框----------start -->
+<section style='display:none;' id='changeIbLineComplete' #installBaseTip class="installBase-tip-parent"
+  [appWatchChange]='[0,installBaseTip.style.display,hideInstallBaseTip]'>
+  <section class="installBase-tip">
+    <section class="content">
+      <span class="icon"></span>
+      <p class="tip-text">在保量修正完成</p>
+    </section>
+  </section>
+</section>
+<!-- 在保量修正完成提示框----------end -->
+
+
+
+<ng-template #timeListTemplate>
+  <div class='timeBox'>
+    <ul class='year'>
+      <li class='yearLi' #yearLi *ngFor="let item of yearList;let i = index">
+        <i class='left_move' (click)='leftMove(i)'></i>
+        {{item}}
+        <i class='right_move' (click)='rightMove(i)'></i>
+      </li>
+    </ul>
+    <ul class='month'>
+      <li class='month_List' *ngFor="let item of monthList;let i=index;">
+        <ul>
+          <li class='monthLi' #monthLi *ngFor="let time of item" (click)='clickStartNum(time,i)'>{{time}}</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+</ng-template>
+
+<app-dragupload *ngIf='isShowUploadComponent' [textContent]="{titleText:'拖拽文件进行上传',descriptionText: '将Excel文件拖放至此处'}"
+  (dropedEvent)='dropedEvent($event)' (closeComponent)='closeDragUpload($event)'></app-dragupload>

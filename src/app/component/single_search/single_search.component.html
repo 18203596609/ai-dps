@@ -1,0 +1,470 @@
+<!-- 默认使用方式，单组预测进行跳转时使用 -->
+<div class='search' id='searchSelf' *ngIf='!applyMode'>
+  <div style="position: absolute;top: 13.5rem;width: 100%;">
+    <p class='pnList'>请输入物料号或替换组编号</p>
+    <div action="javascript:void(0)" class='form'>
+      <section class='numBox'>
+        <i class='bgImg'></i>
+        <div id='searchBtnBox' class='scrollbarStyle btnBox' #btnBox>
+          <input *ngFor="let btn of btnList;let i = index" type="button" [attr.iptBtnCurIndex]='i' [attr.value]='btn'
+            class='btnBg' #btList (click)='clickBtn(btList,$event,i)' (dblclick)='dbClickBtn(btList,i)'
+            (keydown)='confirm($event,btList)' (paste)='pasteChanges(btList,$event.keyCode,$event,i)'
+            (keyup)='inputChanges(btList,$event.keyCode,i)' (focus)='btnFocus(btList,btnBox)' />
+          <input type="search" name='searchCode' #searchCode id='searchCode' (keydown)='confirm($event,searchCode)'
+            (paste)='pasteChanges(btList,$event.keyCode,$event,i)' (keyup)='inputChanges(searchCode,$event.keyCode)'
+            class='searchInput' autocomplete="off" value='' spellcheck='false' (focus)='searchFocus()' autofocus
+            (blur)='searchBlur($event)' />
+          <ul class='btnNum' [ngStyle]="{'display': showNum ? 'block' : 'none' }">
+            <li #numList class='num num0' (click)='bjNum()'>编辑编号</li>
+            <li #numList class='num num1' (click)='copyNum()'>拷贝编号</li>
+            <li #numList class='num num2' (click)='delNum()'>移除编号</li>
+          </ul>
+        </div>
+      </section>
+      <ul class='pnUl'>
+        <li class='pnCont' #pnCont [attr.index]='i' (click)='getCode(searchCode,pnCont);' style="display:none;">
+          {{keyWord}}</li>
+        <li *ngFor="let item of pnArr; let i = index" class='pnCont' #pnCont [attr.index]='i+1'
+          [ngClass]="{'bg':pnIndex == i+1}" (click)='getCode(changeOr,pnCont);'>{{item.code}}</li>
+      </ul>
+
+      <div class='message'>
+        <div class="text-tips">
+          <p>多个号码成组预测请用分号；隔开</p>
+        </div>
+        <div class='forecastBtn'>
+          <p *ngIf="notNum">
+            <i class='alarmImg'></i>
+            <span>编号不存在</span>
+          </p>
+          <span class=""
+            style="height:100%;display:inline-block;vertical-align:middle;width:1px;background-color:rgba(0,0,0,0);"></span>
+          <button #forecast (click)='startPrediction(forecast)' class='forecast'
+            [ngClass]="{'btnListExist': btnListIsExist(), 'btnListNotExist': !btnListIsExist() }">预测</button>
+        </div>
+        <strong style="display:block;clear:both;width:100%;"></strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class='search' id='searchSelf' *ngIf='applyMode==="AIPrediction"'>
+  <div style="position: absolute;top: 13.5rem;width: 100%;">
+    <p class='pnList'>请输入物料号或替换组编号</p>
+    <div action="javascript:void(0)" class='form'>
+      <section class='numBox'>
+        <i class='bgImg'></i>
+        <div id='searchBtnBox' class='btnBox scrollbarStyle' #btnBox>
+          <input *ngFor="let btn of btnList;let i = index" type="button" [attr.iptBtnCurIndex]='i' [attr.value]='btn'
+            class='btnBg' #btList (click)='clickBtn(btList,$event,i)' (dblclick)='dbClickBtn(btList,i)'
+            (keydown)='confirm($event,btList)' (paste)='pasteChanges(btList,$event.keyCode,$event,i)'
+            (keyup)='inputChanges(btList,$event.keyCode,i)' (focus)='btnFocus(btList,btnBox)' />
+          <input type="search" name='searchCode' #searchCode id='searchCode' (keydown)='confirm($event,searchCode)'
+            (paste)='pasteChanges(btList,$event.keyCode,$event,i)' (keyup)='inputChanges(searchCode,$event.keyCode)'
+            class='searchInput' autocomplete="off" value='' spellcheck='false' (focus)='searchFocus()' autofocus
+            (blur)='searchBlur($event)' />
+          <ul class='btnNum' [ngStyle]="{'display': showNum ? 'block' : 'none' }">
+            <li #numList class='num num0' (click)='bjNum()'>编辑编号</li>
+            <li #numList class='num num1' (click)='copyNum()'>拷贝编号</li>
+            <li #numList class='num num2' (click)='delNum()'>移除编号</li>
+          </ul>
+        </div>
+      </section>
+      <ul class='pnUl'>
+        <li class='pnCont' #pnCont [attr.index]='i' (click)='getCode(searchCode,pnCont);' style="display:none;">
+          {{keyWord}}</li>
+        <li *ngFor="let item of pnArr; let i = index" class='pnCont' #pnCont [attr.index]='i+1'
+          [ngClass]="{'bg':pnIndex == i+1}" (click)='getCode(changeOr,pnCont);'>{{item.code}}</li>
+      </ul>
+
+      <div class='message'>
+        <div class="text-tips">
+          <p>多个号码成组预测请用分号；隔开</p>
+        </div>
+        <div class='forecastBtn'>
+          <p *ngIf="notNum">
+            <i class='alarmImg'></i>
+            <span>编号不存在</span>
+          </p>
+          <span class=""
+            style="height:100%;display:inline-block;vertical-align:middle;width:1px;background-color:rgba(0,0,0,0);"></span>
+          <button #forecast (click)='startPrediction(forecast)' class='forecast'
+            [ngClass]="{'btnListExist': btnListIsExist(), 'btnListNotExist': !btnListIsExist() }">AI预测</button>
+        </div>
+        <strong style="display:block;clear:both;width:100%;"></strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class='search' id='searchSelf' *ngIf='applyMode==="humanPrediction"'>
+  <div style="position: absolute;top: 13.5rem;width: 100%;">
+    <p class='pnList'>请输入物料号或替换组编号</p>
+    <div action="javascript:void(0)" class='form'>
+      <section class='numBox'>
+        <i class='bgImg'></i>
+        <div id='searchBtnBox' class='scrollbarStyle btnBox' #btnBox>
+          <input *ngFor="let btn of btnList;let i = index" type="button" [attr.iptBtnCurIndex]='i' [attr.value]='btn'
+            class='btnBg' #btList (click)='clickBtn(btList,$event,i)' (dblclick)='dbClickBtn(btList,i)'
+            (keydown)='confirm($event,btList)' (paste)='pasteChanges(btList,$event.keyCode,$event,i)'
+            (keyup)='inputChanges(btList,$event.keyCode,i)' (focus)='btnFocus(btList,btnBox)' />
+          <input type="search" name='searchCode' #searchCode id='searchCode' (keydown)='confirm($event,searchCode)'
+            (paste)='pasteChanges(btList,$event.keyCode,$event,i)' (keyup)='inputChanges(searchCode,$event.keyCode)'
+            class='searchInput' autocomplete="off" value='' spellcheck='false' (focus)='searchFocus()' autofocus
+            (blur)='searchBlur($event)' />
+          <ul class='btnNum' [ngStyle]="{'display': showNum ? 'block' : 'none' }">
+            <li #numList class='num num0' (click)='bjNum()'>编辑编号</li>
+            <li #numList class='num num1' (click)='copyNum()'>拷贝编号</li>
+            <li #numList class='num num2' (click)='delNum()'>移除编号</li>
+          </ul>
+        </div>
+      </section>
+      <ul class='pnUl'>
+        <li class='pnCont' #pnCont [attr.index]='i' (click)='getCode(searchCode,pnCont);' style="display:none;">
+          {{keyWord}}</li>
+        <li *ngFor="let item of pnArr; let i = index" class='pnCont' #pnCont [attr.index]='i+1'
+          [ngClass]="{'bg':pnIndex == i+1}" (click)='getCode(changeOr,pnCont);'>{{item.code}}</li>
+      </ul>
+
+      <div class='message'>
+        <div class="text-tips">
+          <p>多个号码成组预测请用分号；隔开</p>
+        </div>
+        <div class='forecastBtn'>
+          <p *ngIf="notNum">
+            <i class='alarmImg'></i>
+            <span>编号不存在</span>
+          </p>
+          <span class=""
+            style="height:100%;display:inline-block;vertical-align:middle;width:1px;background-color:rgba(0,0,0,0);"></span>
+          <button #forecast (click)='startPrediction(forecast)' class='forecast'
+            [ngClass]="{'btnListExist': btnListIsExist(), 'btnListNotExist': !btnListIsExist() }">人工预测</button>
+        </div>
+        <strong style="display:block;clear:both;width:100%;"></strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 单组预测的添加对比组时使用 -->
+<div class='search' id='comparisonDetails' *ngIf='applyMode==="comparisonDetails"'>
+  <div>
+    <p class='pnList'>请输入物料号或替换组编号</p>
+    <div action="" class='form'>
+      <section class='numBox'>
+        <i class='bgImg'></i>
+        <div class='scrollbarStyle btnBox'>
+          <input *ngFor="let btn of btnList;let i = index" type="button" [attr.value]='btn' class='btnBg' #btList
+            (click)='clickBtn(btList,$event,i)' (dblclick)='dbClickBtn(btList,i)' (keydown)='confirm($event,btList)'
+            (paste)='pasteChanges(btList,$event.keyCode,$event,i)' (keyup)='inputChanges(btList,$event.keyCode,i)'>
+          <input type="search" name='searchCode' #searchCode id='searchCode' (keydown)='confirm($event,searchCode)'
+            (paste)='pasteChanges(btList,$event.keyCode,$event,i)' (keyup)='inputChanges(searchCode,$event.keyCode)'
+            class='searchInput' autocomplete="off" value='' spellcheck='false' (focus)='searchFocus()'
+            autofocus="autofocus">
+          <ul class='btnNum' [ngStyle]="{'display': showNum ? 'block' : 'none' }">
+            <li #numList class='num num0' (click)='bjNum()'>编辑编号</li>
+            <li #numList class='num num1' (click)='copyNum()'>拷贝编号</li>
+            <li #numList class='num num2' (click)='delNum()'>移除编号</li>
+          </ul>
+        </div>
+      </section>
+      <ul class='pnUl'>
+        <li class='pnCont' #pnCont [attr.index]='i' (click)='getCode(searchCode,pnCont);' style="display:none;">
+          {{keyWord}}</li>
+        <li *ngFor="let item of pnArr; let i = index" class='pnCont' #pnCont [attr.index]='i+1'
+          [ngClass]="{'bg':pnIndex == i+1}" (click)='getCode(changeOr,pnCont);'>{{item.code}}</li>
+      </ul>
+
+      <div class='message'>
+        <div style="float:left;">
+          <p>多个号码成组预测请用分号；隔开</p>
+        </div>
+        <div class='forecastBtn' style="float:right;">
+          <p *ngIf="notNum">
+            <i class='alarmImg'></i>
+            <span>编号不存在</span>
+          </p>
+          <span class=""
+            style="height:100%;display:inline-block;vertical-align:middle;width:1px;background-color:rgba(0,0,0,0);"></span>
+          <button #forecast (click)='comparisonDetailsStartPrediction(forecast)' style="margin-right:0.9rem;"
+            class='forecast'>添加</button>
+          <button #close (click)='comparisonDetailsClosePrediction(close)' class='closePrediction'>取消</button>
+        </div>
+        <strong style='clear:both;display:block;width:100%;'></strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- {{applyMode}}asdfa;sdlfja;sdlfkj -->
+<!-- 单组预测的添加对比组时使用 -->
+<div class='search' [attr.id]='applyMode'
+  *ngIf='applyMode==="singlePredictionDetailsSearch"||applyMode==="AIPredictionDetailsSearch"||applyMode==="humanPredictionDetailsSearch"'>
+  <div id="mmmm">
+    <!-- <p class='pnList'>请输入物料号或替换组编号</p> -->
+    <div action="" class='form'>
+      <section class='numBox'>
+        <i class='bgImg'></i>
+        <div class='scrollbarStyle btnBox'>
+          <input *ngFor="let btn of btnList;let i = index" type="button" [attr.value]='btn' class='btnBg' #btList
+            (click)='clickBtn(btList,$event,i)' (dblclick)='dbClickBtn(btList,i)' (keydown)='confirm($event,btList)'
+            (paste)='pasteChanges(btList,$event.keyCode,$event,i)' (keyup)='inputChanges(btList,$event.keyCode,i)'>
+          <input type="search" name='searchCode' #searchCode id='searchCode' (keydown)='confirm($event,searchCode)'
+            (paste)='pasteChanges(btList,$event.keyCode,$event,i)' (keyup)='inputChanges(searchCode,$event.keyCode)'
+            class='searchInput' autocomplete="off" value='' spellcheck='false' (focus)='searchFocus()'
+            autofocus="autofocus">
+          <ul class='btnNum' [ngStyle]="{'display': showNum ? 'block' : 'none' }">
+            <li #numList class='num num0' (click)='bjNum()'>编辑编号</li>
+            <li #numList class='num num1' (click)='copyNum()'>拷贝编号</li>
+            <li #numList class='num num2' (click)='delNum()'>移除编号</li>
+          </ul>
+        </div>
+      </section>
+      <ul class='pnUl'>
+        <li class='pnCont' #pnCont [attr.index]='i' (click)='getCode(searchCode,pnCont);' style="display:none;">
+          {{keyWord}}</li>
+        <li *ngFor="let item of pnArr; let i = index" class='pnCont' #pnCont [attr.index]='i+1'
+          [ngClass]="{'bg':pnIndex == i+1}" (click)='getCode(changeOr,pnCont);'>{{item.code}}</li>
+      </ul>
+
+      <div class='message'>
+        <div class='forecastBtn' style="float:right;">
+          <button *ngIf='applyMode!=="singlePredictionDetailsSearch"' #forecast
+            (click)='singlePredictionDetailsSearch(forecast)' style="margin-right:0.9rem;"
+            class='forecast'>{{applyMode==='AIPredictionDetailsSearch' ? 'AI预测' : '人工预测'}}</button>
+
+          <button *ngIf='applyMode==="singlePredictionDetailsSearch"' #forecast
+            (click)='singlePredictionDetailsSearch(forecast)' style="margin-right:0.9rem;" class='forecast'>预测</button>
+          <div class="export" (click)='singlePredictionDetailsSearchExport()'>
+            <i class="icon"></i>
+            <span style="margin-left:0.5rem;">导出</span>
+          </div>
+          <!-- <button #close (click)='comparisonDetailsClosePrediction(close)' class='closePrediction'>取消</button> -->
+        </div>
+        <strong style='clear:both;display:block;width:100%;'></strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 单组预测的添加对比组时使用 -->
+<div class='search' id='singleComparisonManage' *ngIf='applyMode==="singleComparisonManage"'>
+  <div [attr.id]='"singleComparisonManage"+curIndex'>
+    <!-- <p class='pnList'>请输入物料号或替换组编号</p> -->
+    <div action="" class='form'>
+      <section class='numBox'>
+        <!-- <i class='bgImg'></i> -->
+        <div class='scrollbarStyle btnBox'>
+          <input [attr.disabled]='singleComparisonManageIsEditIng' *ngFor="let btn of btnList;let i = index"
+            type="button" [attr.value]='btn' class='btnBg' #btList (click)='clickBtn(btList,$event,i)'
+            (dblclick)='dbClickBtn(btList,i)' (keydown)='confirm($event,btList)'
+            (paste)='pasteChanges(btList,$event.keyCode,$event,i)' (keyup)='inputChanges(btList,$event.keyCode,i)'>
+          <input [attr.disabled]='singleComparisonManageIsEditIng' type="search" name='searchCode' #searchCode
+            id='searchCode' (keydown)='confirm($event,searchCode)'
+            (paste)='pasteChanges(btList,$event.keyCode,$event,i)' (keyup)='inputChanges(searchCode,$event.keyCode)'
+            class='searchInput' autocomplete="off" value='' spellcheck='false' (focus)='searchFocus()'
+            autofocus="autofocus" />
+          <ul class='btnNum' *ngIf='!singleComparisonManageIsEditIng'
+            [ngStyle]="{'display': showNum ? 'block' : 'none' }">
+            <li #numList class='num num0' (click)='bjNum()'>编辑编号</li>
+            <li #numList class='num num1' (click)='copyNum()'>拷贝编号</li>
+            <li #numList class='num num2' (click)='delNum()'>移除编号</li>
+          </ul>
+        </div>
+        <div class="operator-btn">
+          <span class="edit" [ngClass]="{'forbid-click': isAllowChange}" *ngIf="singleComparisonManageIsEditIng"
+            (click)='singleComparisonManageEdit()'>修改</span>
+          <span class="del" [ngClass]="{'forbid-click': isAllowChange}" *ngIf="singleComparisonManageIsEditIng"
+            (click)='singleComparisonManageDel(parentDataObj.id)'>删除</span>
+          <span class="complete" *ngIf="!singleComparisonManageIsEditIng"
+            (click)='singleComparisonManageComplete(parentDataObj.id)'>完成</span>
+          <span class="cancel" *ngIf="!singleComparisonManageIsEditIng"
+            (click)='singleComparisonManageCancel()'>取消</span>
+        </div>
+      </section>
+      <ul class='pnUl' *ngIf='pnArr.length>0'>
+        <li class='pnCont' #pnCont [attr.index]='i' (click)='getCode(searchCode,pnCont);' style="display:none;">
+          {{keyWord}}</li>
+        <li *ngFor="let item of pnArr; let i = index" class='pnCont' #pnCont [attr.index]='i+1'
+          [ngClass]="{'bg':pnIndex == i+1}" (click)='getCode(changeOr,pnCont);'>{{item.code}}</li>
+      </ul>
+
+      <div class='message' *ngIf='!singleComparisonManageIsEditIng'>
+        <div style="float:left;" *ngIf='!singleComparisonManageIsEditIng'>
+          <p>多个号码成组预测请用分号；隔开</p>
+        </div>
+        <div class='forecastBtn' style="float:right;">
+          <!-- <span #close (click)='comparisonDetailsClosePrediction(close)' class='closePrediction'>取消</span> -->
+          <!-- <span #forecast (click)='comparisonDetailsStartPrediction(forecast)' class='forecast'>预测</span> -->
+          <p *ngIf="notNum">
+            <i class='alarmImg'></i>
+            <span>编号不存在</span>
+          </p>
+        </div>
+        <strong style='clear:both;display:block;width:100%;'></strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 批量预测的输入pn时使用 -->
+<div class='search' id='batchSearchMode' *ngIf='applyMode==="batchSearchMode"'>
+  <div [attr.id]='"batchSearchMode"+curIndex'
+    [appWatchChange]='[0,[pnArr,pnIndex,changeOr,keyWord],watchPnArrAndPnIndexAndChangeOrAndKeyWordIsChange,this]'>
+    <!-- <p class='pnList'>请输入物料号或替换组编号</p> -->
+    <div action="" class='form'>
+      <section class='numBox'>
+        <div class='scrollbarStyle btnBox'>
+          <input [attr.disabled]='batchSearchModeIsEditIng' *ngFor="let btn of btnList;let i = index"
+            [attr.searchbtnortext]='"true"' [attr.iptBtnCurIndex]='i' type="button" [attr.value]='btn' class='btnBg'
+            #btList (click)='clickBtn(btList,$event,i)' (dblclick)='dbClickBtn(btList,i)'
+            (keydown)='confirm($event,btList)' (paste)='pasteChanges(btList,$event.keyCode,$event,i)'
+            (keyup)='inputChanges(btList,$event.keyCode,i)'>
+          <input [attr.disabled]='batchSearchModeIsEditIng' type="search" name='searchCode' #searchCode id='searchCode'
+            (keydown)='confirm($event,searchCode)' (paste)='pasteChanges(btList,$event.keyCode,$event,i)'
+            (keyup)='inputChanges(searchCode,$event.keyCode)' class='searchInput' autocomplete="off" value=''
+            spellcheck='false' (focus)='searchFocus()' autofocus="autofocus" />
+          <ul class='btnNum' *ngIf='!batchSearchModeIsEditIng' [ngStyle]="{'display': showNum ? 'block' : 'none' }">
+            <li #numList class='num num0' (click)='bjNum()'>编辑编号</li>
+            <li #numList class='num num1' (click)='copyNum()'>拷贝编号</li>
+            <li #numList class='num num2' (click)='delNum()'>移除编号</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- <ul class='pnUl' *ngIf='pnArr.length>0'>
+        <li class='pnCont' #pnCont [attr.index]='i' (click)='getCode(searchCode,pnCont);' style="display:none;">
+          {{keyWord}}</li>
+        <li *ngFor="let item of pnArr; let i = index" class='pnCont' #pnCont [attr.index]='i+1'
+          [ngClass]="{'bg':pnIndex == i+1}" (click)='getCode(changeOr,pnCont);'>{{item.code}}</li>
+      </ul> -->
+
+      <div class='message' *ngIf='!batchSearchModeIsEditIng'>
+        <!-- <div style="float:left;" *ngIf='!batchSearchModeIsEditIng'>
+          <p>多个号码成组预测请用分号；隔开</p>
+        </div> -->
+        <div class='forecastBtn' style="float:right;">
+          <!-- <span #close (click)='comparisonDetailsClosePrediction(close)' class='closePrediction'>取消</span> -->
+          <!-- <span #forecast (click)='comparisonDetailsStartPrediction(forecast)' class='forecast'>预测</span> -->
+          <p [ngStyle]="{'display': notNum ? 'block' : 'none' }">
+            <i class='alarmImg'></i>
+            <span>编号不存在</span>
+          </p>
+        </div>
+        <strong style='clear:both;display:block;width:100%;'></strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- 批量预测详情 -->
+<div class='search' id='batchDetails' *ngIf='applyMode==="batchDetails"'>
+  <div>
+    <p class='pnList'>请输入物料号或替换组编号</p>
+    <div action="" class='form'>
+      <section class='numBox'>
+        <i class='bgImg'></i>
+        <div class='scrollbarStyle btnBox'>
+          <input *ngFor="let btn of btnList;let i = index" type="button" [attr.value]='btn' class='btnBg' #btList
+            (click)='clickBtn(btList,$event,i)' (dblclick)='dbClickBtn(btList,i)' (keydown)='confirm($event,btList)'
+            (paste)='pasteChanges(btList,$event.keyCode,$event,i)' (keyup)='inputChanges(btList,$event.keyCode,i)'>
+          <input type="search" name='searchCode' #searchCode id='searchCode' (keydown)='confirm($event,searchCode)'
+            (paste)='pasteChanges(btList,$event.keyCode,$event,i)' (keyup)='inputChanges(searchCode,$event.keyCode)'
+            class='searchInput' autocomplete="off" value='' spellcheck='false' (focus)='searchFocus()'
+            autofocus="autofocus">
+          <ul class='btnNum' [ngStyle]="{'display': showNum ? 'block' : 'none' }">
+            <li #numList class='num num0' (click)='bjNum()'>编辑编号</li>
+            <li #numList class='num num1' (click)='copyNum()'>拷贝编号</li>
+            <li #numList class='num num2' (click)='delNum()'>移除编号</li>
+          </ul>
+        </div>
+      </section>
+      <ul class='pnUl'>
+        <li class='pnCont' #pnCont [attr.index]='i' (click)='getCode(searchCode,pnCont);' style="display:none;">
+          {{keyWord}}</li>
+        <li *ngFor="let item of pnArr; let i = index" class='pnCont' #pnCont [attr.index]='i+1'
+          [ngClass]="{'bg':pnIndex == i+1}" (click)='getCode(changeOr,pnCont);'>{{item.code}}</li>
+      </ul>
+
+      <div class='message'>
+        <div style="float:left;">
+          <p>多个号码成组预测请用分号；隔开</p>
+        </div>
+        <div class='forecastBtn' style="float:right;">
+          <p *ngIf="notNum">
+            <i class='alarmImg'></i>
+            <span>编号不存在</span>
+          </p>
+          <span class=""
+            style="height:100%;display:inline-block;vertical-align:middle;width:1px;background-color:rgba(0,0,0,0);"></span>
+          <button #forecast (click)='batchDetailsStartPrediction(forecast)' style="margin-right:0.9rem;"
+            class='forecast'>添加</button>
+          <button #close (click)='batchDetailsClosePrediction(close)' class='closePrediction'>取消</button>
+        </div>
+        <strong style='clear:both;display:block;width:100%;'></strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 批量预测管理预测组页面使用 -->
+<div class='search' id='batchComparisonManage' *ngIf='applyMode === "batchComparisonManage"'>
+  <div [attr.id]='"batchComparisonManage"+curIndex'>
+    <div class='batch_box'
+      style="position: absolute;top: 0;top: 50%;transform: translateY(-50%);width: 100%;z-index: 9;">
+      <!-- <p class='pnList'>请输入物料号或替换组编号</p> -->
+      <div action="javascript:void(0)" class='form'>
+        <section class='numBox'>
+          <!-- <div class='displaySear'></div> -->
+          <!-- <i class='bgImg'></i> -->
+          <div id='searchBtnBox' class='scrollbarStyle btnBox'>
+            <input *ngFor="let btn of btnList;let i = index" type="button" [attr.value]='btn' class='btnBg' #btList
+              (click)='clickBtn(btList,$event,i)' (dblclick)='dbClickBtn(btList,i)' (keydown)='confirm($event,btList)'
+              (paste)='pasteChanges(btList,$event.keyCode,$event,i)' (keyup)='inputChanges(btList,$event.keyCode,i)' />
+            <b></b>
+            <input type="search" name='searchCode' #searchCode id='searchCode' (keydown)='confirm($event,searchCode)'
+              (paste)='pasteChanges(btList,$event.keyCode,$event,i)' (keyup)='inputChanges(searchCode,$event.keyCode)'
+              class='searchInput' autocomplete="off" value='' spellcheck='false' (focus)='searchFocus()'
+              (blur)='searchBlur($event)' />
+            <ul class='btnNum' [ngStyle]="{'display': showNum ? 'block' : 'none' }">
+              <li #numList class='num num0' (click)='bjNum()'>编辑编号</li>
+              <li #numList class='num num1' (click)='copyNum()'>拷贝编号</li>
+              <li #numList class='num num2' (click)='delNum()'>移除编号</li>
+            </ul>
+          </div>
+          <div class='forecastBtn'>
+            <p *ngIf="notNum">
+              <i class='alarmImg'></i>
+              <span>编号不存在</span>
+            </p>
+          </div>
+        </section>
+        <ul class='pnUl'>
+          <li class='pnCont' #pnCont [attr.index]='i' (click)='getCode(searchCode,pnCont);' style="display:none;">
+            {{keyWord}}</li>
+          <li *ngFor="let item of pnArr; let i = index" class='pnCont' #pnCont [attr.index]='i+1'
+            [ngClass]="{'bg':pnIndex == i+1}" (click)='getCode(changeOr,pnCont);'>{{item.code}}</li>
+        </ul>
+
+        <!-- <div class='message'>
+        <div class="text-tips">
+          <p>多个号码成组预测请用分号；隔开</p>
+        </div>
+        <div class='forecastBtn'>
+          <p *ngIf="notNum">
+            <i class='alarmImg'></i>
+            <span>编号不存在</span>
+          </p>
+          <span class=""
+            style="height:100%;display:inline-block;vertical-align:middle;width:1px;background-color:rgba(0,0,0,0);"></span>
+          <button #forecast (click)='startPrediction(forecast)' class='forecast'>预测</button>
+        </div>
+        <strong style="display:block;clear:both;width:100%;"></strong>
+      </div> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,139 @@
+@function pxToRem($number) {
+  @return ($number/20)+rem;
+}
+
+.timerBody {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  z-index: auto;
+
+  div[id*=timerContent] {
+    border: 1px solid #3F4659;
+    border-radius: 18px;
+    opacity: 0.8;
+    font-family: 'Gotham-Book';
+    font-size: 0.7rem;
+    color: #3F4659;
+    text-align: left;
+    cursor: pointer;
+    // padding: 0.23rem 1.8rem 0.23rem 0.5rem;
+    width: pxToRem(100);
+    height: pxToRem(25);
+    line-height: pxToRem(25);
+    padding-left: pxToRem(10);
+    position: relative;
+    z-index: 10;
+    white-space: nowrap;
+
+    &::after {
+      content: '';
+      border: pxToRem(6) solid #000;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+      border-right-color: transparent;
+      position: absolute;
+      right: pxToRem(10);
+      top: 50%;
+      margin-top: pxToRem(-3);
+    }
+
+    &.active {
+      &::after {
+        content: '';
+        border: pxToRem(6) solid #000;
+        border-top-color: transparent;
+        border-left-color: transparent;
+        border-right-color: transparent;
+        position: absolute;
+        right: pxToRem(10);
+        top: 50%;
+        margin-top: pxToRem(-9);
+      }
+    }
+
+    // button {
+    //   opacity: 0.8;
+    //   font-family: 'Gotham-Book';
+    //   font-size: pxToRem(14);
+    //   color: #3F4659;
+    //   text-align: center;
+    // }
+  }
+
+  #yearMonthTimer {
+    height: pxToRem(144);
+    overflow: auto;
+
+    ul.time-list {
+      height: auto;
+      overflow: initial;
+    }
+  }
+
+  .timer-content {
+    background: #FFFFFF;
+    border: 1px solid rgba(124, 134, 159, 0.14);
+    box-shadow: -6px 3px 11px 0 rgba(78, 86, 94, 0.14);
+    border-radius: 6px;
+    position: absolute;
+    width: 100%;
+    max-height: pxToRem(170);
+    overflow: hidden;
+    z-index: 20;
+    margin-top: -0.1px;
+    top: calc(100% + 0.3rem);
+
+    div[id*=operatorYear] {
+      background: #3F4659;
+      border-radius: 4px 4px 0px 0px;
+      text-align: center;
+      height: 22px;
+      line-height: 22px;
+
+      .prev,
+      .next {
+        position: absolute;
+        color: rgb(255, 255, 255);
+        cursor: pointer;
+      }
+
+      .prev {
+        left: 0.3rem;
+      }
+
+      .next {
+        right: 0.3rem;
+      }
+
+      .text {
+        opacity: 0.8;
+        font-family: Gotham-Medium;
+        font-size: 14px;
+        color: #FFFFFF;
+        letter-spacing: 0.88px;
+        text-align: justify;
+      }
+    }
+
+    ul.time-list {
+      max-height: pxToRem(144);
+      overflow: auto;
+
+      li {
+        font-family: Gotham-Medium;
+        font-size: pxToRem(12);
+        color: #3F4659;
+        letter-spacing: 0.75px;
+        line-height: pxToRem(29);
+        text-align: center;
+
+        &:hover {
+          color: #232528 !important;
+          background: rgba(148, 158, 182, 0.36) !important;
+        }
+      }
+    }
+  }
+
+}

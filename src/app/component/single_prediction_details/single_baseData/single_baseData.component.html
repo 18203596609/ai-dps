@@ -1,0 +1,71 @@
+<div id="singleBaseData">
+  <div class="title">
+    <span class="title">基础数据</span>
+  </div>
+  <section class="content">
+    <ul>
+      <li>
+        <span>替换组编号</span>
+        <span class="Gotham-Book">{{curData.groupCode}}</span>
+        <i></i>
+      </li>
+      <li>
+        <span>替换组名称</span>
+        <span class="Gotham-Book" id='multipeGroupName'
+          style="word-break:break-all;max-height:3.8rem;min-height:1.27rem;">{{curData.groupName}}
+        </span>
+        <div id="groupName-ShowTitle">
+          <span class="Gotham-Book">
+            {{curData.groupName}}
+          </span>
+        </div>
+        <!-- <span id='multipeGroupName' placement="right" ngbTooltip='{{curData.groupName}}'>
+          {{curData.groupName}}
+        </span> -->
+        <!-- 使用指令添加js控制多行文本溢出显示省略号，但有点问题，除非强制兼容所有浏览器均添加多行文本溢出显示再使用该指令 -->
+        <!-- <span [appEllipsisMultiline]='curData.groupName' [attr.title]='curData.groupName' style="word-break:break-all;max-height:3.8rem;min-height:20px;"></span> -->
+        <i></i>
+      </li>
+      <li>
+        <span>运作产线</span>
+        <span class="MicrosoftYaHeiUI">{{curData.productLine}}</span>
+        <i></i>
+      </li>
+      <li>
+        <span>计划大类</span>
+        <span class="MicrosoftYaHeiUI">{{curData.planClass}}</span>
+        <i></i>
+      </li>
+      <li>
+        <span>包含物料</span>
+        <span class="btn-span MicrosoftYaHeiUI" [appShowTitle]='"materieWrap"'>
+          查看列表
+        </span>
+        <div *ngIf="materieList.length" id="materieWrap" class="materie-wrap" style="display:none;"
+          [appShowTitle]='"materieWrap"'>
+          <div [appShowTitle]='"materieWrap"' class="materie" style="overflow:visible;">
+            <ul class="ul-head">
+              <li>
+                <span>物料编号</span>
+                <span>物料名称</span>
+                <span>替换组编号</span>
+                <span>替换组名称</span>
+              </li>
+            </ul>
+            <ul class="ul-body">
+              <li *ngFor="let item of materieList">
+                <span>{{item.pnCode}}</span>
+                <span>{{item.pnName}}</span>
+                <span>{{item.groupCode}}</span>
+                <span>{{item.groupName}}</span>
+                <i></i>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <i></i>
+      </li>
+    </ul>
+  </section>
+</div>

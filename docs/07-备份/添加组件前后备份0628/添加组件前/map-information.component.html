@@ -1,0 +1,293 @@
+<div class="container-fluid">
+  <!-- map information模块 部分 -->
+  <section class="section_first">
+    <div class="map_layout">
+      <!-- header部分 -->
+      <app-header></app-header>
+      <!-- 世界地图信息 -->
+      <div class="content">
+        <div class="map_box">
+          <div class="title clearfix">
+            <div class="icon float-left" style='opacity: 1;'></div>
+            <div class="text float-left">Key Performance Indicators</div>
+          </div>
+          <div echarts [options]="options_map" [loading]="isLoading" (chartInit)="initChartMap($event)" (chartMouseOver)="onChartEvent($event, 'chartMouseOver')"
+            (chartMouseOut)="onChartEvent($event, 'chartMouseOut')" (chartClick)="onChartEventclick($event, 'chartClick')"
+            class="echart">
+          </div>
+          <div class="sidebar sidebar_l">
+            <ul>
+              <li class="" *ngFor="let item of sideBarLData; let i = index" [ngClass]="{'active':sidebarlCurrent == i}" (click)="setSidebarlCurrent(i); setMapListLiftTotal(i)">
+                <div class="item clearfix">
+                  <!-- 左边线条 -->
+                  <div class="item_line float-left"></div>
+                  <!-- 右边内容 -->
+                  <div class="item_content float-left">
+                    <div class="item_tit">
+                      <div class="text float-left">{{item.title}}</div>
+                      <div class="icon float-left" *ngIf="item.iconArrow">↑</div>
+                      <div class="icon float-left" *ngIf="!item.iconArrow">↓</div>
+                      <div class="num float-left">{{item.compareVal}}</div>
+                    </div>
+                    <div class="price price-active">{{item.total}}</div>
+                    <div class="tip_icon decline" *ngIf="item.iconCircle"></div>
+                  </div>
+                </div>
+                <div class="bottom_line"></div>
+              </li>
+            </ul>
+          </div>
+          <div class="sidebar sidebar_r">
+            <ul>
+              <li class="" *ngFor="let item of sideBarRData; let i = index" [ngClass]="{'active':sidebarrCurrent == i}" (click)="setSidebarrCurrent(i); setMapListRightTotal(i)">
+                <div class="item clearfix">
+                  <!-- 右边线条 -->
+                  <div class="item_line float-right"></div>
+                  <!-- 左边边内容 -->
+                  <div class="item_content float-right">
+                    <div class="item_tit">
+                      <div class="text float-right">{{item.title}}</div>
+                      <!-- <div class="num float-right">{{item.compareVal}}</div> -->
+                    </div>
+                    <div class="price price-active">{{item.total}}</div>
+                    <div class="tip_icon decline" *ngIf="item.iconcircle"></div>
+                  </div>
+                </div>
+                <div class="bottom_line"></div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ranking模块 部分 -->
+  <section class="section_second rank" *ngIf="rankShow">
+    <div class="rank_layout" [ngClass]="{'rank_inv':rankName == 'inv',
+                    'rank_pal':rankName == 'pal',
+                    'rank_woi':rankName == 'woi',
+                    'rank_cpt':rankName == 'cpt'}">
+      <!-- 标题 -->
+      <div class="title clearfix">
+        <div class="text fl">Part available level Ranking</div>
+        <div class="close_btn fr" (click)="closeRank()">×</div>
+      </div>
+      <!-- 内容 -->
+      <div class="content clearfix">
+        <div class="item fl" *ngFor="let item of rankData; let i = index">
+          <div class="item_title clearfix">
+            <div class="item_tit_circle fl"></div>
+            <div class="item_tit_txt fl">{{item.title}}</div>
+          </div>
+          <div class="item_line clearfix" *ngFor="let vn of item.value">
+            <div class="item_text fl">{{vn.text}}</div>
+            <div class="item_val fl" [ngbTooltip]="vn.tip" ngbTooltip="Tooltip on top">
+              <ngb-progressbar [showValue]="false" height="5px" [value]="vn.num">
+              </ngb-progressbar>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- kpi information模块 部分 -->
+  <section class="section_three">
+    <!-- 图表组件 -->
+    <div class="kpiifmt_layout">
+      <div class="kpi_header clearfix">
+        <!-- 左边标题内容 start-->
+        <div class="title_content">
+          <div class="title_content_icon"></div>
+          <div class="title_content_text">Operational Records</div>
+        </div>
+        <!-- 左边标题内容 end-->
+        <!-- 右边选择框组件 start-->
+        <div class="select_group_layout float-right">
+          <!-- geo下拉框 -->
+          <div class="select_geo item">
+            <div class="text float-left">Global</div>
+            <div ngbDropdown placement="bottom-left" class="select_dropdown d-inline-block">
+              <button class="btn" id="dropdownBasic1" ngbDropdownToggle>{{this.selectData.geoActive}}</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <ul>
+                  <li *ngFor="let item of selectData.geo" (click)="geoLiClick($event.target.innerHTML)">{{item}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- region下拉框 -->
+          <div class="select_region item">
+            <div class="text float-left">Region</div>
+            <div ngbDropdown placement="bottom-left" class="select_dropdown d-inline-block">
+              <button class="btn" id="dropdownBasic1" ngbDropdownToggle>{{this.selectData.regionActive}}</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <ul>
+                  <li *ngFor="let item of selectData.region.active" (click)="regionLiClick($event.target.innerHTML)">{{item}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="select_checkbox item">
+            <div class="details" (click)="CheckBoxToggle(checkboxShow)">Details</div>
+            <div class="checkbox_group" *ngIf="checkboxShow">
+              <div class="checkbox_group_box">
+                <div class="group_bu clearfix">
+                  <div class="title">BU</div>
+                  <div class="content">
+                    <label>
+                      <input type="checkbox" [(ngModel)]="cekStatus.ckbStatusTbg" />TBG
+                      <div class="show_box"></div>
+                    </label>
+                    <label>
+                      <input type="checkbox" [(ngModel)]="cekStatus.ckbStatusLbg" />LBG
+                      <div class="show_box"></div>
+                    </label>
+                  </div>
+                </div>
+                <div class="group_ihsp clearfix">
+                  <div class="title">IHSP</div>
+                  <div class="content">
+                    <label>
+                      <input type="checkbox" [(ngModel)]="cekStatus.ckbStatusIh" />Inhouse
+                      <div class="show_box"></div>
+                    </label>
+                    <label>
+                      <input type="checkbox" [(ngModel)]="cekStatus.ckbStatusSp" />Service Provider
+                      <div class="show_box"></div>
+                    </label>
+                  </div>
+                </div>
+                <div class="group_lifecycle clearfix">
+                  <div class="title">Lifecycle</div>
+                  <div class="content">
+                    <label>
+                      <input type="checkbox" [(ngModel)]="cekStatus.ckbStatusNpi" />NPI
+                      <div class="show_box"></div>
+                    </label>
+                    <label>
+                      <input type="checkbox" [(ngModel)]="cekStatus.ckbStatusReg" />REG
+                      <div class="show_box"></div>
+                    </label>
+                    <label>
+                      <input type="checkbox" [(ngModel)]="cekStatus.ckbStatusEos" />EOS
+                      <div class="show_box"></div>
+                    </label>
+                    <label>
+                      <input type="checkbox" [(ngModel)]="cekStatus.ckbStatusEol" />EOL
+                      <div class="show_box"></div>
+                    </label>
+                    <label>
+                      <input type="checkbox" [(ngModel)]="cekStatus.ckbStatusLtb" />LTBD
+                      <div class="show_box"></div>
+                    </label>
+                  </div>
+                </div>
+                <div class="group_commodity clearfix">
+                  <div class="title">Commodity</div>
+                  <div class="content">
+                    <label>
+                      <input type="checkbox" [(ngModel)]="cekStatus.ckbStatusMx" />PL
+                      <div class="show_box"></div>
+                    </label>
+                    <label>
+                      <input type="checkbox" [(ngModel)]="cekStatus.ckbStatusOt" />MA
+                      <div class="show_box"></div>
+                    </label>
+                    <label>
+                      <input type="checkbox" [(ngModel)]="cekStatus.ckbStatusHh" />CO
+                      <div class="show_box"></div>
+                    </label>
+                    <label>
+                      <input type="checkbox" [(ngModel)]="cekStatus.ckbStatusIn" />MM
+                      <div class="show_box"></div>
+                    </label>
+                    <label>
+                      <input type="checkbox" [(ngModel)]="cekStatus.ckbStatusBt" />HD
+                      <div class="show_box"></div>
+                    </label>
+                    <label>
+                      <input type="checkbox" [(ngModel)]="cekStatus.ckbStatusBp" />SD
+                      <div class="show_box"></div>
+                    </label>
+                    <label>
+                      <input type="checkbox" [(ngModel)]="cekStatus.ckbStatusHp" />LPLF
+                      <div class="show_box"></div>
+                    </label>
+                    <label>
+                      <input type="checkbox" [(ngModel)]="cekStatus.ckbStatusFd" />KIKB
+                      <div class="show_box"></div>
+                    </label>
+                    <label>
+                      <input type="checkbox" [(ngModel)]="cekStatus.ckbStatusOo" />OTHERS
+                      <div class="show_box"></div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="btm_bar clearfix">
+                <div class="clear" (click)="clearCheckBox()">
+                  <div class="icon"></div>
+                  <div class="text">clear</div>
+                </div>
+                <button class="confirm" [ngClass]="{'unconfirm':!cekStatus.submitDisable}" [disabled]="cekStatus.submitDisable" (click)="submitDetail()">Confirm
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="select_submit" [ngClass]="{'unsubmit':!cekStatus.submitStatus}" (click)="submitSelect()">Submit</div>
+        </div>
+        <!-- 右边选择框组件 end-->
+      </div>
+      <!-- 下边图表内容 start-->
+      <div class="kpi_content">
+        <div class="item_echart float-left">
+          <div echarts [options]="options_bar_inv" [loading]="isLoading" (chartInit)="onChartInitInv($event)" (chartClick)="onChartClickInv($event, 'inv')"
+            theme="macarons" id="echart_Inv" class="echart">
+          </div>
+          <div class="item_tit">
+            Inventory ($M)
+          </div>
+        </div>
+        <div class="item_echart float-left">
+          <div echarts [options]="options_line_pal" [loading]="isLoading" (chartInit)="onChartInitPal($event)" (chartClick)="onChartClickPal($event, 'pal')"
+            theme="macarons" id="echart_pal" class="echart">
+          </div>
+          <div class="item_tit">
+            Part available level (%)
+          </div>
+        </div>
+        <div class="item_echart float-left">
+          <div echarts [options]="options_line_woi" [loading]="isLoading" theme="macarons" (chartInit)="onChartInitWoi($event)" (chartClick)="onChartClickWoi($event, 'woi')"
+            theme="macarons" id="echart_woi" class="echart">
+          </div>
+          <div class="item_tit">
+            Week of inventory (weeks)
+          </div>
+        </div>
+        <div class="item_echart float-left">
+          <div echarts [options]="options_line_cpt" [loading]="isLoading" theme="macarons" (chartInit)="onChartInitCpt($event)" (chartClick)="onChartClickCpt($event, 'cpt')"
+            theme="macarons" id="echart_Cpt" class="echart">
+          </div>
+          <div class="item_tit">
+            Consumption ($M)
+          </div>
+        </div>
+      </div>
+      <!-- 下边图表内容 end-->
+    </div>
+
+  </section>
+  <!-- select模块 部分 -->
+  <section class="section_four dn">
+    <div class="select_group_layout">
+      <div ngbDropdown placement="top-left" class="d-inline-block">
+        <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>Toggle dropup</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+          <button class="dropdown-item">Action - 1</button>
+          <button class="dropdown-item">Another Action</button>
+          <button class="dropdown-item">Something else is here</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,124 @@
+@function pxToRem($num) {
+  @return ($num/20)+rem;
+}
+
+
+#comparisonBody {
+  width: 100%;
+  height: pxToRem(108);
+  margin-bottom: 0.5rem;
+  margin-top: pxToRem(24);
+
+  background: #FFFFFF;
+  border: 1px solid rgba(148, 158, 182, 0.16);
+  box-shadow: 0 1px 11px 0 rgba(204, 214, 223, 0.22);
+  border-radius: pxToRem(8);
+
+  .title {
+    height: pxToRem(56.5);
+    line-height: pxToRem(56.5);
+    padding: 0 pxToRem(18);
+    padding-bottom: pxToRem(13.5);
+    border-bottom: 1px solid rgba(168, 173, 180, 0.25);
+    font-size: 0;
+
+    .title-left {
+      opacity: 0.8;
+      font-family: MicrosoftYaHeiUI;
+      font-size: pxToRem(14);
+      color: #3F4659;
+      letter-spacing: 0;
+      text-align: justify;
+    }
+
+    .title-right {
+      float: right;
+      /* line-height: 0; */
+      /* margin-left: -44px; */
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 0;
+      height: 100%;
+      cursor: pointer;
+
+      &>span {
+        font-family: MicrosoftYaHeiUI;
+        font-size: pxToRem(14);
+        color: #00B9FF;
+        letter-spacing: 0;
+        text-align: justify;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      &>i {
+        background-image: url(../../../../assets/single_prediction/single_comparison_details/little_arrownormal.png);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center center;
+        transform: rotate(-90deg);
+        width: pxToRem(16);
+        height: pxToRem(16);
+        height: 100%;
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 0.3rem;
+
+      }
+
+      &:hover {
+        i {
+          background-image: url(../../../../assets/single_prediction/single_comparison_details/little_arrowhover.png);
+        }
+      }
+
+      &:active {
+        i {
+          background-image: url(../../../../assets/single_prediction/single_comparison_details/little_arrowconfirm.png);
+        }
+      }
+    }
+  }
+
+  .none-comparison {
+    font-family: MicrosoftYaHeiUI;
+    font-size: pxToRem(12);
+    color: #3F4659;
+    padding: pxToRem(9.5) pxToRem(0) pxToRem(18) pxToRem(21);
+  }
+
+  .comparison-pnList {
+    font-size: pxToRem(12);
+    background-color: #fff;
+
+    ul {
+      max-height: 11rem;
+      overflow: auto;
+
+      li {
+        padding: pxToRem(7) 0;
+        padding-left: pxToRem(18);
+
+        span {
+          padding: 0 pxToRem(8);
+          white-space: nowrap;
+          // overflow: hidden;
+          display: inline-block;
+          vertical-align: middle;
+          font-size: pxToRem(14);
+          // width: pxToRem(95);
+          height: pxToRem(28);
+          line-height: pxToRem(28);
+          background: rgba(168, 173, 180, 0.1);
+          border-radius: pxToRem(14);
+          text-align: center;
+          vertical-align: middle;
+        }
+      }
+
+      li:not(:last-child) {
+        border-bottom: 1px solid rgba(168, 173, 180, 0.25);
+      }
+    }
+  }
+}

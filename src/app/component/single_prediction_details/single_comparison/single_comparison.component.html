@@ -1,0 +1,25 @@
+<div id='comparisonBody'>
+  <div class="title">
+    <span class="title-left">对比组</span>
+    <span class="title-right" (click)='turnToComparisonDetails()'>
+      <span>对比</span>
+      <i></i>
+      <!-- <img src="./assets/single_prediction/little_arrownormal.png" alt=""> -->
+    </span>
+  </div>
+  <section class="content">
+    <section class="none-comparison" *ngIf='comparisonData && comparisonData.length === 0'>暂无对比组</section>
+    <section class="comparison-pnList" *ngIf='comparisonData && comparisonData.length > 0'>
+      <ul>
+        <ng-template ngFor let-item let-i=index [ngForOf]='comparisonData'>
+          <li>
+            <ng-template ngFor let-param let-i=index [ngForOf]='item.pnList'>
+              <span class="Gotham-Book">{{param}}</span>
+            </ng-template>
+          </li>
+        </ng-template>
+      </ul>
+    </section>
+
+  </section>
+</div>

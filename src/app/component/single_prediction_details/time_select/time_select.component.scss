@@ -1,0 +1,162 @@
+@function pxToRem($num) {
+  @return ($num/20)+rem;
+}
+
+ul,
+p {
+  margin: 0;
+}
+
+.timeBox {
+  display: none;
+  width: pxToRem(88);
+  background: #FFFFFF;
+  border: 1px solid rgba(124, 134, 159, 0.14);
+  box-shadow: -6px 3px 11px 0 rgba(78, 86, 94, 0.14);
+  border-radius: 6px;
+  position: relative;
+  top: pxToRem(6);
+  z-index: 100;
+
+  .year {
+    z-index: 1000;
+    width: pxToRem(88);
+    height: pxToRem(22);
+    background: #3F4659;
+    border-radius: 4px 4px 0px 0px;
+    position: relative;
+    overflow: hidden;
+
+    .yearLi {
+      float: left;
+      width: pxToRem(88);
+      height: pxToRem(22);
+      line-height: pxToRem(22);
+      position: absolute;
+      top: 0;
+      opacity: 0.8;
+      font-family: 'Gotham-Medium';
+      font-size: pxToRem(14);
+      color: #FFFFFF;
+      letter-spacing: 0.88px;
+      letter-spacing: -4px;
+      font-size: 0;
+      // text-align: justify;
+
+      .left_move {
+        display: inline-block;
+        vertical-align: middle;
+        width: 20%;
+        height: pxToRem(9);
+        background: url(../../../../assets/single_prediction/r-arrow白色.png) no-repeat center;
+        background-size: pxToRem(4.5) pxToRem(9);
+        background-position: center center;
+        z-index: 10;
+        letter-spacing: 0.88px;
+      }
+
+      .none_left_move {
+        background: none;
+      }
+
+      .year-text {
+        width: 60%;
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 0.7rem;
+        letter-spacing: 0.88px;
+      }
+
+      .right_move {
+        display: inline-block;
+        vertical-align: middle;
+        width: 20%;
+        height: pxToRem(9);
+        background: url(../../../../assets/single_prediction/r-arrow白色.png) no-repeat;
+        background-size: pxToRem(4.5) pxToRem(9);
+        background-position: center center;
+        transform: rotate(180deg);
+        letter-spacing: 0.88px;
+        z-index: 10;
+      }
+
+      .none_right_move {
+        background: none;
+      }
+    }
+  }
+
+  .month {
+    z-index: 1000;
+    width: pxToRem(88);
+    height: pxToRem(165);
+    overflow: hidden;
+
+    .month_List {
+      width: 100%;
+      float: left;
+      position: relative;
+
+      ul {
+        width: 100%;
+        max-height: pxToRem(165);
+        overflow: auto;
+        position: absolute;
+        top: 0;
+
+        /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+        &::-webkit-scrollbar {
+          width: pxToRem(4);
+          height: pxToRem(61);
+          opacity: 0.4;
+          // color: #fff;
+          background: #949EB6;
+          border-radius: 2px;
+        }
+
+        /*定义滚动条轨道 内阴影+圆角*/
+        &::-webkit-scrollbar-track {
+          background-color: #fff;
+        }
+
+        // /*定义滑块 内阴影+圆角*/
+        &::-webkit-scrollbar-thumb {
+          border-radius: 2px;
+          background-color: #949EB6;
+          opacity: 0.4;
+          -webkit-border-radius: 2px;
+          -moz-border-radius: 2px;
+          -ms-border-radius: 2px;
+          -o-border-radius: 2px;
+        }
+
+        .monthLi {
+          width: 100%;
+          height: pxToRem(18);
+          line-height: pxToRem(18);
+          margin-top: pxToRem(8);
+          font-family: 'Gotham-Medium';
+          font-size: pxToRem(12);
+          color: #3F4659;
+          letter-spacing: 0.75px;
+          text-align: center;
+
+          &:hover {
+            background: rgba(148, 158, 182, 0.36);
+          }
+        }
+      }
+
+    }
+
+    &:after {
+      display: block;
+      clear: both;
+      content: "";
+      visibility: hidden;
+      height: 0
+    }
+  }
+
+}

@@ -1,0 +1,50 @@
+<section id="dragUploadBody">
+    <div id="shadow"></div>
+    <section class="content">
+        <header class="header">
+            <div class="left">
+                {{textContent.titleText}}
+            </div>
+            <div class="right" (click)='closeUpload()'>
+                X
+            </div>
+        </header>
+        <main class="main">
+            <div class="main-body" id="droptarget">
+                <p class="describe">{{textContent.descriptionText}}</p>
+                <p class="huo">或</p>
+                <button class="getfile" (click)='getFile()'>选择文件</button>
+                <div class="overShadow">
+                    <div class="drop-shadow"
+                        (drop)="$event.stopPropagation();$event.preventDefault();ondropEvent($event)"
+                        (dragover)='$event.stopPropagation();$event.preventDefault();ondragoverEvent($event)'
+                        (dragleave)='$event.stopPropagation();$event.preventDefault();ondragleaveEvent($event)'></div>
+                    <section class="loading1">
+                        <div class="spinner">
+                            <div class="spinner-container container1">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                                <div class="circle4"></div>
+                            </div>
+                            <div class="spinner-container container2">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                                <div class="circle4"></div>
+                            </div>
+                            <div class="spinner-container container3">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                                <div class="circle4"></div>
+                            </div>
+                            <p class="upload-text-name">{{fileName}}正在上传中</p>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </main>
+    </section>
+</section>

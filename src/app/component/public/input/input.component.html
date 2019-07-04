@@ -1,0 +1,12 @@
+<section class="input">
+  <section class="type-number" *ngIf='type==="number"'>
+    <input type="number" [attr.max]='max' [appWatchChange]='[0,data,watchData,this]' [(ngModel)]="data" id='iptNumber'
+      (input)='inputChange()'>
+    <!-- <section class="operator">
+      <button (click)="add()">^</button>
+      <button (click)="substract()">^</button>
+    </section> -->
+    <span class="unit">单</span>
+  </section>
+  <h1 style="color: red;">true{{data}}false</h1>
+</section>

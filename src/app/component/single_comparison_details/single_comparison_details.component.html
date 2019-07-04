@@ -1,0 +1,348 @@
+<div id="singleComparisonDetails">
+  <div id="singleComparisonDetailsBody">
+    <section class="top return-btn-area">
+      <span (click)='returnToPredictionDetailsPage()' class="return-btn left-btn">
+        <span #returBtnIcon class="icon"></span>
+        <span class="return-text">返回</span>
+      </span>
+      <div class="right-btn">
+        <section class="manage-comparison" (click)='turnToComparisonManage()'>
+          <span class="icon" #manageComparison></span>
+          <span class="text">管理对比组</span>
+        </section>
+        <section class="add-comparison" (click)='showSingleSearch($event)'>
+          <span class="icon" #addComparison></span>
+          <span class="text">添加对比组</span>
+        </section>
+        <section class="export">
+          <span class="icon" #export></span>
+          <span class="text">导出</span>
+        </section>
+      </div>
+    </section>
+
+    <div class="center panel-details">
+      <section class="comparison-panel-wrap">
+        <!-- <ng-template [ngIf]='false'>
+        <span class="prevToggle" (click)='prevToggle($event)'>&lt;</span>
+        <span class="nextToggle" (click)='nextToggle($event)'>&gt;</span>
+      </ng-template> -->
+
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <section class="comparison-panel">
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <ng-template ngFor let-item let-i=index [ngForOf]='curParamData'>
+                <div class="swiper-slide swiper-no-swiping">
+                  <app-single-comparison-diagram-parameter #diagramParamter [parentAllData]='curParamData'
+                    [parentData]='item' (editCalculateClick)='diagramShow.editCalculate($event)'
+                    (editSaveLinesClick)='diagramShow.editSaveLines($event)'
+                    (setEditDataClick)='diagramShow.setEditData($event)'
+                    (editChangeLastTimeBuy)='diagramShow.editChangeLastTimeBuy($event)'
+                    (cancelEditEvent)='diagramShow.cacelEdit($event)'
+                    [fcSelect]='selectListLi.length>0?selectListLi[i]?.selectArr:false' [curIndex]='i'
+                    [getAINum]='AINum[i]' (isShowDetails)='isShowDetails($event)'
+                    (setSelectValue)='diagramShow.getFcContent($event)'
+                    (mouseenterPanelEvent)='diagramShow.diagramParameterMouseenter(item)'
+                    (mouseleavePanelEvent)='diagramShow.diagramParameterMouseLeave(item)'
+                    (isShowPopEmit)='isShowPop($event)' (updatePlaceHolderEmit)='updateSavePlaceHolder($event)'
+                    (setChangeDataTosaveLinePopEmit)='saveLinePop.getChangeData($event)'>
+                  </app-single-comparison-diagram-parameter>
+                </div>
+              </ng-template>
+
+              <div class="swiper-slide swiper-no-swiping" *ngIf='curParamData.length <= 3 && slidesPerView==4'>
+                <div class="panel-wrap" style="vertical-align: top;">
+                  <section class="panel-content">
+                    <span class="icon" (click)='showSingleSearch($event)'></span>
+                  </section>
+                </div>
+              </div>
+              <ng-template [ngIf]='curParamData.length &lt; 3&&curParamData.length >= 1'>
+                <div class="swiper-slide swiper-no-swiping">
+                  <div class="panel-wrap" style="vertical-align: top;">
+                    <section class="panel-content">
+                      <span class="icon" (click)='showSingleSearch($event)'></span>
+                    </section>
+                  </div>
+                </div>
+                <ng-template [ngIf]='curParamData.length &lt; 3&&curParamData.length&lt;2'>
+                  <div class="swiper-slide swiper-no-swiping">
+                    <div class="panel-wrap" style="vertical-align: top;">
+                      <section class="panel-content">
+                        <span class="icon" (click)='showSingleSearch($event)'></span>
+                      </section>
+                    </div>
+                  </div>
+                </ng-template>
+              </ng-template>
+            </div>
+          </div>
+        </section>
+      </section>
+    </div>
+
+    <div class="bottom details-content">
+      <section class="scroll param-area-wrap">
+        <section style="margin-bottom:1.2rem;" class="param-area"
+          [ngStyle]="{'display': isShowDetailsParamCenter() ? 'block' : 'none' }">
+          <ng-template ngFor let-item let-i=index [ngForOf]='curParamData'>
+            <section class="wrap" *ngIf='item?.isShowDetails'>
+              <div class="cur-prediction">
+                <div class="title-top">
+                  <span class="title" style="opacity:0.95;">当前预测曲线数据</span>
+                </div>
+                <ul>
+                  <li>
+                    <span>需求预测总量</span>
+                    <span>
+                      {{item.curPrediction?.lTotalFocast}}
+                    </span>
+                  </li>
+                  <li>
+                    <span class="inlineBlockAndVerTicalAlignMiddle">预测时间跨度</span>
+
+                    <span class="inlineBlockAndVerTicalAlignMiddle">
+                      <b style="float:left;"
+                        [filterunit]='{"value":item.curPrediction.forcastPeriod,"unit":["月"]}'>{{item.curPrediction?.forcastPeriod}}</b>
+                      <b class="MicrosoftYaHeiUI-Bold"
+                        *ngIf='(item.projectModel?.forcastPeriod||item.projectModel?.forcastPeriod===0)&&item.projectModel?.forcastPeriod!=="-"'
+                        style="float:left;">月</b></span>
+                  </li>
+                </ul>
+              </div>
+              <div class="based-data">
+                <div class="title-top">
+                  <span class="title" style="opacity:0.95;">基础数据</span>
+                </div>
+                <ul>
+                  <li>
+                    <span>替换组编号</span>
+                    <span class="Gotham-Book">{{item.projectModel?.basicModel?.groupCode}}</span>
+                  </li>
+                  <li style="position:relative;white-space: nowrap;">
+                    <span>替换组名称</span>
+                    <span id="multipeGroupName"
+                      class="replace-group-name Gotham-Book">{{item.projectModel?.basicModel?.groupName}}</span>
+
+                    <div id="groupName-ShowTitle" style="white-space: normal;">
+                      <span>
+                        {{item.projectModel?.basicModel?.groupName}}
+                      </span>
+                    </div>
+                  </li>
+                  <li>
+                    <span>运作产线</span>
+                    <span class="MicrosoftYaHeiUI">{{item.projectModel?.basicModel?.productLine}}</span>
+                  </li>
+                  <br />
+                  <li>
+                    <span>计划大类</span>
+                    <span class="MicrosoftYaHeiUI">{{item.projectModel?.basicModel?.planClass}}</span>
+                  </li>
+                  <li style="position:relative;">
+                    <span>包含物料</span>
+                    <span class="materielist-btn MicrosoftYaHeiUI" [appShowTitle]='"materieWrap"'>查看列表</span>
+
+                    <div *ngIf="item.materieList.length" id="materieWrap" class="materie-wrap" style="display:none;"
+                      [appShowTitle]='"materieWrap"'>
+                      <div [appShowTitle]='"materieWrap"' id="materie" style="overflow:visible;">
+                        <ul class="ul-head">
+                          <li>
+                            <span>物料编号</span>
+                            <span>物料名称</span>
+                            <span>替换组编号</span>
+                            <span>替换组名称</span>
+                          </li>
+                        </ul>
+                        <ul class="ul-body">
+                          <li *ngFor="let item of item.materieList">
+                            <span>{{item.pnCode}}</span>
+                            <span>{{item.pnName}}</span>
+                            <span>{{item.groupCode}}</span>
+                            <span>{{item.groupName}}</span>
+                            <i></i>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="history-data">
+                <div class="title-top">
+                  <span class="title" style="opacity:0.95;">历史数据</span>
+                </div>
+                <ul>
+                  <li>
+                    <span>平均月需求（件）</span>
+                    <span
+                      class="Gotham-Book">{{item.projectModel?.historyModel?.nAverageMounth | appPercentage:2}}</span>
+                    <span
+                      [appWatchChange]='[0,item.projectModel?.historyModel?.nAverageMounth,nAverageMounthIsHighOrLow]'
+                      class="MicrosoftYaHeiUI" style="margin-left:0.8rem;"></span>
+                  </li>
+                  <li>
+                    <span>成本价（人民币）</span>
+                    <span class="Gotham-Book">{{item.projectModel?.historyModel?.nCoust | appPercentage:2}}</span>
+                    <span [appWatchChange]='[0,item.projectModel?.historyModel?.nCoust,nCoustIsHighOrLow]'
+                      class="MicrosoftYaHeiUI" style="margin-left:0.8rem;"></span>
+                  </li>
+                  <li>
+                    <span>历史装机量（件）</span>
+                    <span class="Gotham-Book">{{item.projectModel?.historyModel?.nHistoryUsage}}</span>
+                  </li>
+                  <li>
+                    <span>未来装机量（件）</span>
+                    <span class="Gotham-Book">{{item.projectModel?.historyModel?.futureTotalIB||0}}</span>
+                  </li>
+                  <br />
+                  <li>
+                    <span>装机开始时间</span>
+                    <span class="Gotham-Book">{{item.projectModel?.historyModel?.ibBgeinTime}}</span>
+                  </li>
+                  <li>
+                    <span>平均装机时间</span>
+                    <span
+                      class="Gotham-Book">{{item.projectModel?.historyModel?.averageIBTime | appPercentage:false:2:true}}<b
+                        class="MicrosoftYaHeiUI">月</b></span>
+                  </li>
+                  <li>
+                    <span>需求开始时间</span>
+                    <span class="Gotham-Book">{{item.projectModel?.historyModel?.demandStartTime}}</span>
+                  </li>
+                  <li>
+                    <span>在保平稳时间</span>
+                    <span class="Gotham-Book">{{item.projectModel?.historyModel?.demandStationaryTime}}</span>
+                  </li>
+                  <br />
+                  <li>
+                    <span>在保下降时间</span>
+                    <span class="Gotham-Book">{{item.projectModel?.historyModel?.demandDeclineTime}}</span>
+                  </li>
+                  <li>
+                    <span>平稳持续时间</span>
+                    <span class="Gotham-Book">{{item.projectModel?.historyModel?.stationaryKeepTime}}<b
+                        class="MicrosoftYaHeiUI">月</b></span>
+                  </li>
+                  <li>
+                    <span>EOS</span>
+                    <span class="Gotham-Book">{{item.projectModel?.historyModel?.eos}}</span>
+                  </li>
+                  <li style="position:relative;width:7rem;">
+                    <span class="Gotham-Book">LTB<b class="MicrosoftYaHeiUI">时间</b></span>
+                    <span *ngIf='item.ltbList.length>0' [appShowTitle]='"ltbTimeBox"'
+                      class="ltbList-btn MicrosoftYaHeiUI" [ngClass]="{'forbidCursor': item.ltbList.length==0}"
+                      style="position:relative;"
+                      [ngStyle]="{'cursor':item.ltbList.length>0? 'pointer' : 'not-allowed' }">查看列表</span>
+
+                    <span *ngIf='item.ltbList.length===0' class="ltbList-btn MicrosoftYaHeiUI"
+                      style="position:relative;cursor: default;color: #3F4659 !important;">无</span>
+
+                    <div *ngIf="item.ltbList.length" id='ltbTimeBox' [appShowTitle]='"ltbTimeBox"' class="ltb-time-wrap"
+                      style="display:none;">
+                      <div class="ltb-time" [appShowTitle]='"ltbTimeBox"'>
+                        <ul>
+                          <li *ngFor="let item of item.ltbList">{{item}}</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="data-index">
+                <div class="title-top">
+                  <span class="title" style="opacity:0.95;">指标</span>
+                  <div class="toggle-result">
+                    <span class="benzu MicrosoftYaHeiUI" [class.cur-zu]='dataIndexCurZu==="benzu"'
+                      (click)='toogleFenZu("benzu")'>本组结果</span>
+                    <span class="fenlei MicrosoftYaHeiUI" [class.cur-zu]='dataIndexCurZu==="fenlei"'
+                      (click)='toogleFenZu("fenlei")'>分类结果</span>
+                  </div>
+                </div>
+                <ul *ngIf='dataIndexCurZu==="benzu"'>
+                  <li>
+                    <span class="MicrosoftYaHeiUI-Bold">准确率</span>
+                    <span
+                      class="Gotham-Medium">{{item.dataIndex.selfGroupModel?.accuracyRate | appPercentage:true}}</span>
+                  </li>
+                  <li>
+                    <span class="MicrosoftYaHeiUI-Bold">命中率</span>
+                    <span class="Gotham-Medium">{{item.dataIndex.selfGroupModel?.hitRate | appPercentage:true}}</span>
+                  </li>
+                  <li>
+                    <span>覆盖率</span>
+                    <span
+                      class="Gotham-Book">{{item.dataIndex.selfGroupModel?.coverageRatio | appPercentage:true}}</span>
+                  </li>
+                  <li>
+                    <span class="MicrosoftYaHeiUI-Bold">缺货比例（件）</span>
+                    <span class="Gotham-Medium">{{item.dataIndex.selfGroupModel?.lostCount | appPercentage:true}}</span>
+                  </li>
+                  <br />
+                  <li>
+                    <span>超出比例</span>
+                    <span class="Gotham-Book">{{item.dataIndex.selfGroupModel?.overCount | appPercentage:true}}</span>
+                  </li>
+                  <li style="width:13rem;">
+                    <span>超出成本（人民币）</span>
+                    <span class="Gotham-Book">{{item.dataIndex.selfGroupModel?.overrunCost | appPercentage:2}}</span>
+                  </li>
+                </ul>
+                <ul *ngIf='dataIndexCurZu==="fenlei"'>
+                  <li>
+                    <span class="MicrosoftYaHeiUI-Bold">准确率</span>
+                    <span
+                      class="Gotham-Medium">{{item.dataIndex.separateModel?.accuracyRate | appPercentage:true}}</span>
+                  </li>
+                  <li>
+                    <span class="MicrosoftYaHeiUI-Bold">命中率</span>
+                    <span class="Gotham-Medium">{{item.dataIndex.separateModel?.hitRate | appPercentage:true}}</span>
+                  </li>
+                  <li>
+                    <span>覆盖率</span>
+                    <span
+                      class="Gotham-Book">{{item.dataIndex.separateModel?.coverageRatio | appPercentage:true}}</span>
+                  </li>
+                  <li>
+                    <span class="MicrosoftYaHeiUI-Bold">Negative Gap</span>
+                    <span class="Gotham-Medium">{{item.dataIndex.separateModel?.lostCount | appPercentage:true}}</span>
+                  </li>
+                  <br />
+                  <li>
+                    <span>Positive Gap</span>
+                    <span class="Gotham-Book">{{item.dataIndex.separateModel?.overCount | appPercentage:true}}</span>
+                  </li>
+                  <li style="width:13rem;">
+                    <span>Over-forecast</span>
+                    <span class="Gotham-Book">{{item.dataIndex.separateModel?.overrunCost | appPercentage:2}}</span>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </ng-template>
+        </section>
+
+        <section class="diagram-area">
+          <app-single-comparison-diagram-show #diagramShow (default_forecastName)='setfcSelect($event)'
+            (isShowPopEmit)='isShowPop($event)' (updatePlaceHolderEmit)='updateSavePlaceHolder($event)'
+            (changeParentData)='changeParentData($event)' (fcLineOne_time)='setAINum($event)'
+            (setChangeDataTosaveLinePopEmit)='saveLinePop.getChangeData($event)'>
+          </app-single-comparison-diagram-show>
+        </section>
+      </section>
+    </div>
+  </div>
+</div>
+
+
+<ng-template [ngIf]='isShowSearchBox'>
+  <app-single-search (comparisonDetailsStartPredictionClick)='startPrediction($event)'
+    (comparisonDetailsClosePredictionClick)='closeSearchBox($event)' [applyMode]='"comparisonDetails"'>
+  </app-single-search>
+</ng-template>
+
+
+<app-save-line-pop #saveLinePop [isShowSavePop]='isShowSavePop' [placeholder]='placeholder'
+  (editSaveLinesEmit)='editSaveLines($event)' (isHideSavePopEmit)='isHideSavePop($event)'></app-save-line-pop>

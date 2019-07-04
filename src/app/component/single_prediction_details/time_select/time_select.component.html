@@ -1,0 +1,16 @@
+<div [attr.class]='"timeBox timeBox"+className+chartName'>
+  <ul class='year'>
+    <li [attr.class]='"yearLi yearLi"+className+chartName' #yearLi *ngFor="let item of yearList;let i = index">
+      <i class='left_move' (click)='leftMove(i)'></i>
+      <span class="year-text">{{item}}</span>
+      <i class='right_move' (click)='rightMove(i)'></i>
+    </li>
+  </ul>
+  <ul class='month'>
+    <li [attr.class]='"month_List month_List"+className+chartName' *ngFor="let item of monthList;let i=index;">
+      <ul>
+        <li class='monthLi' #monthLi *ngFor="let time of item" (click)='clickStartNum(time,i,chartName)'>{{time}}</li>
+      </ul>
+    </li>
+  </ul>
+</div>

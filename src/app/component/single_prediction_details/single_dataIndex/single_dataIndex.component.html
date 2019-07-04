@@ -1,0 +1,81 @@
+<div id="signleDataIndex">
+  <div class="title" style="position:relative;">
+    <span class="title">指标</span>
+    <div class="toggle-result">
+      <span class="benzu MicrosoftYaHeiUI" [class.cur-zu]='dataIndexCurZu==="benzu"'
+        (click)='toogleFenZu("benzu")'>本组结果</span>
+      <span class="fenlei MicrosoftYaHeiUI" [class.cur-zu]='dataIndexCurZu==="fenlei"'
+        (click)='toogleFenZu("fenlei")'>分类结果</span>
+    </div>
+  </div>
+  <section class="content">
+    <ul *ngIf='dataIndexCurZu==="benzu"&&curData.selfGroupModel'>
+      <li>
+        <span class="fontWeight900 MicrosoftYaHeiUI-Bold">准确率</span>
+        <span class="fontWeight900 Gotham-Medium">{{curData?.selfGroupModel?.accuracyRate | appPercentage:true}}</span>
+        <i></i>
+        <i></i>
+      </li>
+      <li>
+        <span class="fontWeight900 MicrosoftYaHeiUI-Bold">命中率</span>
+        <span class="fontWeight900 Gotham-Medium">{{curData?.selfGroupModel?.hitRate | appPercentage:true}}</span>
+        <i></i>
+      </li>
+      <li>
+        <span>覆盖率</span>
+        <span class="Gotham-Book">{{curData?.selfGroupModel?.coverageRatio | appPercentage:true}}</span>
+        <i></i>
+      </li>
+      <li>
+        <span class="fontWeight900 MicrosoftYaHeiUI-Bold">Negative Gap</span>
+        <span class="fontWeight900 Gotham-Medium">{{curData?.selfGroupModel?.lostCount | appPercentage:true}}</span>
+        <i></i>
+      </li>
+      <li>
+        <span>Positive Gap</span>
+        <span class="Gotham-Book">{{curData?.selfGroupModel?.overCount | appPercentage:true}}</span>
+        <i></i>
+      </li>
+      <li>
+        <span>Over-forecast</span>
+        <span class="Gotham-Book">{{curData?.selfGroupModel?.overrunCost | appPercentage:2}}</span>
+        <i></i>
+      </li>
+    </ul>
+
+    <ul *ngIf='dataIndexCurZu==="fenlei"'>
+      <li>
+        <span class="fontWeight900 MicrosoftYaHeiUI-Bold">准确率</span>
+        <span class="fontWeight900 Gotham-Medium">{{curData?.separateModel?.accuracyRate | appPercentage:true}}</span>
+        <i></i>
+        <i></i>
+      </li>
+      <li>
+        <span class="fontWeight900 MicrosoftYaHeiUI-Bold">命中率</span>
+        <span class="fontWeight900 Gotham-Medium">{{curData?.separateModel?.hitRate | appPercentage:true}}</span>
+        <i></i>
+      </li>
+      <li>
+        <span>覆盖率</span>
+        <span class="Gotham-Book">{{curData?.separateModel?.coverageRatio | appPercentage:true}}</span>
+        <i></i>
+      </li>
+      <li>
+        <span class="fontWeight900 MicrosoftYaHeiUI-Bold">Negative Gap</span>
+        <span class="fontWeight900 Gotham-Medium">{{curData?.separateModel?.lostCount | appPercentage:true}}</span>
+        <i></i>
+      </li>
+      <li>
+        <span>Positive Gap</span>
+        <span class="Gotham-Book">{{curData?.separateModel?.overCount | appPercentage:true}}</span>
+        <i></i>
+      </li>
+      <li>
+        <span>Over-forecast</span>
+        <span class="Gotham-Book">{{curData?.separateModel?.overrunCost | appPercentage:2}}</span>
+        <i></i>
+      </li>
+    </ul>
+  </section>
+
+</div>
