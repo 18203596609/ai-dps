@@ -1,0 +1,66 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "sscdfpc"
+  },
+  "apps": [{
+    "root": "src",
+    "outDir": "dist",
+    "assets": [
+      "assets",
+      "favicon.ico"
+    ],
+    "index": "index.html",
+    "main": "main.ts",
+    "polyfills": "polyfills.ts",
+    "test": "test.ts",
+    "tsconfig": "tsconfig.app.json",
+    "testTsconfig": "tsconfig.spec.json",
+    "prefix": "app",
+    "styles": [
+      "styles.scss",
+      "../node_modules/bootstrap/dist/css/bootstrap.css",
+      "../node_modules/jQRangeSlider-5.7.2/css/iThing.css",
+      "../node_modules/ng-zorro-antd/src/ng-zorro-antd.less"
+    ],
+    "scripts": [
+      "../node_modules/echarts/dist/echarts.min.js",
+      "../node_modules/echarts/map/js/world.js",
+      "../node_modules/jQRangeSlider-5.7.2/demo/lib/jquery-ui/js/jquery-ui-1.8.16.custom.min.js",
+      "../node_modules/jQRangeSlider-5.7.2/lib/jquery.mousewheel.min.js",
+      "../node_modules/jQRangeSlider-5.7.2/jQRangeSlider-min.js"
+    ],
+    "environmentSource": "environments/environment.ts",
+    "environments": {
+      "dev": "environments/environment.ts",
+      "prod": "environments/environment.prod.ts"
+    }
+  }],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [{
+      "project": "src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "src/tsconfig.spec.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "scss",
+    "component": {}
+  }
+}
